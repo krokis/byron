@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'pp'
+
+repl = false
+
+OptionParser.new do |opts|
+
+  opts.on '-h', '--help' do
+    puts 'help'
+  end
+
+  opts.on '-i', '--interactive', '--repl' do
+    repl = true
+  end
+
+  opts.on '-v', '--version' do
+    puts '0.0.1'
+  end
+
+end.parse!
+
+if repl
+  begin
+    loop do
+      print '> '
+      a = gets
+    end
+  rescue Interrupt => e
+    puts ''
+  rescue Exception => e
+    p e
+  end
+end
+
+files = ARGV
