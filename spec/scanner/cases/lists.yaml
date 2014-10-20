@@ -1,0 +1,424 @@
+---
+  type: "Document"
+  meta: {}
+  body:
+    type: "Section"
+    children:
+      -
+        type: "UnorderedList"
+        children:
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "O"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "n"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "e"
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "T"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "w"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "o"
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "T"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "h"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "r"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "e"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "e"
+        bullet: "-"
+      -
+        type: "UnorderedList"
+        children:
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "a"
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "b"
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "c"
+        bullet: "*"
+      -
+        type: "UnorderedList"
+        children:
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "I"
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "I"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "I"
+          -
+            type: "ListItem"
+            children:
+              -
+                type: "Paragraph"
+                children:
+                  -
+                    type: "Character"
+                    children: []
+                    text: "I"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "I"
+                  -
+                    type: "Character"
+                    children: []
+                    text: "I"
+              -
+                type: "UnorderedList"
+                children:
+                  -
+                    type: "ListItem"
+                    children:
+                      -
+                        type: "Paragraph"
+                        children:
+                          -
+                            type: "Character"
+                            children: []
+                            text: "A"
+                  -
+                    type: "ListItem"
+                    children:
+                      -
+                        type: "Paragraph"
+                        children:
+                          -
+                            type: "Character"
+                            children: []
+                            text: "B"
+                bullet: "*"
+              -
+                type: "UnorderedList"
+                children:
+                  -
+                    type: "ListItem"
+                    children:
+                      -
+                        type: "UnorderedList"
+                        children:
+                          -
+                            type: "ListItem"
+                            children:
+                              -
+                                type: "Paragraph"
+                                children:
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "L"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "o"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "r"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "e"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "m"
+                                  -
+                                    type: "Whitespace"
+                                    children: []
+                                    text: " "
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "i"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "p"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "s"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "u"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "m"
+                                  -
+                                    type: "Whitespace"
+                                    children: []
+                                    text: "\n"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "d"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "o"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "l"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "o"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "r"
+                                  -
+                                    type: "Whitespace"
+                                    children: []
+                                    text: " "
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "s"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "i"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "t"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "."
+                          -
+                            type: "ListItem"
+                            children:
+                              -
+                                type: "Paragraph"
+                                children:
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "A"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "m"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "e"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "t"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "."
+                          -
+                            type: "ListItem"
+                            children:
+                              -
+                                type: "Paragraph"
+                                children:
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "C"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "o"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "n"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "s"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "e"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "c"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "t"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "e"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "t"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "u"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "r"
+                              -
+                                type: "Paragraph"
+                                children:
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "a"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "d"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "i"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "p"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "i"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "s"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "c"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "i"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "n"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "g"
+                                  -
+                                    type: "Whitespace"
+                                    children: []
+                                    text: " "
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "e"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "l"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "i"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "t"
+                                  -
+                                    type: "Character"
+                                    children: []
+                                    text: "."
+                        bullet: "+"
+                bullet: "-"
+        bullet: "-"
