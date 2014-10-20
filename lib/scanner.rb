@@ -31,12 +31,12 @@ require_relative 'text/inline'
 require_relative 'text/inline/emphasis'
 require_relative 'text/inline/important'
 require_relative 'text/inline/link'
-require_relative 'text/inline/atomic/whitespace'
-require_relative 'text/inline/atomic/character'
-require_relative 'text/inline/atomic/literal'
-require_relative 'text/inline/atomic/literal/code'
-require_relative 'text/inline/atomic/literal/number'
-require_relative 'text/inline/atomic/literal/string'
+require_relative 'text/inline/whitespace'
+require_relative 'text/inline/character'
+require_relative 'text/inline/literal'
+require_relative 'text/inline/literal/code'
+require_relative 'text/inline/literal/number'
+require_relative 'text/inline/literal/string'
 require_relative 'text/block'
 require_relative 'text/block/code'
 require_relative 'text/block/heading'
@@ -136,8 +136,9 @@ module Byron
       end
 
       if @position < (@length - 1)
-        return @text[@position]
+        @text[@position]
       end
+
     end
 
     ##
