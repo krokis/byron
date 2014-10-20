@@ -5,6 +5,9 @@ module Byron
 
   class Parser < Lexer
 
+    class Delegate
+    end
+
     def initialize
       super
       @delegates = []

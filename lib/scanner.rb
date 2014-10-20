@@ -60,13 +60,13 @@ module Byron
     #
     ##
     def initialize
-      @prepare
+      prepare
     end
 
     ##
     # Prepare state.
 
-    def prepare(text = nil)
+    def prepare(text = '')
       @text = text
       @position = 0
       @line = 0
@@ -79,8 +79,8 @@ module Byron
     ##
     # Add a level of indentation.
     ##
-    def indent(indentation)
-      @indentation << indentation
+    def indent(ind)
+      @indentation << ind
     end
 
     ##
@@ -93,34 +93,48 @@ module Byron
     ##
     # Move to given `position`.
     ##
-    def move_to(position)
+    def move_to (position)
       unless position >= 0 && position <= @length
         raise "Cannot move to position #{position}"
+      end
 
-      until @position is position
+      until @position == position do
+
         if position < @position
+
           if @text[@position - 1] == "\n"
             @column = 0
             c = @position - 1
-            while c > 0 && @text[c] != "\n"
-              @column++
-              c--
-            @line--
+
+            while c > 0 && @text[c] != "\n" do
+              @column += 1
+              c -= 1
+            end
+
+            @line -= 1
           else
-            @column--
-          @position--
+            @column -= 1
+          end
+
+          @position -= 1
+
         else
+
           if @text[@position] == "\n"
             @column = 0
-            @line++
+            @line += 1
           else
-            @column++
-          @position++
+            @column += 1
+          end
+
+          @position += 1
+        end
+
+      end
 
       if @position < (@length - 1)
         return @text[@position]
-
-      null
+      end
     end
 
     ##
@@ -131,7 +145,7 @@ module Byron
     # `@move()` advances one single position.
     ##
     def move(n = 1)
-      @move_to(@position + n)
+      move_to(@position + n)
     end
 
     ##
@@ -148,38 +162,29 @@ module Byron
     # character is a line break or the end of the text.
     ##
     def end_of_block?
-      return false unless @end_of_line?
+      return false unless end_of_line?
 
-      unless @end_of_text?
-        next_line = @next_line
+      unless end_of_text?
+        nxt = next_line
 
-        if next_line.trim != ''
+        if nxt.trim != ''
           indent = @indentation
           i = indent.length
 
-          if next_line[0,i] == indent
+          if nxt[0, i] == indent
             return false
+          end
+        end
 
         return true
       end
+
     end
 
     ##
     #
     ##
     def make_node(kind)
-      start = @position
-      node = kind.new
-
-      node.start = start
-
-      if false == yield node
-        @move_to start
-        null
-      else
-        node.end = @position
-        node
-      end
     end
 
     ##
@@ -211,7 +216,7 @@ module Byron
     # character starting from current position.
     ##
     def next(n = 1)
-      @chars(n, @position + 1)
+      chars(n, @position + 1)
     end
 
     ##
@@ -221,7 +226,7 @@ module Byron
     def move_to_next_line
       loop do
         if @char == "\n"
-          @move
+          move
           break
         elsif @char.nil?
           raise 'Cannot move to next line: EOT found'
@@ -235,7 +240,7 @@ module Byron
     def current_line
       eol = @text.index "\n", @position
       eol = @length -1 if eol.nil?
-      @chars((eol - @position), @position - @column)
+      chars((eol - @position), @position - @column)
     end
 
     ##
@@ -276,7 +281,7 @@ module Byron
     # Skip any horizontal spacing.
     ##
     def skip_spaces
-      @skip_chars " \t"
+      skip_chars " \t"
     end
 
     ##
@@ -295,7 +300,8 @@ module Byron
     # Read an "atx" or "setext" heading.
     ##
     def read_heading
-      @read_atx_heading || @read_setext_heading
+      read_atx_heading ||
+      read_setext_heading
     end
 
     ##
@@ -323,7 +329,8 @@ module Byron
     # Read a `CodeBlock`.
     ##
     def read_code_block
-      @read_fenced_code_block || @read_indented_code_block
+      read_fenced_code_block ||
+      read_indented_code_block
     end
 
     ##
@@ -351,9 +358,9 @@ module Byron
     end
 
     def read_literal
-      @read_code_literal ||
-      @read_string_literal ||
-      @read_number_literal
+      read_code_literal ||
+      read_string_literal ||
+      read_number_literal
     end
 
     ##
@@ -379,13 +386,14 @@ module Byron
     # Read an `Inline` node unless current character is at the end of the block.
     ##
     def read_inline
-      unless @is_end_of_block?
-        @read_emphasis ||
-        @read_important ||
-        @read_link ||
-        @read_literal ||
-        @read_whitespace ||
-        @read_character
+      unless is_end_of_block?
+        read_emphasis ||
+        read_important ||
+        read_link ||
+        read_literal ||
+        read_whitespace ||
+        read_character
+      end
     end
 
     ##
@@ -428,12 +436,12 @@ module Byron
     # Read a `Block` level node.
     ##
     def read_block
-      @read_heading ||
-      @read_quotation_block ||
-      @read_list ||
-      @read_code_block ||
-      @read_break ||
-      @read_paragraph
+      read_heading ||
+      read_quotation_block ||
+      read_list ||
+      read_code_block ||
+      read_break ||
+      read_paragraph
     end
 
     ##
@@ -461,8 +469,8 @@ module Byron
     ##
     def read_document
       document = Document.new
-      document.meta = @read_meta
-      document.body = @read_section
+      document.meta = read_meta
+      document.body = read_section
 
       document
     end
@@ -474,8 +482,8 @@ module Byron
     # `Document` instance containing the structure of the text.
     ##
     def scan(text)
-      @prepare text
-      @read_document
+      prepare text
+      read_document
     end
 
   end # class Scanner
