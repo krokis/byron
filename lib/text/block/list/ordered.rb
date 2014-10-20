@@ -1,4 +1,4 @@
-require '../list'
+require_relative '../list'
 
 module Byron
   module Text

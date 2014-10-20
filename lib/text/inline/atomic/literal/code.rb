@@ -1,8 +1,8 @@
-require '../literal'
+require_relative '../literal'
 
 module Byron
   module Text
-    class Code < literal
+    class Code < Literal
     end
   end
 end

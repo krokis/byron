@@ -1,4 +1,4 @@
-require 'node'
+require_relative 'node'
 
 module Byron
   module Text

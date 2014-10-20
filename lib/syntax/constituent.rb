@@ -1,4 +1,4 @@
-require 'features'
+require_relative 'features'
 
 module Byron
   module Syntax

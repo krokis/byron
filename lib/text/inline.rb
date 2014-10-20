@@ -1,8 +1,8 @@
-require 'node'
+require_relative 'node'
 
 module Byron
   module Text
-    module Inline < Node
+    class Inline < Node
     end
   end
 end

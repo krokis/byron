@@ -1,4 +1,4 @@
-require '../word'
+require_relative '../word'
 
 module Byron
   module Syntax

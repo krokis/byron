@@ -1,5 +1,5 @@
-require '../category/noun'
-require '../word'
+require_relative '../category/noun'
+require_relative '../word'
 
 module Byron
   module Syntax

@@ -1,4 +1,4 @@
-require '../block'
+require_relative '../block'
 
 module Byron
   module Text

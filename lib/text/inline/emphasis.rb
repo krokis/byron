@@ -1,4 +1,4 @@
-require '../inline'
+require_relative '../inline'
 
 module Byron
   module Text
