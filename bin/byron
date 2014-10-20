@@ -21,6 +21,9 @@ OptionParser.new do |opts|
 
 end.parse!
 
+ARGV.each do |file|
+end
+
 if repl
   begin
     loop do
@@ -33,5 +36,3 @@ if repl
     p e
   end
 end
-
-files = ARGV
