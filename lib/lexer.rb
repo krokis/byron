@@ -1,4 +1,4 @@
-require 'traverser'
+require_relative 'traverser'
 
 module Byron
   class Lexer < Traverser

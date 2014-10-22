@@ -2,13 +2,47 @@
 
 require 'optparse'
 require 'pp'
+require 'yaml'
+
+require_relative '../lib/scanner'
+require_relative '../lib/parser'
+require_relative '../lib/evaluator'
 
 repl = false
+
+HELP =  <<-EOH
+Usage: byron [<command>] [options] [< in [> out]] [file]
+
+Commands:
+  scan
+  read
+  evaluate
+
+Options:
+  -u, --use <plugin>,...      Use one or more plugins
+  -r, --reporter <reporter>   Set the reporter to use
+  -i, --interactive           Start an interactive console
+  -v, --version               Print out Byron version
+  -h, --help                  Display this help text
+EOH
+
+def evaluate(text)
+  scanner = Byron::Scanner.new
+
+  begin
+    document = scanner.scan text
+    puts document.to_yaml
+  rescue Exception => e
+    puts "\x1b[33m#{e.message}\x1b[0m"
+    puts "\x1b[33m#{e.backtrace.inspect}\x1b[0m"
+
+  end
+end
 
 OptionParser.new do |opts|
 
   opts.on '-h', '--help' do
-    puts 'help'
+    puts HELP
   end
 
   opts.on '-i', '--interactive', '--repl' do
@@ -28,7 +62,8 @@ if repl
   begin
     loop do
       print '> '
-      a = gets
+      text = gets
+      evaluate text
     end
   rescue Interrupt => e
     puts ''

@@ -38,18 +38,17 @@ module Byron
     # Try to consume a node of given `type`.
     ##
     def get_node(type = Text::Node)
-      if @node.include? type
-        move
+      unless @node.include? type
+        raise "Cannot get node of type #{type}"
+      end
 
-      raise "Cannot get node of type #{type}"
+      move
     end
 
     ##
     # Try to consume a node of given `type` or return `nil`.
     ##
     def eat_node(type = Text::NODE)
-      start
-        node = get_node type
     end
 
     ##
@@ -70,7 +69,7 @@ module Byron
     # Return `true` if the end of the document has been reached.
     ##
     def end_of_text?
-      not @node
+      !@node
     end
 
     ##
@@ -101,6 +100,7 @@ module Byron
     # of given `type`, an exception is thrown
     ##
     def get_atomic_node(type = Text::Atomic, ignore_whitespace = false)
+    end
 
   end
 end

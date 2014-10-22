@@ -31,7 +31,6 @@ require_relative 'text/inline'
 require_relative 'text/inline/emphasis'
 require_relative 'text/inline/important'
 require_relative 'text/inline/link'
-require_relative 'text/inline/whitespace'
 require_relative 'text/inline/character'
 require_relative 'text/inline/literal'
 require_relative 'text/inline/literal/code'
@@ -51,10 +50,19 @@ require_relative 'text/document'
 
 module Byron
 
-  ##
+  ###
+  # The Scanner class.
   #
-  ##
+  # Instances of this class take a Markdown-like text, analyze its structure and
+  # return a `Document` representation of it which can be passed later to a
+  # `Parser` to get a syntax tree.
+  ###
   class Scanner
+
+    ###
+    #
+    ###
+    Location = Struct.new :position, :line, :column
 
     ##
     #
@@ -65,15 +73,18 @@ module Byron
 
     ##
     # Prepare state.
+    ##
+    #
 
     def prepare(text = '')
       @text = text
+      @length = @text.length
+      @char = @length > 0 ? @text[0] : nil
+      @section = nil
+      @indentation = []
       @position = 0
       @line = 0
       @column = 0
-      @section = nil
-      @length = @text.length
-      @indentation = []
     end
 
     ##
@@ -90,55 +101,54 @@ module Byron
       @indentation.pop
     end
 
+    ##
+    # Get current indentation, as a string
+    ##
+    def indentation
+      @indentation.join ''
+    end
+
+    ###
+    #
+    ##
     def location
+      Location.new @position, @line, @column
     end
 
     ##
     # Move to given `position`.
     ##
     def move_to (position)
-      unless position >= 0 && position <= @length
+      unless  position.between?(0, @length)
         raise "Cannot move to position #{position}"
       end
 
-      until @position == position do
-
+      until (@position == position) do
         if position < @position
-
           if @text[@position - 1] == "\n"
             @column = 0
             c = @position - 1
-
-            while c > 0 && @text[c] != "\n" do
+            while (c > 0 && @text[c] != "\n") do
               @column += 1
               c -= 1
             end
-
             @line -= 1
           else
             @column -= 1
           end
-
           @position -= 1
-
         else
-
           if @text[@position] == "\n"
             @column = 0
             @line += 1
           else
             @column += 1
           end
-
           @position += 1
         end
-
       end
 
-      if @position < (@length - 1)
-        @text[@position]
-      end
-
+      @char = @text[@position]
     end
 
     ##
@@ -160,6 +170,13 @@ module Byron
       @position >= @length
     end
 
+    ###
+    # Return `yes` if current position is the last on line; ie: if next
+    # character is a line break or the end of the text.
+    ###
+    def end_of_line?
+      end_of_text? || @char == '\n'
+    end
 
     ##
     # Return `yes` if current position is the last on line; ie: if next
@@ -174,7 +191,6 @@ module Byron
         if nxt.trim != ''
           indent = @indentation
           i = indent.length
-
           if nxt[0, i] == indent
             return false
           end
@@ -182,13 +198,26 @@ module Byron
 
         return true
       end
-
     end
 
     ##
     #
     ##
     def make_node(kind)
+      start = @position
+
+      node = kind.new
+      node.start = start
+      node.end = nil
+
+      ret = yield node
+
+      if ret != false
+        node.end ||= @position
+        return node
+      end
+
+      move_to start
     end
 
     ##
@@ -197,8 +226,6 @@ module Byron
     def char_at(position = @position)
       if position >= 0 && position < @length
         @text[position]
-      else
-        null
       end
     end
 
@@ -206,10 +233,10 @@ module Byron
     # Returns a portion of the text, starting from `position` and inlinening
     # through `length` characters or until the end of text is found, whatever
     # comes first.
-    def chars(length = 1, position = @position)
-      position = [position, @length].min
-      length = [length, @length - position].min
-      @text[position, length]
+    def chars(length = 1, from = @position)
+      from = [from, @length].min
+      length = [length, @length - from].min
+      @text[from, length]
     end
 
     ##
@@ -219,8 +246,15 @@ module Byron
     # With default `n` being `1`, this function retrieves the very next
     # character starting from current position.
     ##
-    def next(n = 1)
-      chars(n, @position + 1)
+    def next_chars(n = 1)
+      chars n, (@position + 1)
+    end
+
+    ###
+    #
+    ###
+    def next_char
+      chars 1, (@position + 1)
     end
 
     ##
@@ -244,13 +278,28 @@ module Byron
     def current_line
       eol = @text.index "\n", @position
       eol = @length -1 if eol.nil?
-      chars((eol - @position), @position - @column)
+      chars (eol - @position), (@position - @column)
     end
 
     ##
     # Peek next line.
     ##
     def next_line
+      # Find two line breaks
+      f = nil
+      k = @position
+
+      loop do
+        c = char_at k
+        if c == "\n" or !c
+          return chars (k - f), (f + 1)
+        elsif c
+          f = k
+        else
+          break
+        end
+        k += 1
+      end
     end
 
     ##
@@ -259,12 +308,33 @@ module Byron
     # non-whitespace line.
     ##
     def skip_empty_lines
+      if @column != 0
+        raise 'Can only skip empty lines starting at column 0'
+      end
+
+      loop do
+        line = current_line
+        break if line.strip != ''
+
+        begin
+          move_to_next_line
+        rescue
+          break
+        end
+      end
     end
 
     ##
     # Move forward until the current character is not one of the passed `chars`.
     ##
     def skip_chars(chars = '')
+      skipped = ''
+
+      while @chars && (chars.include? @char) do
+        skipped << move
+      end
+
+      return skipped if skipped.length > 0
     end
 
     ##
@@ -272,6 +342,16 @@ module Byron
     # of text is reached.
     ##
     def skip_chars_until(chars)
+      skipped = ''
+
+      until end_of_text? || (chars.include? @char) do
+        skipped << @char
+        move
+      end
+
+      if skipped.length > 0
+        return skipped
+      end
     end
 
     ##
@@ -279,6 +359,16 @@ module Byron
     # of block is reached.
     ##
     def skip_inline_chars_until(chars)
+      skipped = ''
+
+      until end_of_block? || (chars.include? @char) do
+        skipped << @char
+        move
+      end
+
+      if skipped.length > 0
+        return skipped
+      end
     end
 
     ##
@@ -292,6 +382,22 @@ module Byron
     # Read an atx-style heading.
     ##
     def read_atx_heading
+      if @char == '#'
+        make_node Text::Heading do |node|
+          move
+
+          while (@char == '#') do
+            heading.level += 1
+            move
+          end
+
+          skip_spaces
+
+          while (child = read_inline) do
+            heading.append child
+          end
+        end
+      end
     end
 
     ##
@@ -312,9 +418,17 @@ module Byron
     #
     ##
     def read_character
+      unless end_of_text?
+        make_node Text::Character do |char|
+          char.text = @char
+          move
+        end
+      end
     end
 
     def read_code_line
+      move_to_next_line
+      ''
     end
 
     ##
@@ -327,6 +441,25 @@ module Byron
     # Read a _fenced_ `CodeBlock`.
     ##
     def read_fenced_code_block
+      fence = next_chars 3
+
+      if ['```', '~~~~'].include? fence
+        make_node CodeBlock do |node|
+          move_to_next_line
+
+          loop do
+            if fence == next_chars(3)
+              move 3
+              break
+            elsif end_of_text?
+              break
+            end
+
+            line = read_code_line
+            # Blah blah
+          end
+        end
+      end
     end
 
     ##
@@ -341,24 +474,79 @@ module Byron
     # Read an `Emphasis` (_lorem_) or `MoreEmphasis` (__ipsum__) node.
     ##
     def read_emphasis
+      if @char == '_'
+        l = next_char == '_' ? 2 : 1
+        eoe = chars l
+
+        make_node Text::Emphasis do |em|
+          move l
+
+          until eoe == (chars l) do
+            if end_of_block?
+              raise 'Unterminated _emphasis_'
+            end
+
+            if inline = read_inline
+              emphasis.append inline
+            end
+          end
+
+          move l
+        end
+      end
     end
 
     ##
     # Read a `StringLiteral` node.
     ##
     def read_string_literal
+      if @char && ("'\"".include? @char)
+        q = @char
+
+        make_node Text::StringLiteral do |str|
+          loop do
+            move
+            if end_of_block?
+              raise "Unterminated #{q}string#{q} literal"
+            end
+
+            break if @char == q
+            str.text << @char
+            move
+          end
+
+          move
+        end
+      end
     end
 
     ##
     # Read a `NumberLiteral` node.
     ##
     def read_number_literal
+      if /\d/ =~ @char
+        make_node Text::NumberLiteral do |num|
+          move until end_of_block || /\d/ !~ @char
+        end
+      end
     end
 
     ##
     # Read an inline `Code` node.
     ##
     def read_code_literal
+      if @char == '`'
+        make_node Text::InlineCode do |code|
+          move
+          until @char == '`' do
+            if end_of_block?
+              raise 'Unterminated `code`'
+            end
+            code.text << @char
+            move
+          end
+        end
+      end
     end
 
     def read_literal
@@ -377,25 +565,37 @@ module Byron
     # Read an inline *important* node.
     ##
     def read_important
-    end
+      if @char == '*'
+        l = next_char == '*' ? 2 : 1
+        eoi = chars l
 
-    ##
-    # Read a `Whitespace` node with one or more consecutive whitespace
-    # characters (spaces, tabs or line breaks).
-    ##
-    def read_whitespace
+        make_node Text::Important do |important|
+          move l
+
+          until eoi == (chars l) do
+            if end_of_block?
+              raise 'Unterminated *important*'
+            end
+
+            if inline = read_inline
+              important.append inline
+            end
+          end
+
+          move l
+        end
+      end
     end
 
     ##
     # Read an `Inline` node unless current character is at the end of the block.
     ##
     def read_inline
-      unless is_end_of_block?
+      unless end_of_block?
         read_emphasis ||
         read_important ||
         read_link ||
         read_literal ||
-        read_whitespace ||
         read_character
       end
     end
@@ -404,6 +604,15 @@ module Byron
     # Read a `Paragraph` node.
     ##
     def read_paragraph
+      make_node Text::Paragraph do |paragraph|
+        skip_spaces
+
+        while inline = read_inline do
+          paragraph.append inline
+        end
+
+        return paragraph if paragraph.children?
+      end
     end
 
     ##
@@ -415,13 +624,54 @@ module Byron
     ##
     # Read an unordered list.
     ##
-    def read_ordered_list
+    def read_unordered_list
+      if @char && ('*+-'.include? @char)
+        bullet = @char
+        back = @position
+
+        # Require whitespace separation
+        if next_char == ' '
+          make_node Text::UnorderedList do |list|
+            list.bullet = bullet
+
+            loop do
+              indent '  '
+              move 2
+
+              blocks = read_blocks
+
+              if blocks.length > 0
+                list_item = new ListItem
+                list_item.append *blocks
+                list.append list_item
+                back = @position
+              end
+
+              unindent
+
+              begin
+                move_to_next_line
+                skip_empty_lines
+                skip_indentation
+                next if @char == bullet
+              end
+
+              move_to back
+              break
+            end
+
+            list.hasChildren
+          end # do |list|
+        end # if next_char == ' '
+      end
     end
 
     ##
     # Read a `List` node, either an `UnorderedList` or an `OrderedList`.
     ##
     def read_list
+      read_unordered_list ||
+      read_ordered_list
     end
 
     ##
@@ -431,6 +681,14 @@ module Byron
     end
 
     def skip_indentation
+      indent = indentation
+      i = indent.length
+
+      if indent != (chars i, (@position - @column))
+        raise "Not the expected indentation (#{i})"
+      end
+
+      move(i - @column)
     end
 
     def read_break
@@ -453,27 +711,66 @@ module Byron
     # are ignored.
     ##
     def read_blocks
+      back = @position
+      blocks = []
+
+      loop do
+        unless block = read_block
+          move_to back
+          return nil
+        end
+
+        yield block
+
+        blocks << block
+        back = @position
+
+        begin
+          move_to_next_line
+          skip_empty_lines
+          skip_indentation
+        rescue
+          move_to back
+          return nil
+        end
+      end
+
+      blocks
     end
 
     ##
     # Start a `Section` node and read its contents.
     ##
     def read_section
+      make_node Text::Section do |section|
+        curr_section, @section = @section, section
+
+        read_blocks do |block|
+          # A heading block might start a subsection
+          section.append block
+        end
+
+        if section.equal? curr_section
+          @section.append section
+        else
+          @section = section
+        end
+      end
     end
 
     ##
     # Read meta data from document YAML front matter.
     ##
     def read_meta
-      {}
+      return {}
     end
 
     ##
     # Read the document itself.
     ##
     def read_document
-      document = Document.new
-      document.meta = read_meta
+      document = Text::Document.new
+      # document.meta = read_meta
       document.body = read_section
 
       document
@@ -489,6 +786,8 @@ module Byron
       prepare text
       read_document
     end
+
+    protected :prepare
 
   end # class Scanner
 
