@@ -1,7 +1,7 @@
 module Byron
   module Text
     module Atomic
-      attr_accessor :text, :start, :end
+      attr_accessor :text
     end
   end
 end

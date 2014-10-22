@@ -30,7 +30,7 @@ def evaluate(text)
   scanner = Byron::Scanner.new
 
   begin
-    document = scanner.scan text
+    document = scanner.scan text.strip
     puts document.to_yaml
   rescue Exception => e
     puts "\x1b[33m#{e.message}\x1b[0m"
