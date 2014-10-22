@@ -90,6 +90,9 @@ module Byron
       @indentation.pop
     end
 
+    def location
+    end
+
     ##
     # Move to given `position`.
     ##
