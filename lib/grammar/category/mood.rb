@@ -1,6 +1,6 @@
 # http://en.wikipedia.org/wiki/Grammatical_mood
 
-module Byron
+class Byron
   module Grammar
     module Category
       module Mood

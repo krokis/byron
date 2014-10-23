@@ -4,7 +4,7 @@ require_relative 'tense'
 require_relative 'regularity'
 require_relative 'transitiveness'
 
-module Byron
+class Byron
   module Grammar
     module Category
       module Verb

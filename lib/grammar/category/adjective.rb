@@ -1,4 +1,4 @@
-module Byron
+class Byron
   module Grammar
     module Category
       module Adjective

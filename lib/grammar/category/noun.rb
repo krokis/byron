@@ -2,7 +2,7 @@ require_relative 'number'
 require_relative 'uniqueness'
 require_relative 'regularity'
 
-module Byron
+class Byron
   module Grammar
     module Category
       module Noun

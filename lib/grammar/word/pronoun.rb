@@ -1,6 +1,6 @@
 require_relative '../word'
 
-module Byron
+class Byron
   module Grammar
     class Pronoun < Word
     end

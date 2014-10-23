@@ -1,4 +1,4 @@
-module Byron
+class Byron
   module Text
     module Atomic
       attr_accessor :text

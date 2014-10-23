@@ -1,7 +1,7 @@
 require_relative 'lexer'
 require_relative 'grammar/constituent'
 
-module Byron
+class Byron
 
   ##
   #
@@ -156,4 +156,4 @@ module Byron
 
 end
 #
-## module Byron
+## class Byron

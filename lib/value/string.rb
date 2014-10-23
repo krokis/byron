@@ -1,6 +1,6 @@
 require_relative '../value'
 
-module Byron
+class Byron
   module Value
     class String
     end

@@ -1,8 +1,6 @@
 require_relative '../inline'
 
-module Byron
-  module Text
-    class Important < Inline
-    end
+module Byron::Text
+  class Important < Inline
   end
 end

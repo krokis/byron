@@ -54,7 +54,7 @@ require_relative 'text/document'
 #
 ##
 
-module Byron
+class Byron
 
   ###
   # The Scanner class.
@@ -310,11 +310,11 @@ module Byron
     #
     ##
 
-    ###
-    #
+    ##
+    # Returns next char.
     #
     def next_char
-      chars 1, (@position + 1)
+      chars 1
     end
     #
     ##
@@ -626,7 +626,7 @@ module Byron
     def read_number_literal
       if /\d/ =~ @char
         make_node Text::NumberLiteral do |num|
-          move until end_of_block || /\d/ !~ @char
+          move until end_of_block? || /\d/ !~ @char
         end
       end
     end
@@ -934,4 +934,4 @@ module Byron
 
   end # class Scanner
 
-end # module Byron
+end # class Byron

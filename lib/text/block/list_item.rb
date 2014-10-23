@@ -1,8 +1,6 @@
 require_relative '../block'
 
-module Byron
-  module Text
-    class ListItem < Block
-    end
+module Byron::Text
+  class ListItem < Block
   end
 end

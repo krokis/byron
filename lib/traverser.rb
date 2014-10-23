@@ -3,7 +3,7 @@ require_relative 'text/inline/character'
 require_relative 'text/block'
 require_relative 'text/document'
 
-module Byron
+class Byron
 
   ##
   # This _abstract_ class can take a text `Document` and traverse its nodes.
@@ -66,6 +66,9 @@ module Byron
     # Try to consume a node of given `type` or return `nil`.
     #
     def eat_node(type = Text::NODE)
+      begin
+        get_node type
+      end
     end
     #
     ##
@@ -75,6 +78,7 @@ module Byron
     # read node ended a block by calling.
     #
     def start_of_block?(node = @node)
+      !@node || !@node.parent || @node.first_child?
     end
 
     ##
@@ -82,6 +86,7 @@ module Byron
     # elements after `current` until current block is closed.
     #
     def end_of_block?(node = @node)
+      return true if end_of_text? || !node || !node.parent
     end
     #
     ##
@@ -98,7 +103,13 @@ module Byron
     ##
     # Ascend current node ancestors until a node of `type` is found.
     #
-    def ascend(type = Text::NODE)
+    def ascend(type = Text::Node)
+      ancestor = @node.ancestor type
+      if ancestor
+        move_to ancestor
+      else
+        raise 'Cannot ascend'
+      end
     end
     #
     ##
@@ -106,7 +117,14 @@ module Byron
     ##
     # Move to a `type` descendant of current node.
     #
-    def descend
+    def descend(type = Text::Node)
+      unless end_of_text?
+        if descendant = (@node.descendant type)
+          move_to descendant
+        end
+      end
+
+      raise 'Cannot descend'
     end
     #
     ##
@@ -115,6 +133,8 @@ module Byron
     #
     #
     def skip_whitespace
+      while (eat Text::Whitespace) do; end
+      @node
     end
     ##
     #
@@ -125,6 +145,9 @@ module Byron
     # then descend down to an inline node.
     ##
     def get_inline_node(type = Text::Inline, ignore_whitespace = false)
+      descend Text::Inline
+      skip_whitespace if ignore_whitespace
+      get_node type
     end
     #
     ##
@@ -135,6 +158,9 @@ module Byron
     # of given `type`, an exception is thrown
     ##
     def get_atomic_node(type = Text::Atomic, ignore_whitespace = false)
+      descend Text::Atomic
+      skip_whitespace if ignore_whitespace
+      get_node type
     end
     #
     ##
@@ -145,4 +171,4 @@ module Byron
 
 end
 #
-### module Byron
+### class Byron

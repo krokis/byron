@@ -1,6 +1,6 @@
 require_relative 'number'
 
-module Byron
+class Byron
   module Value
     class Dimension < Number
     end

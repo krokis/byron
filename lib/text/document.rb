@@ -1,4 +1,4 @@
-module Byron
+class Byron
   module Text
     class Document
       attr_accessor :body

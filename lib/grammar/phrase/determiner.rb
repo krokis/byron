@@ -1,6 +1,6 @@
 require_relative '../phrase'
 
-module Byron
+class Byron
   module Grammar
     class DeterminerPhrase < Phrase
     end

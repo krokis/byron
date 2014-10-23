@@ -4,6 +4,7 @@ require 'optparse'
 require 'pp'
 require 'yaml'
 
+require_relative '../lib/byron'
 require_relative '../lib/scanner'
 require_relative '../lib/parser'
 require_relative '../lib/evaluator'
@@ -56,18 +57,26 @@ OptionParser.new do |opts|
 end.parse!
 
 ARGV.each do |file|
+  puts file
 end
 
 if repl
   begin
     loop do
+
       print '> '
-      text = gets
-      evaluate text
+
+      if text = gets
+        text.strip!
+        unless text == ''
+          evaluate text
+          next
+        end
+      end
+
     end
-  rescue Interrupt => e
-    puts ''
-  rescue Exception => e
-    p e
+  rescue e
+    raise e
   end
+
 end

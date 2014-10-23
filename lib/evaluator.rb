@@ -1,4 +1,4 @@
-module Byron
+class Byron
   ##
   #
   #
@@ -9,4 +9,4 @@ module Byron
 
 end
 #
-## module Byron
+## class Byron

@@ -1,6 +1,6 @@
 # http://en.wikipedia.org/wiki/Auxiliary_verb#Auxiliary_verbs_in_English
 
-module Byron
+class Byron
   module Grammar
     module Category
       module Modality
