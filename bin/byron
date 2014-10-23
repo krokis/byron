@@ -9,7 +9,10 @@ require_relative '../lib/scanner'
 require_relative '../lib/parser'
 require_relative '../lib/evaluator'
 
-repl = false
+##
+# Byron class to be used and reused
+#
+$byron = Byron.new
 
 HELP =  <<-EOH
 Usage: byron [<command>] [options] [< in [> out]] [file]
@@ -27,23 +30,16 @@ Options:
   -h, --help                  Display this help text
 EOH
 
-def evaluate(text)
-  scanner = Byron::Scanner.new
-
-  begin
-    document = scanner.scan text.strip
-    puts document.to_yaml
-  rescue Exception => e
-    puts "\x1b[33m#{e.message}\x1b[0m"
-    puts "\x1b[33m#{e.backtrace.inspect}\x1b[0m"
-
-  end
-end
+repl = false
+plugins = []
 
 OptionParser.new do |opts|
 
-  opts.on '-h', '--help' do
-    puts HELP
+  opts.on '-u', '--use', Array do |plugins|
+    $byron.use *plugins
+  end
+
+  opts.on '-r', '--reporter' do |reporter|
   end
 
   opts.on '-i', '--interactive', '--repl' do
@@ -54,7 +50,21 @@ OptionParser.new do |opts|
     puts '0.0.1'
   end
 
+  opts.on '-h', '--help' do
+    puts HELP
+  end
+
 end.parse!
+
+def evaluate(text)
+  begin
+    document = $byron.scan text
+    puts document.to_yaml
+  rescue Exception => e
+    puts "\x1b[33m#{e.message}\x1b[0m"
+    puts "\x1b[33m#{e.backtrace.inspect}\x1b[0m"
+  end
+end
 
 ARGV.each do |file|
   puts file
@@ -67,8 +77,7 @@ if repl
       print '> '
 
       if text = gets
-        text.strip!
-        unless text == ''
+        unless text.strip == ''
           evaluate text
           next
         end
@@ -78,5 +87,4 @@ if repl
   rescue e
     raise e
   end
-
 end
