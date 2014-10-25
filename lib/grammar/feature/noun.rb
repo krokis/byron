@@ -4,7 +4,7 @@ require_relative 'regularity'
 
 class Byron
   module Grammar
-    module Category
+    module Feature
       module Noun
         include Number
         include Uniqueness

@@ -1,6 +1,8 @@
-require_relative '../block'
+require_relative 'element'
 
-module Byron::Text
-  class QuotationBlock < Block
+class Byron
+  module Text
+    class QuotationBlock < BlockElement
+    end
   end
 end

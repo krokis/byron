@@ -1,6 +1,6 @@
 class Byron
   module Grammar
-    module Category
+    module Feature
       module Tense
         TENSES = [
           'present',

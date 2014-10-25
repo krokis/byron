@@ -6,7 +6,7 @@ require_relative 'transitiveness'
 
 class Byron
   module Grammar
-    module Category
+    module Feature
       module Verb
         include Person
         include Number

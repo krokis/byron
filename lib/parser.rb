@@ -1,5 +1,7 @@
 require_relative 'lexer'
+require_relative 'discourse'
 require_relative 'grammar/constituent'
+require_relative 'grammar/sentence'
 
 class Byron
 
@@ -17,8 +19,8 @@ class Byron
         @parser = nil
       end
 
-      def method_missing (method)
-        @parser.send method
+      def method_missing (method, *args)
+        @parser.send method, *args
       end
 
       def respond_to_missing?(name, include_private = false)
@@ -27,7 +29,7 @@ class Byron
 
     end
     #
-    ## class Delegate
+    ## class Byron::Parser::Delegate
 
     def initialize
       super
@@ -119,12 +121,12 @@ class Byron
     def parse(document)
       prepare document
 
-      speech = Grammar::Speech.new
+      discourse = Discourse.new
 
       skip_whitespace
 
       until end_of_text? do
-        speech.sentences << parse_a(Grammar::Sentence) do |sentence|
+        discourse.sentences << parse_a(Grammar::Sentence) do |sentence|
           skip_whitespace
           period =
             begin
@@ -140,7 +142,7 @@ class Byron
         skip_whitespace
       end
 
-      return speech
+      return discourse
     end
     #
     ##
@@ -152,7 +154,7 @@ class Byron
 
   end
   #
-  ## class Parser
+  ## class Byron::Parser
 
 end
 #

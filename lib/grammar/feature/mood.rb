@@ -2,7 +2,7 @@
 
 class Byron
   module Grammar
-    module Category
+    module Feature
       module Mood
         MOODS = [
           'indicative'

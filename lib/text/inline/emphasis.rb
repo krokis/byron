@@ -1,6 +1,6 @@
-require_relative '../inline'
+require_relative 'element'
 
 module Byron::Text
-  class Emphasis < Inline
+  class Emphasis < InlineElement
   end
 end

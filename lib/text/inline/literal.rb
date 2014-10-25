@@ -1,8 +1,6 @@
-require_relative '../inline'
-require_relative '../atomic'
+require_relative 'atomic'
 
 module Byron::Text
-  class Literal < Inline
-    include Atomic
+  class Literal < InlineAtomic
   end
 end

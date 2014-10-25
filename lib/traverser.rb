@@ -14,7 +14,7 @@ class Byron
     ##
     #
     #
-    def prepare(document)
+    def prepare (document)
       @document = document
       @node = document ? document.body : nil
     end
@@ -22,7 +22,8 @@ class Byron
     ##
 
     ##
-    #
+    # Tell if current node or one of its ancestors is considered "important",
+    # ie: it is a `Text::Important`.
     #
     def important?
       true
@@ -33,7 +34,7 @@ class Byron
     ##
     # Move to a particular node in the document.
     #
-    def move_to(node)
+    def move_to (node)
       old, @node = @node, node
       old
     end
@@ -52,8 +53,8 @@ class Byron
     ##
     # Try to consume a node of given `type`.
     #
-    def get_node(type = Text::Node)
-      unless @node.include? type
+    def get_node (type = Text::Node)
+      unless @node.kind_of? type
         raise "Cannot get node of type #{type}"
       end
 
@@ -65,7 +66,7 @@ class Byron
     ##
     # Try to consume a node of given `type` or return `nil`.
     #
-    def eat_node(type = Text::NODE)
+    def eat_node (type = Text::NODE)
       begin
         get_node type
       end
@@ -77,7 +78,7 @@ class Byron
     # Returns `true` if current node starts a block. This can also tell if last
     # read node ended a block by calling.
     #
-    def start_of_block?(node = @node)
+    def start_of_block? (node = @node)
       !@node || !@node.parent || @node.first_child?
     end
 
@@ -85,7 +86,7 @@ class Byron
     # Returns `true` if current node *ends* a block, ie: there are no further
     # elements after `current` until current block is closed.
     #
-    def end_of_block?(node = @node)
+    def end_of_block? (node = @node)
       return true if end_of_text? || !node || !node.parent
     end
     #
@@ -103,9 +104,8 @@ class Byron
     ##
     # Ascend current node ancestors until a node of `type` is found.
     #
-    def ascend(type = Text::Node)
-      ancestor = @node.ancestor type
-      if ancestor
+    def ascend (type = Text::Node)
+      if ancestor = (@node.ancestor type)
         move_to ancestor
       else
         raise 'Cannot ascend'
@@ -117,14 +117,14 @@ class Byron
     ##
     # Move to a `type` descendant of current node.
     #
-    def descend(type = Text::Node)
+    def descend (type = Text::Node)
       unless end_of_text?
         if descendant = (@node.descendant type)
           move_to descendant
+        else
+          raise 'Cannot descend'
         end
       end
-
-      raise 'Cannot descend'
     end
     #
     ##
@@ -144,7 +144,7 @@ class Byron
     # Consume an inline node of given `type`. If current node is a block one,
     # then descend down to an inline node.
     ##
-    def get_inline_node(type = Text::Inline, ignore_whitespace = false)
+    def get_inline_node (type = Text::Inline, ignore_whitespace = false)
       descend Text::Inline
       skip_whitespace if ignore_whitespace
       get_node type
@@ -157,7 +157,7 @@ class Byron
     # class, then descend down to an atomic node. If first `Atomic` node is not
     # of given `type`, an exception is thrown
     ##
-    def get_atomic_node(type = Text::Atomic, ignore_whitespace = false)
+    def get_atomic_node (type = Text::Atomic, ignore_whitespace = false)
       descend Text::Atomic
       skip_whitespace if ignore_whitespace
       get_node type
@@ -167,7 +167,7 @@ class Byron
 
   end
   #
-  ## class Traverser
+  ## class Byron::Traverser
 
 end
 #

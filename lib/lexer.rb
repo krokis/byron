@@ -113,7 +113,8 @@ class Byron
     #
     def skip_whitespace
       begin
-        read_whiteapce until end_of_text?
+        read_whitespace until end_of_text?
+      rescue
       end
     end
     #

@@ -2,7 +2,14 @@ require_relative 'node'
 
 class Byron
   module Text
-    class Block < Node
+
+    ##
+    #
+    #
+    module Block
     end
+    #
+    ##
+
   end
 end

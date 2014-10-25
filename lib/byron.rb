@@ -32,7 +32,7 @@ class Byron
   ##
 
   def scan (text)
-    unless text.is_a? String
+    unless text.kind_of? String
       raise 'Cannot scan that'
     end
 
@@ -41,12 +41,12 @@ class Byron
   #
   ##
 
-  def parser (text)
-    if text.is_a? String
+  def parse (text)
+    if text.kind_of? String
       text = scan text
     end
 
-    unless text.is_a? Text::Document
+    unless text.kind_of? Text::Document
       raise 'Cannot parse that'
     end
 
@@ -59,15 +59,15 @@ class Byron
   #
   #
   def evaluate (text)
-    if text.is_a? String
+    if text.kind_of? String
       text = scan text
     end
 
-    if text.is_a? Text::Document
+    if text.kind_of? Text::Document
       text = parse text
     end
 
-    unless text.is_a? Grammar::Constituent
+    unless text.kind_of? Grammar::Constituent
       raise 'Cannot evaluate that'
     end
 

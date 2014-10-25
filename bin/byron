@@ -58,8 +58,8 @@ end.parse!
 
 def evaluate(text)
   begin
-    document = $byron.scan text
-    puts document.to_yaml
+    discourse = $byron.parse text
+    puts discourse.to_yaml
   rescue Exception => e
     puts "\x1b[33m#{e.message}\x1b[0m"
     puts "\x1b[33m#{e.backtrace.inspect}\x1b[0m"

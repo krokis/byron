@@ -1,11 +1,12 @@
 class Byron
+
   ##
   #
   #
   class Value
   end
   #
-  ## class Value
+  ## class Byron::Value
 
 end
 #

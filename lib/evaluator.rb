@@ -5,7 +5,7 @@ class Byron
   class Evaluator
   end
   #
-  ## class Evaluator
+  ## class Byron::Evaluator
 
 end
 #

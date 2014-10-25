@@ -1,6 +1,8 @@
-require_relative '../block'
+require_relative 'leaf'
 
-module Byron::Text
-  class Break < Block
+class Byron
+  module Text
+    class Break < BlockLeaf
+    end
   end
 end

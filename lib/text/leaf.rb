@@ -1,12 +1,13 @@
-require_relative 'node'
-
 class Byron
   module Text
 
     ##
     #
     #
-    module Inline
+    module Leaf
+      def can_append_child? (child)
+        false
+      end
     end
     #
     ##
