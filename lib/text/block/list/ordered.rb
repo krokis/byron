@@ -1,6 +1,9 @@
 require_relative '../list'
 
-module Byron::Text
-  class OrderedList < List
+class Byron
+  module Text
+    class OrderedList < List
+      attr_accessor :bullet
+    end
   end
 end

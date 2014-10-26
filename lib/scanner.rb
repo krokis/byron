@@ -25,25 +25,21 @@
 # Std-lib
 require 'yaml'
 
+require_relative 'text/location'
+
 ##
 # All known nodes
 #
-require_relative 'text/location'
-require_relative 'text/node'
-require_relative 'text/inline'
 require_relative 'text/inline/emphasis'
 require_relative 'text/inline/important'
 require_relative 'text/inline/link'
 require_relative 'text/inline/character'
-require_relative 'text/inline/literal'
 require_relative 'text/inline/literal/code'
 require_relative 'text/inline/literal/number'
 require_relative 'text/inline/literal/string'
-require_relative 'text/block'
 require_relative 'text/block/break'
 require_relative 'text/block/code'
 require_relative 'text/block/heading'
-require_relative 'text/block/list'
 require_relative 'text/block/list/unordered'
 require_relative 'text/block/list/ordered'
 require_relative 'text/block/list_item'
@@ -66,18 +62,23 @@ class Byron
   class Scanner
 
     ##
-    # Index of current character being scanned. When this index is equal to the
-    # length of text, it indicates end of text is reached
+    # (0-based) index of current character being scanned. When this index is
+    # equal to the length of text, it means the end of text has been reached.
     #
     attr_reader :position
     #
     ##
 
     ##
-    # Current position, column and line in a `Location` object.
+    # Get current position, column and line in a `Location` object.
     #
     def location
+
+      # We save last calculated position in `@location`. See if it's at the same
+      # position as current position.
       if @location.position != @position
+
+        # Calculate line and column of current position.
         if @position > @length
           @location.column = nil
           @location.line = nil
@@ -93,12 +94,7 @@ class Byron
             @location.line -= lines.length - 1
 
             if position > 0
-              # Same as?
-              #     @column = position
-              #     if line_start = @text.rindex('\n', position - 1)
-              #       @column -= (line_start  1)
-              #     end
-              if line_start = @text.rindex('\n', position - 1)
+              if line_start = (@text.rindex  '\n', (position - 1))
                 @location.column = (position - line_start) + 1
               else
                 @location.column = position
@@ -108,16 +104,18 @@ class Byron
             end
           end
         end
+
+        # Save for later
         @location.position = @position
       end
 
-      return @location
+      @location.clone
     end
     #
-    ##
+    ## def location
 
     ##
-    #
+    # Current column
     #
     def column
       @location.column
@@ -126,14 +124,14 @@ class Byron
     ##
 
     ##
-    #
+    # Current line.
     #
     def line
       @location.line
     end
 
     ##
-    #
+    # Constructor
     #
     def initialize
       prepare
@@ -149,8 +147,8 @@ class Byron
       @length = @text.length
       @section = nil
       @indentation = []
-      move_to 0 # This sets `@char` to `nil`
-      @location = Text::Location.new 0, 0, 0
+      move_to 0 # This sets `@char` to `@text[0]` or `nil`
+      @location = Text::Location.new
     end
     #
     ##
@@ -158,7 +156,7 @@ class Byron
     ##
     # Add a level of indentation.
     #
-    def indent(ind)
+    def indent (ind)
       @indentation << ind
     end
     #
@@ -200,16 +198,16 @@ class Byron
     #
     # The `n` number can be possitive to move forward, negative to move
     # backwards or zero not to move at all. Defaults to `1`, which means
-    # `@move()` advances one single position.
+    # `#move` advances one single position.
     #
-    def move(n = 1)
+    def move (n = 1)
       move_to(@position + n)
     end
     #
     ##
 
     ##
-    # Return `yes` if the end of text has been reached; ie: current position is
+    # Return `true` if the end of text has been reached; ie: current position is
     # the same as the text length.
     #
     def end_of_text?
@@ -218,8 +216,17 @@ class Byron
     #
     ##
 
+    ##
+    # Return `true` if at the beginning of the document.
+    #
+    def start_of_text?
+      @position == 0
+    end
+    #
+    ##
+
     ###
-    # Return `yes` if current position is the last on line; ie: if next
+    # Return `true` if current position is the last on line; ie: if next
     # character is a line break or the end of the text.
     #
     def end_of_line?
@@ -229,35 +236,31 @@ class Byron
     ##
 
     ##
-    # Return `yes` if current position is the last on line; ie: if next
-    # character is a line break or the end of the text.
     #
     def end_of_block?
-      return false unless end_of_line?
+      if end_of_line?
+        unless end_of_text?
+          line = next_line
 
-      unless end_of_text?
-        line = next_line
-
-        if line.trim != ''
-          indent = @indentation
-          i = indent.length
-          if line[0, i] == indent
-            return false
+          unless line.strip.empty?
+            if line.start_with? @indentation
+              return false
+            end
           end
         end
 
         return true
       end
 
-      return false
+      false
     end
     #
     ##
 
     ##
+    # Node maker.
     #
-    #
-    def make_node(kind)
+    def make_node (kind)
       start = @position
 
       node = kind.new
@@ -265,11 +268,16 @@ class Byron
       node.end = nil
 
       if false != (yield node)
-        node.end ||= location
-        return node
+        unless node.end
+          #move -1
+          node.end = location
+          #move
+        end
+
+        node
       else
         move_to start
-        return nil
+        nil
       end
     end
     #
@@ -278,7 +286,7 @@ class Byron
     ##
     # Return the character at given `position`.
     #
-    def char_at(position = @position)
+    def char_at (position = @position)
       if position >= 0 && position < @length
         @text[position]
       end
@@ -289,7 +297,7 @@ class Byron
     # through `length` characters or until the end of text is found, whatever
     # comes first.
     #
-    def chars(length = 1, from = @position)
+    def chars (length = 1, from = @position)
       from = [from, @length].min
       length = [length, @length - from].min
       @text[from, length]
@@ -299,22 +307,22 @@ class Byron
 
     ##
     # Returns next `n` characters, starting from current position, without
-    # changing current position.
+    # changing it.
     #
     # With default `n` being `1`, this function retrieves the very next
-    # character starting from current position.
+    # character, starting from current position.
     #
-    def next_chars(n = 1)
+    def next_chars (n = 1)
       chars n, (@position + 1)
     end
     #
     ##
 
     ##
-    # Returns next char.
+    # Returns the very next character.
     #
     def next_char
-      chars 1
+      next_chars 1
     end
     #
     ##
@@ -324,31 +332,29 @@ class Byron
     # break, an exception is raised.
     #
     def move_to_next_line
-      loop do
-        if @char == "\n"
-          move
-          break
-        elsif @char.nil?
-          raise 'Cannot move to next line: EOT found'
-        end
+      eol = (@text.index "\n", @position) || @length
+
+      if eol < (@length - 1)
+        move_to eol + 1
+      else
+        raise 'Cannot move to next line: EOT found'
       end
     end
     #
     ##
 
     ##
-    #
+    # Peek the entire current line without moving current position.
     #
     def current_line
-      eol = @text.index "\n", @position
-      eol = @length -1 if eol.nil?
+      eol = (@text.index "\n", @position) || @length - 1
       chars (eol - @position), (@position - @column)
     end
     #
     ##
 
     ##
-    # Peek next line.
+    # Peek next line without moving current position.
     #
     def next_line
       # Find two line breaks
@@ -377,12 +383,12 @@ class Byron
     #
     def skip_empty_lines
       if @column != 0
-        raise 'Can only skip empty lines starting at column 0'
+        raise 'Can only skip empty lines from column 0'
       end
 
       loop do
         line = current_line
-        break if line.strip != ''
+        break unless line.strip == ''
 
         begin
           move_to_next_line
@@ -404,7 +410,7 @@ class Byron
         skipped << move
       end
 
-      return skipped if skipped.length > 0
+      skipped if skipped.length > 0
     end
     #
     ##
@@ -421,9 +427,7 @@ class Byron
         move
       end
 
-      if skipped.length > 0
-        return skipped
-      end
+      skipped if skipped.length > 0
     end
     #
     ##
@@ -440,9 +444,7 @@ class Byron
         move
       end
 
-      if skipped.length > 0
-        return skipped
-      end
+      skipped if skipped.length > 0
     end
     #
     ##
@@ -464,14 +466,14 @@ class Byron
         make_node Text::Heading do |node|
           move
 
-          while (@char == '#') do
+          while @char == '#' do
             heading.level += 1
             move
           end
 
           skip_spaces
 
-          while (child = read_inline) do
+          while child = read_inline do
             heading.append child
           end
         end
@@ -499,7 +501,7 @@ class Byron
     ##
 
     ##
-    #
+    # Read a character node.
     #
     def read_character
       unless end_of_text?
@@ -726,7 +728,8 @@ class Byron
           paragraph.append inline
         end
 
-        return paragraph if paragraph.children?
+        # Don't make the node if it's empty
+        return false unless paragraph.children?
       end
     end
     #
@@ -750,6 +753,7 @@ class Byron
 
         # Require whitespace separation
         if next_char == ' '
+
           make_node Text::UnorderedList do |list|
             list.bullet = bullet
 
@@ -759,9 +763,11 @@ class Byron
 
               blocks = read_blocks
 
-              if blocks.length > 0
-                list_item = new ListItem
+              unless blocks.empty?
+                list_item = Text::ListItem.new
                 list_item.append *blocks
+                list_item.start = blocks.first.start.clone
+                list_item.end = blocks.last.end.clone
                 list.append list_item
                 back = @position
               end
@@ -779,9 +785,15 @@ class Byron
               break
             end
 
-            list.hasChildren
-          end # do |list|
-        end # if next_char == ' '
+            return false unless list.children?
+          end
+          #
+          ## do |list|
+
+        end
+        #
+        ## if next_char == ' '
+
       end
     end
     #
@@ -842,7 +854,7 @@ class Byron
     ##
 
     ##
-    # Read one or more equally-indented block nodes. White lines around blocks
+    # Read one or more equally-indented block nodes. Empty lines around blocks
     # are ignored.
     #
     def read_blocks
@@ -850,10 +862,7 @@ class Byron
       blocks = []
 
       loop do
-        unless block = read_block
-          move_to back
-          return nil
-        end
+        break unless block = read_block
 
         yield block
 
@@ -865,11 +874,11 @@ class Byron
           skip_empty_lines
           skip_indentation
         rescue
-          move_to back
-          return nil
+          break
         end
       end
 
+      move_to back
       blocks
     end
     #
@@ -910,15 +919,16 @@ class Byron
     # Read the document itself.
     #
     def read_document
-      document = Text::Document.new
-      # document.meta = read_meta
-      document.body = read_section
-
-      document
+      if start_of_text?
+        make_node Text::Document do |document|
+          document.meta = read_meta
+          document.body = read_section
+        end
+      end
     end
 
     ##
-    # Scans a text.
+    # Scans a text structure.
     #
     # This method will scan the passed `text` and return, when successfully, a
     # `Document` instance containing the structure of the text.
@@ -930,7 +940,7 @@ class Byron
     #
     ##
 
-    protected :prepare, :make_node
+    protected :prepare, :make_node, :read_document
 
   end # class Scanner
 

@@ -114,19 +114,18 @@ class Byron
       #
       ## class Byron::Grammar:Features::Features
 
-      def init_features
-        @features = @@features.clone
-      end
-
       def features
-        @features || init_features
+        @features || (@features = @@features.clone)
       end
 
       ##
       #
       #
       def self.included (other)
-        other.features ||= Features.new
+        class << other
+          attr_reader :features
+          @@features ||= Features.new
+        end
       end
       #
       ##
