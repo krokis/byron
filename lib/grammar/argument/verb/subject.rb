@@ -2,7 +2,7 @@ require_relative 'specifier'
 
 class Byron
   module Grammar
-    module Subject < VerbSpecifier
+    class Subject < VerbSpecifier
     end
   end
 end

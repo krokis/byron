@@ -1,3 +1,5 @@
+require_relative '../plugin'
+
 class Byron
   ##
   #
@@ -7,7 +9,7 @@ class Byron
     parses = nil
 
     class << self
-      attr_accessor :parses
+      attr_reader :parses
     end
 
     def initialize
@@ -37,8 +39,6 @@ class Byron
     def parse
       raise 'Oops'
     end
-
-    private :parses=
   end
   #
   ## class Byron::ParserDelegate
