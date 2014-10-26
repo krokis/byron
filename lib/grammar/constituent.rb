@@ -1,6 +1,7 @@
 require_relative 'features'
 
 class Byron
+
   module Grammar
 
     ##
@@ -11,7 +12,7 @@ class Byron
       #
       include Features
 
-      def initialize(head = nil, argument = nil, features = nil)
+      def initialize (head = nil, argument = nil, features = nil)
         @head = head
         @argument = argument
 
@@ -31,15 +32,41 @@ class Byron
       #
       ##
 
-      def agrees (other, features = nil)
+      ##
+      # Tell if this constituent has any children (a head or an argument).
+      #
+      def children?
+        !!(@head || @argument)
       end
+      #
+      ##
 
+      ##
+      #
+      #
+      def agrees? (other, features = nil)
+      end
+      #
+      ##
+
+      ##
+      #
+      #
       def walk
       end
+      #
+      ##
 
+      ##
+      #
+      #
       def to_s
         "#{@source}"
       end
+      #
+      ##
+
+      alias_method :is?, :kind_of?
 
     end
     #

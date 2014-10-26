@@ -1,6 +1,6 @@
 class Byron
   module Grammar
-    module Feature
+    module Category
       module Adjective
       end
     end

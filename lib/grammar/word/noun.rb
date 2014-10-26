@@ -1,10 +1,14 @@
-require_relative '../feature/noun'
 require_relative '../word'
+require_relative '../category/noun'
+require_relative '../feature/uniqueness'
+require_relative '../feature/regularity'
 
 class Byron
   module Grammar
     class Noun < Word
-      include Feature::NOUN
+      include Category::Noun
+      include Feature::Uniqueness
+      include Feature::Regularity
     end
   end
 end

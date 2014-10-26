@@ -1,7 +1,7 @@
 class Byron
   module Grammar
-    module Feature
-      module Adverb
+    module Category
+      module Preposition
       end
     end
   end

@@ -1,18 +1,16 @@
 require_relative 'person'
 require_relative 'number'
 require_relative 'tense'
-require_relative 'regularity'
 require_relative 'transitiveness'
 
 class Byron
   module Grammar
-    module Feature
+    module Catehory
       module Verb
-        include Person
-        include Number
-        include Tense
-        include Regularity
-        include Transitiveness
+        include Feature::Person
+        include Feature::Number
+        include Feature::Tense
+        include Feature::Transitiveness
 
         # def linking?
         # def defective?

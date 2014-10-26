@@ -6,10 +6,10 @@ class Byron
 
       module Aspect
         ASPECTS = [
-          'present-simple',
-          'present-progressive',
-          'present-perfect',
-          'present-perfect-progresive'
+          'present_simple',
+          'present_progressive',
+          'present_perfect',
+          'present_perfect_progresive'
           # ...
         ]
       end

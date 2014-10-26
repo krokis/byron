@@ -4,11 +4,9 @@ require_relative 'regularity'
 
 class Byron
   module Grammar
-    module Feature
+    module Category
       module Noun
-        include Number
-        include Uniqueness
-        include Regularity
+        include Feature::Number
       end
     end
   end
