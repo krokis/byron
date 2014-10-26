@@ -1,10 +1,24 @@
 ##
 # Todo:
 # - Code blocks children should be an array of *lines* or something.
+# - Setext headings.
+# - Quotation blocks.
+# - Links.
+# - Breaks.
+# - YAML front-matter.
 # - Ordered lists.
 # - Important nodes inside code blocks coments. Extensions should provide
 #   this.
-# - Important blocks
+# - Important blocks:
+#
+#      ***
+#      Everything here is considered important.
+#
+#      This is important too.
+#      ***
+#
+#      But this isn't.
+#
 # - String blocks?
 #
 #       """
@@ -18,7 +32,6 @@
 # - Sections; matching with headings.
 # - Tables?
 # - Literals
-# - The scanner should be extensible with new node classes!!
 # - All the other TODOs
 ##
 
@@ -542,7 +555,7 @@ class Byron
           move_to_next_line
 
           loop do
-            if fence == next_chars(3)
+            if fence == (next_chars 3)
               move 3
               break
             elsif end_of_text?

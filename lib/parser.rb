@@ -1,7 +1,9 @@
+require_relative 'plugin'
 require_relative 'lexer'
 require_relative 'discourse'
 require_relative 'grammar/constituent'
 require_relative 'grammar/sentence'
+require_relative 'lexicon'
 
 class Byron
 
@@ -13,30 +15,14 @@ class Byron
     ##
     #
     #
-    class Delegate
-
-      def initialize
-        @parser = nil
-      end
-
-      def method_missing (method, *args)
-        @parser.send method, *args
-      end
-
-      def respond_to_missing?(name, include_private = false)
-        @parser && (@parser.respond_to? name, include_private)
-      end
-
-    end
-    #
-    ## class Byron::Parser::Delegate
-
     def initialize
       super
       @delegates = []
-      @lexicon = nil
+      @lexicon = Lexicon.new
       prepare
     end
+    #
+    ##
 
     ##
     #
@@ -61,11 +47,14 @@ class Byron
     ##
     # Add a delegate to this parser.
     #
-    def delegate(type, cls)
+    def delegate(kind, parser)
     end
     #
     ##
 
+    ##
+    #
+    #
     def get_delegates(type, &block)
       delegates = []
 
@@ -79,6 +68,8 @@ class Byron
 
       return delegates
     end
+    #
+    ##
 
     ##
     # Parse a grammar constituent of given `type`.
@@ -88,7 +79,9 @@ class Byron
       yielt = []
 
       get_delegates type do |delegate|
+
         move_to old_node
+
         delegate.parse do |constituent|
           begin
             yield constituent
@@ -96,11 +89,12 @@ class Byron
             yielt << constituent
           end
         end
+
       end
 
       if yielt.length == 1
         move_to new_node
-        return yielt[0]
+        return yielt.first
       end
 
       move_to old_node

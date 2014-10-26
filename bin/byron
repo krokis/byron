@@ -56,7 +56,7 @@ OptionParser.new do |opts|
 
 end.parse!
 
-def evaluate(text)
+def evaluate text
   begin
     discourse = $byron.scan text
     puts discourse.to_yaml
@@ -67,7 +67,8 @@ def evaluate(text)
 end
 
 ARGV.each do |file|
-  puts file
+  contents = File.read file
+  evaluate text
 end
 
 if repl

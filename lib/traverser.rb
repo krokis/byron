@@ -22,16 +22,6 @@ class Byron
     ##
 
     ##
-    # Tell if current node or one of its ancestors is considered "important",
-    # ie: it is a `Text::Important`.
-    #
-    def important?
-      true
-    end
-    #
-    ##
-
-    ##
     # Move to a particular node in the document.
     #
     def move_to (node)

@@ -1,6 +1,7 @@
-require_relative 'text/inline/character'
 require_relative 'traverser'
 require_relative 'token'
+require_relative 'text/important'
+require_relative 'text/inline/character'
 
 class Byron
 
@@ -9,24 +10,36 @@ class Byron
   #
   class Lexer < Traverser
 
-    # Punctuation characters
+    # Known punctuation characters
     PUNCTUATION = '\\.,:;'
 
     ##
-    # Try to read a single `Character` node and return its text. In case of
-    # failure, an exception is raised.
+    # Tell if current node or one of its ancestors is considered "important",
+    # ie: it is of kind `Text::Important`.
+    #
+    def important?
+      !(@node.ancestor Text::Important).nil?
+    end
+    #
+    ##
+
+    ##
+    # Try to read a single important `Character` node and return its text. In
+    # case of failure, an exception is raised.
     #
     def read_character (ignore_whitespace = false)
       if important?
         begin
-          if char = (get_atomic_node Text::Character)
-            Token.new char.text, char, char
-          end
+          char = get_atomic_node Text::Character
+          return Token.new char.text, char, char
+        rescue
         end
       end
 
       raise 'Cannot read a `Character`'
     end
+    #
+    ##
 
     ##
     # Try to read one or more significant `Character` nodes and return their
@@ -57,7 +70,8 @@ class Byron
 
     ##
     # Try to read one or more significant `Character` nodes until one matches
-    # one of the passed `delim` characters. In case of failure, a `LexerFail` is thrown.
+    # one of the passed `delim` characters. In case of failure, a `LexerFail` is
+    # thrown.
     #
     def read_characters_until (delim, ignore_whitespace = false)
       start = @node
