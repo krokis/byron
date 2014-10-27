@@ -7,6 +7,9 @@ class Byron
   ##
   #
   class SentenceParser < ParserDelegate
+
+    PARSES = Grammar::Sentence
+
     def parse
       parse_a Grammar::MainClause do |clause|
         yield (Grammar::Sentence.new clause)

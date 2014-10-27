@@ -1,12 +1,19 @@
 class Byron
   module Grammar
     module Feature
+
+      ##
+      #
+      #
       module Gender
-        GENDERS = [
-          'male',
-          'female'
-        ]
+        MALE    = :male
+        FEMALE  = :female
+
+        VALUES = [MALE, FEMALE]
       end
+      #
+      ##
+
     end
   end
 end

@@ -7,8 +7,8 @@ class Byron
       #
       module Number
 
-        SINGULAR = 1
-        PLURAL   = 2
+        SINGULAR = :singular
+        PLURAL   = :plural
 
         VALUES = [SINGULAR, PLURAL]
 

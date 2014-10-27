@@ -1,6 +1,6 @@
-require_relative 'number'
-require_relative 'uniqueness'
-require_relative 'regularity'
+require_relative '../feature/number'
+require_relative '../feature/uniqueness'
+require_relative '../feature/regularity'
 
 class Byron
   module Grammar

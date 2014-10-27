@@ -6,11 +6,12 @@ class Byron
   #
   class ParserDelegate < Plugin
 
-    parses = nil
-
-    class << self
-      attr_reader :parses
-    end
+    ##
+    # The kind of constituent this delegate can parse.
+    #
+    PARSES = nil
+    #
+    ##
 
     def initialize
       @parser = nil
@@ -20,9 +21,9 @@ class Byron
     #
     #
     def use (byron)
-      if @@parses
+      if parses = self.class::PARSES
         @parser = byron.parser
-        @parser.delegate @@parses, self
+        @parser.delegate parses, self
       end
     end
     #

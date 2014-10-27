@@ -1,14 +1,19 @@
 class Byron
   module Grammar
     module Feature
+
+      ##
+      #
       module Person
-        PERSONS = [
-          'first'
-          'second'
-          'third'
-          'impersonal'
-        ]
+        FIRST      = :first
+        SECOND     = :second
+        THIRD      = :third
+        NONE       = :none
+        IMPERSONAL = NONE
       end
+      #
+      ##
+
     end
   end
 end

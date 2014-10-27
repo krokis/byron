@@ -3,6 +3,7 @@ require_relative 'parser'
 require_relative 'evaluator'
 require_relative 'text/document'
 require_relative 'grammar/constituent'
+require_relative 'elementary'
 
 ##
 # The core `Byron` class.
@@ -18,15 +19,24 @@ class Byron
   attr_reader :evaluator
 
   def initialize
-    @plugins = []
+    @plugins = {}
     @scanner = Scanner.new
     @parser = Parser.new
     @evaluator = Evaluator.new
+
+    use Elementary
   end
 
   ##
   #
-  def use (*plugins)
+  def use (*classes)
+    classes.each do |plugin_class|
+      unless @plugins.has_key? plugin_class
+        plugin = plugin_class.new
+        plugin.use self
+        @plugins[plugin_class] = plugin
+      end
+    end
   end
   #
   ##

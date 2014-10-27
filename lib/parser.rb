@@ -55,7 +55,7 @@ class Byron
     ##
     #
     #
-    def get_delegates(type, &block)
+    def delegates_for (type, &block)
       delegates = []
 
       if block
@@ -78,7 +78,7 @@ class Byron
       old_node = new_node = @node
       yielt = []
 
-      get_delegates type do |delegate|
+      delegates_for type do |delegate|
 
         move_to old_node
 
@@ -141,7 +141,7 @@ class Byron
     #
     ##
 
-    protected :prepare, :sort_delegates, :get_delegates
+    protected :prepare, :sort_delegates, :delegates_for
 
     alias_method :parse_a, :parse_constituent
     alias_method :parse_an, :parse_a

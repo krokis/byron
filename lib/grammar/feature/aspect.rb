@@ -5,12 +5,15 @@ class Byron
     module Feature
 
       module Aspect
-        ASPECTS = [
-          'present_simple',
-          'present_progressive',
-          'present_perfect',
-          'present_perfect_progresive'
-          # ...
+
+        PRESENT_SIMPLE      = :present_simple
+        PRESENT_PROGRESSIVE = :present_progressive
+        # ...
+
+        VALUES = [
+          PRESENT_SIMPLE,
+          PRESENT_PROGRESSIVE,
+          #...
         ]
       end
 

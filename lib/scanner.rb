@@ -44,7 +44,9 @@ require_relative 'text/location'
 # All known nodes
 #
 require_relative 'text/inline/emphasis'
+require_relative 'text/inline/more_emphasis'
 require_relative 'text/inline/important'
+require_relative 'text/inline/more_important'
 require_relative 'text/inline/link'
 require_relative 'text/inline/character'
 require_relative 'text/inline/literal/code'
@@ -282,9 +284,10 @@ class Byron
 
       if false != (yield node)
         unless node.end
-          #move -1
+          # So uncool
+          move -1
           node.end = location
-          #move
+          move
         end
 
         node
@@ -589,7 +592,9 @@ class Byron
         l = next_char == '_' ? 2 : 1
         eoe = chars l
 
-        make_node Text::Emphasis do |em|
+        cls = l == 1 ? Text::Emphasis : Text::MoreEmphasis
+
+        make_node cls do |emphasis|
           move l
 
           until eoe == (chars l) do
@@ -695,7 +700,9 @@ class Byron
         l = next_char == '*' ? 2 : 1
         eoi = chars l
 
-        make_node Text::Important do |important|
+        cls = l == 1 ? Text::ImportantSpan : Text::MoreImportantSpan
+
+        make_node cls do |important|
           move l
 
           until eoi == (chars l) do

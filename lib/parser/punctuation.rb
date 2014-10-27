@@ -1,5 +1,6 @@
 require_relative 'delegate'
 
 class Byron
-  class CoordinationParser < ParserDelegate
+  class PunctuationParser < ParserDelegate
+  end
 end

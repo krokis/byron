@@ -10,6 +10,21 @@ class Byron
       class Features
 
         ##
+        # Kinda borrowed from Rails:
+        # http://stackoverflow.com/a/1509939/1966690
+        #
+        # Ruby on Rails is released under the MIT License.
+        #
+        def snake_case (str)
+          str
+            .gsub(/::/, '/')
+            .gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
+            .gsub(/([a-z\d])([A-Z])/,'\1_\2')
+            .tr('-', '_')
+            .downcase
+        end
+
+        ##
         #
         def has (feature)
           @features && (@features.has_key? feature)
@@ -69,12 +84,16 @@ class Byron
           unless has feature
             @features ||= {}
 
-            @features[feature] = {
+            feat = ((defined? feature::NAME) ?
+              feature::NAME : feature.name).to_sym
+
+            @features[feat] = {
               default: nil,
               value: nil
             }
+
           else
-            raise "Cannot redeclare feature '#{feature}'"
+            raise "Cannot redeclare feature '#{feat}'"
           end
         end
         #
@@ -83,9 +102,9 @@ class Byron
         ##
         # Get default value of feature.
         #
-        def default (feature)
+        def default (feat)
           if has feature
-            return @features[features].default
+            return @features[feat].default
           end
 
           raise "Unknown feature: '#{feature}'"
@@ -117,6 +136,14 @@ class Byron
       def features
         @features || (@features = @@features.clone)
       end
+
+      ##
+      #
+      def features
+        @features || (@features = @@features.clone)
+      end
+      #
+      ##
 
       ##
       #
