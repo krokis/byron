@@ -9,10 +9,11 @@ class Byron
     #
     class Lexeme < Constituent
 
+      attr_reader :category
       attr_reader :lemma
       attr_reader :forms
 
-      def initialize (lemma, features, forms)
+      def initialize (category, lemma, features, forms)
         @lemma = lemma
       end
 

@@ -1,10 +1,10 @@
 require_relative '../phrase'
-require_relative '../category/adjective'
+require_relative '../category/adjectival'
 
 class Byron
   module Grammar
     class AdjectivePhrase < Phrase
-      include Category::Adjective
+      include Category::Adjectival
     end
   end
 end
