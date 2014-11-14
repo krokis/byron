@@ -10,13 +10,14 @@ class Byron
     class Lexeme < Constituent
 
       attr_reader :lemma
+      attr_reader :forms
 
-      def initialize (lemma, forms)
+      def initialize (lemma, features, forms)
         @lemma = lemma
       end
 
       def to_s
-        @@LEMMA
+        @lemma
       end
     end
     #

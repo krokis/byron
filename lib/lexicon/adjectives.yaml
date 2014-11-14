@@ -1,5 +1,2 @@
-- kind: Adjective
-  lemma: 'cool'
-
-- kind: Adjective
-  lemma: 'awesome'
+- lemma: 'cool'
+- lemma: 'awesome'

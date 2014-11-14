@@ -1,13 +1,31 @@
-- kind: Verb
-  lemma: 'be'
+- lemma: 'rock'
+  regular: true
+
+- lemma: 'be'
   linking: true
   regular: false
   forms:
-    - 'be'
-    - 'being'
-    - 'been'
-    - 'am'
-    - 'is'
-    - 'are'
-    - 'was'
-    - 'were'
+    be: infinitive
+    being: present_participle
+    been: past_participle
+    am:
+      person: fisrt
+      tense: present
+    is:
+      person: third
+      tense: present
+    are:
+      - person: second
+        number: singular
+        tense: present
+      - person: first
+        number: plural
+        tense: present
+      - person: second
+        number: plural
+        tense: present
+      - person: third
+        number: plural
+        tense: present
+    was:
+    were:
