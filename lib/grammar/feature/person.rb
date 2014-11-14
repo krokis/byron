@@ -11,8 +11,6 @@ class Byron
         NONE       = :none
         IMPERSONAL = NONE
       end
-      #
-      ##
 
     end
   end

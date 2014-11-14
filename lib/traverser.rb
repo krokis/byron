@@ -6,8 +6,8 @@ require_relative 'text/document'
 class Byron
 
   ##
-  # This _abstract_ class can take a text `Document` and traverse its nodes.
-  # This is the base for the `Lexer` class.
+  # This is the base for the `Lexer` class, to which provides methods to
+  # traverse a text `Document`.
   #
   class Traverser
 
@@ -18,8 +18,6 @@ class Byron
       @document = document
       @node = document ? document.body : nil
     end
-    #
-    ##
 
     ##
     # Move to a particular node in the document.
@@ -28,8 +26,6 @@ class Byron
       old, @node = @node, node
       old
     end
-    #
-    ##
 
     ##
     # Move to next node.
@@ -37,8 +33,6 @@ class Byron
     def move
       move_to @node.next
     end
-    #
-    ##
 
     ##
     # Try to consume a node of given `type`.
@@ -50,8 +44,6 @@ class Byron
 
       move
     end
-    #
-    ##
 
     ##
     # Try to consume a node of given `type` or return `nil`.
@@ -61,8 +53,6 @@ class Byron
         get_node type
       end
     end
-    #
-    ##
 
     ##
     # Returns `true` if current node starts a block. This can also tell if last
@@ -79,8 +69,6 @@ class Byron
     def end_of_block? (node = @node)
       return true if end_of_text? || !node || !node.parent
     end
-    #
-    ##
 
     ##
     # Return `true` if the end of the document has been reached.
@@ -88,8 +76,6 @@ class Byron
     def end_of_text?
       !@node
     end
-    #
-    ##
 
     ##
     # Ascend current node ancestors until a node of `type` is found.
@@ -101,8 +87,6 @@ class Byron
         raise 'Cannot ascend'
       end
     end
-    #
-    ##
 
     ##
     # Move to a `type` descendant of current node.
@@ -116,8 +100,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     #
@@ -128,10 +110,7 @@ class Byron
     end
     ##
     #
-    #
-
-    ##
-    # Consume an inline node of given `type`. If current node is a block one,
+        # Consume an inline node of given `type`. If current node is a block one,
     # then descend down to an inline node.
     ##
     def get_inline_node (type = Text::Inline, ignore_whitespace = false)
@@ -139,8 +118,6 @@ class Byron
       skip_whitespace if ignore_whitespace
       get_node type
     end
-    #
-    ##
 
     ##
     # Consume an atomic node of given `type`. If current node is not of `Atomic`
@@ -152,13 +129,9 @@ class Byron
       skip_whitespace if ignore_whitespace
       get_node type
     end
-    #
-    ##
 
   end
   #
-  ## class Byron::Traverser
+  ## class Traverser
 
 end
-#
-### class Byron

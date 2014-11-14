@@ -1,3 +1,6 @@
+# Std-lib
+require 'yaml'
+
 class Byron
 
   ##
@@ -9,19 +12,26 @@ class Byron
     #
     #
     def initialize
+      @lexemes = []
       @words = {}
     end
-    #
-    ##
 
     ##
-    # Add a word to the lexicon.
+    # Add lexemes to the lexicon.
     #
-    def add (props)
+    def add (*lexemes)
+    end
 
-      category = props.c
+    ##
+    # Find a word (ie: a form of a lexeme).
+    #
+    def find (word = nil, kind = nil)
+    end
 
-
+    ##
+    #
+    #
+    def self.from_yaml (yaml, kind)
     end
     #
     ##
@@ -29,7 +39,7 @@ class Byron
     ##
     #
     #
-    def find (word)
+    def self.from_yaml_file (path, kind)
     end
     #
     ##

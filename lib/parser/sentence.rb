@@ -17,6 +17,6 @@ class Byron
     end
   end
   #
-  ##
+  ## class SentenceParser
 
 end

@@ -9,8 +9,6 @@ class Byron
     # Array of `Text::Sentence`s this `Discourse` is made of.
     #
     attr_accessor :sentences
-    #
-    ##
 
     ##
     #
@@ -18,13 +16,7 @@ class Byron
     def initialize
       @sentences = []
     end
-    #
-    ##
 
   end
-  #
-  ## class Byron::Discourse
 
 end
-#
-## class Byron

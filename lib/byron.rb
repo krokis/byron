@@ -1,6 +1,7 @@
 require_relative 'scanner'
 require_relative 'parser'
 require_relative 'evaluator'
+require_relative 'lexicon'
 require_relative 'text/document'
 require_relative 'grammar/constituent'
 require_relative 'elementary'
@@ -18,11 +19,21 @@ class Byron
   attr_reader :parser
   attr_reader :evaluator
 
+  ##
+  #
+  #
+  def lexicon
+    @parser.lexicon
+  end
+
+  ##
+  #
   def initialize
     @plugins = {}
     @scanner = Scanner.new
     @parser = Parser.new
     @evaluator = Evaluator.new
+    @lexicon = Lexicon.new
 
     use Elementary
   end
@@ -38,8 +49,6 @@ class Byron
       end
     end
   end
-  #
-  ##
 
   def scan (text)
     unless text.kind_of? String
@@ -48,8 +57,6 @@ class Byron
 
     @scanner.scan text
   end
-  #
-  ##
 
   def parse (text)
     if text.kind_of? String
@@ -62,8 +69,6 @@ class Byron
 
     @parser.parse text
   end
-  #
-  ##
 
   ##
   #
@@ -83,8 +88,4 @@ class Byron
 
     @evaluator.evaluate text
   end
-  #
-  ##
 end
-#
-## class Byron

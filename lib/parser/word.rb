@@ -9,10 +9,10 @@ class Byron
     #
     #
     def parse
-      #search = word: read_word, kind: self.class.PARSES
-      #@parser.lexicon.find **search, word: word do |lexeme|
-      @parser.lexicon.find kind: self.class.PARSES, word: word do |lexeme|
-        yield self.class.PARSES.new search
+      if parses = self.class.PARSES
+        @parser.lexicon.find kind: parses do |word|
+          yield (parses.new word)
+        end
       end
     end
     #

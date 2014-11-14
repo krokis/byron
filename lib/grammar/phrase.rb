@@ -1,8 +1,8 @@
-require_relative 'constituent'
+require_relative 'branch'
 
 class Byron
   module Grammar
-    class Phrase < Constituent
+    class Phrase < Branch
     end
   end
 end

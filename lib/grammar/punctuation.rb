@@ -1,8 +1,8 @@
-require_relative 'constituent'
+require_relative 'leaf'
 
 class Byron
   module Grammar
-    class Punctuation < Constituent
+    class Punctuation < Leaf
     end
   end
 end

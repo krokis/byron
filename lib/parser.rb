@@ -15,14 +15,12 @@ class Byron
     ##
     #
     #
-    def initialize
+    def initialize (lexicon = nil)
       super
+      @lexicon = lexicon || Lexicon.new
       @delegates = []
-      @lexicon = Lexicon.new
       prepare
     end
-    #
-    ##
 
     ##
     #
@@ -30,27 +28,21 @@ class Byron
     def sort_delegates
       @delegates.sort! { |a, b| a <=> b } # Uh?
     end
-    #
-    ##
 
     ##
     #
     #
-    def prepare(document = nil)
+    def prepare (document = nil)
       super
       @stack = []
       sort_delegates
     end
-    #
-    ##
 
     ##
     # Add a delegate to this parser.
     #
-    def delegate(kind, parser)
+    def delegate (kind, parser)
     end
-    #
-    ##
 
     ##
     #
@@ -68,13 +60,11 @@ class Byron
 
       return delegates
     end
-    #
-    ##
 
     ##
     # Parse a grammar constituent of given `type`.
     #
-    def parse_constituent(type = Grammar::Constituent)
+    def parse_constituent (type = Grammar::Constituent)
       old_node = new_node = @node
       yielt = []
 
@@ -105,14 +95,12 @@ class Byron
         raise "Could not parse a #{type}"
       end
     end
-    #
-    ##
 
     ##
     # Parse a text passed as a `Document` object and return its syntactic
-    # representation as a `Speech` instance.
+    # representation as a `Discourse`.
     #
-    def parse(document)
+    def parse (document)
       prepare document
 
       discourse = Discourse.new
@@ -138,8 +126,6 @@ class Byron
 
       return discourse
     end
-    #
-    ##
 
     protected :prepare, :sort_delegates, :delegates_for
 
@@ -148,8 +134,6 @@ class Byron
 
   end
   #
-  ## class Byron::Parser
+  ## class Parser
 
 end
-#
-## class Byron

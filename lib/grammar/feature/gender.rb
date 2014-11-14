@@ -8,11 +8,10 @@ class Byron
       module Gender
         MALE    = :male
         FEMALE  = :female
+        NEUTER  = :neuter
 
-        VALUES = [MALE, FEMALE]
+        GENDERS = [MALE, FEMALE, NEUTER]
       end
-      #
-      ##
 
     end
   end

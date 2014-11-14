@@ -1,0 +1,13 @@
+- kind: Verb
+  lemma: 'be'
+  linking: true
+  regular: false
+  forms:
+    - 'be'
+    - 'being'
+    - 'been'
+    - 'am'
+    - 'is'
+    - 'are'
+    - 'was'
+    - 'were'

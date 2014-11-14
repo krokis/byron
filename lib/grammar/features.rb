@@ -1,5 +1,4 @@
 class Byron
-
   module Grammar
 
     ##
@@ -7,6 +6,9 @@ class Byron
     #
     module Features
 
+      ##
+      #
+      #
       class Features
 
         ##
@@ -29,8 +31,6 @@ class Byron
         def has (feature)
           @features && (@features.has_key? feature)
         end
-        #
-        ##
 
         ##
         #
@@ -41,8 +41,6 @@ class Byron
             raise "Unknown feature: '#{feature}'"
           end
         end
-        #
-        ##
 
         ##
         # Set feature value.
@@ -65,8 +63,6 @@ class Byron
         def [] (feature)
           get feature
         end
-        #
-        ##
 
         ##
         #
@@ -74,8 +70,6 @@ class Byron
         def []= (feature, value)
           set feature, value
         end
-        #
-        ##
 
         ##
         #
@@ -96,8 +90,6 @@ class Byron
             raise "Cannot redeclare feature '#{feat}'"
           end
         end
-        #
-        ##
 
         ##
         # Get default value of feature.
@@ -109,8 +101,6 @@ class Byron
 
           raise "Unknown feature: '#{feature}'"
         end
-        #
-        ##
 
         ##
         # Set feature default value.
@@ -126,12 +116,16 @@ class Byron
             raise "Unknown feature: '#{feature}'"
           end
         end
-        #
+
         ##
+        #
+        #
+        def agrees? (other, features = nil)
+        end
 
       end
       #
-      ## class Byron::Grammar:Features::Features
+      ## class Features
 
       def features
         @features || (@features = @@features.clone)
@@ -142,8 +136,6 @@ class Byron
       def features
         @features || (@features = @@features.clone)
       end
-      #
-      ##
 
       ##
       #
@@ -154,17 +146,10 @@ class Byron
           @@features ||= Features.new
         end
       end
-      #
-      ##
 
     end
     #
-    ## class Byron::Grammar::Features
+    ##
 
   end
-  #
-  ## module Byron::Grammar
-
 end
-#
-## module Byron

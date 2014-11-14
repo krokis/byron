@@ -12,13 +12,17 @@ class Byron
       include Inline
       include Element
 
+      ##
+      #
+      #
       def can_append_child? (child)
         # Cannot append a non-inline child to an inline node.
         child.kind_of? Inline
       end
+
     end
     #
-    ##
+    ## class InlineElement
 
   end
 end

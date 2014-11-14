@@ -13,7 +13,7 @@ class Byron
       include Atomic
     end
     #
-    ##
+    ## class InlineAtomic
 
   end
 end

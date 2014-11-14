@@ -1,8 +1,14 @@
-require_relative 'constituent'
+require_relative 'branch'
 
 class Byron
   module Grammar
-    class Coordination < Constituent
+
+    ##
+    #
+    class Coordination < Branch
     end
+    #
+    ##
+
   end
 end

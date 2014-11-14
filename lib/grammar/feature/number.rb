@@ -43,8 +43,6 @@ class Byron
         end
 
       end
-      #
-      ##
 
     end
   end

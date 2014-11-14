@@ -10,29 +10,21 @@ class Byron
       # Holds a reference to node's parent, if any.
       #
       attr_accessor :parent
-      #
-      ##
 
       ##
-      # Start location.
+      # Start positeion.
       #
       attr_accessor :start
-      #
-      ##
 
       ##
-      # End location.
+      # End position.
       #
       attr_accessor :end
-      #
-      ##
 
       ##
       # Array of children of this node. Might be empty.
       #
       attr_accessor :children
-      #
-      ##
 
       ##
       # Tells if this node has any children.
@@ -40,8 +32,6 @@ class Byron
       def children?
         @children && !@children.empty?
       end
-      #
-      ##
 
       ##
       # Reference to the document this node belongs to. Note this getter will return
@@ -52,20 +42,16 @@ class Byron
       def document
         @parent ? @parent.document : @document
       end
-      #
-      ##
 
       ##
       # Set document of node.
       #
-      def document=(doc)
+      def document= (doc)
         if @parent
           raise 'Cannot set `parent` of a non-root node'
         end
         @document = doc
       end
-      #
-      ##
 
       ##
       # Holds node contents as a string.
@@ -78,8 +64,6 @@ class Byron
 
         str.length > 0 ? str : nil
       end
-      #
-      ##
 
       ##
       #
@@ -88,8 +72,6 @@ class Byron
         @children = []
         @document = nil
       end
-      #
-      ##
 
       ##
       # Check if a node can be added as a child of this node.
@@ -101,7 +83,7 @@ class Byron
       ##
       # Add one child to this node.
       #
-      def append_child(child)
+      def append_child (child)
         if can_append_child? child
           @children << child
           child.parent = self
@@ -109,26 +91,20 @@ class Byron
           raise "Cannot append #{child} to #{self}"
         end
       end
-      #
-      ##
 
       ##
       # Add one or more children to this node.
       #
-      def append(*children)
+      def append (*children)
         children.map { |child| append_child child }
         self
       end
-      #
-      ##
 
       ##
       #
       def index(child)
         @children.index child
       end
-      #
-      ##
 
 
       ##
@@ -138,8 +114,6 @@ class Byron
       def first_child?
         @parent && (@parent.index self) == 0
       end
-      #
-      ##
 
       ##
       # Returns `true` if the node has a parent and it's the only child or the
@@ -148,8 +122,6 @@ class Byron
       def last_child?
         @parent && (@parent.index self) == (@parent.children.length - 1)
       end
-      #
-      ##
 
       ##
       # Returns next node.
@@ -166,8 +138,6 @@ class Byron
 
         nil # Needed? :S
       end
-      #
-      ##
 
       ##
       # Returns previous node.
@@ -181,8 +151,6 @@ class Byron
           end
         end || nil
       end
-      #
-      ##
 
       ##
       # Search for a node of type `kind`, starting from the reference `node` and
@@ -200,8 +168,6 @@ class Byron
           node = node.parent
         end || nil
       end
-      #
-      ##
 
       ##
       # Search for a node of type `kind`, starting from the `reference` node and
@@ -233,8 +199,6 @@ class Byron
 
         nil # Needed? :S
       end
-      #
-      ##
 
       ##
       # Get a string representation of this node.
@@ -242,8 +206,6 @@ class Byron
       def to_s
         @content
       end
-      #
-      ##
 
 
       ##
@@ -251,17 +213,10 @@ class Byron
       #
       def to_json
       end
-      #
-      ##
 
     end
     #
     ## class Node
 
   end
-  #
-  ## module Text
-
 end
-#
-## module Byron

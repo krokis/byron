@@ -1,6 +1,8 @@
 require_relative 'element'
 
-module Byron::Text
-  class Link < InlineElement
+module Byron
+  module Text
+    class Link < InlineElement
+    end
   end
 end

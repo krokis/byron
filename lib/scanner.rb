@@ -7,8 +7,8 @@
 # - Breaks.
 # - YAML front-matter.
 # - Ordered lists.
-# - Important nodes inside code blocks coments. Extensions should provide
-#   this.
+# - Important nodes inside code blocks coments. Extensions should somehow parse
+#   their contents.
 # - Important blocks:
 #
 #      ***
@@ -18,6 +18,9 @@
 #      ***
 #
 #      But this isn't.
+#
+#   This allows us to create documents in which everything is important
+#   (closing `***` might be omitted).
 #
 # - String blocks?
 #
@@ -38,15 +41,11 @@
 # Std-lib
 require 'yaml'
 
-require_relative 'text/location'
-
 ##
 # All known nodes
 #
 require_relative 'text/inline/emphasis'
-require_relative 'text/inline/more_emphasis'
 require_relative 'text/inline/important'
-require_relative 'text/inline/more_important'
 require_relative 'text/inline/link'
 require_relative 'text/inline/character'
 require_relative 'text/inline/literal/code'
@@ -62,8 +61,6 @@ require_relative 'text/block/paragraph'
 require_relative 'text/block/quotation'
 require_relative 'text/block/section'
 require_relative 'text/document'
-#
-##
 
 class Byron
 
@@ -81,92 +78,24 @@ class Byron
     # equal to the length of text, it means the end of text has been reached.
     #
     attr_reader :position
-    #
-    ##
 
     ##
-    # Get current position, column and line in a `Location` object.
-    #
-    def location
-
-      # We save last calculated position in `@location`. See if it's at the same
-      # position as current position.
-      if @location.position != @position
-
-        # Calculate line and column of current position.
-        if @position > @length
-          @location.column = nil
-          @location.line = nil
-        else
-          position = [@position, @length - 1].min
-
-          if position > @location.position
-            lines = @text[@location.position..(position - 1)].split /\n+/
-            @location.line += lines.length - 1
-            @location.column = lines.last.length
-          else
-            lines = @text[position..(@location.position.- 1)].split /\n+/
-            @location.line -= lines.length - 1
-
-            if position > 0
-              if line_start = (@text.rindex  '\n', (position - 1))
-                @location.column = (position - line_start) + 1
-              else
-                @location.column = position
-              end
-            else
-              @location.column = 0
-            end
-          end
-        end
-
-        # Save for later
-        @location.position = @position
-      end
-
-      @location.clone
-    end
-    #
-    ## def location
-
-    ##
-    # Current column
-    #
-    def column
-      @location.column
-    end
-    #
-    ##
-
-    ##
-    # Current line.
-    #
-    def line
-      @location.line
-    end
-
-    ##
-    # Constructor
+    # Constructor...
     #
     def initialize
       prepare
     end
-    #
-    ##
 
     ##
     # Prepare state.
     #
-    def prepare(text = '')
+    def prepare (text = '')
       @text = text
       @length = @text.length
       @section = nil
       @indentation = []
       move_to 0 # This sets `@char` to `@text[0]` or `nil`
-      @location = Text::Location.new
     end
-    #
-    ##
 
     ##
     # Add a level of indentation.
@@ -174,8 +103,6 @@ class Byron
     def indent (ind)
       @indentation << ind
     end
-    #
-    ##
 
     ##
     # Remove last level of indentation.
@@ -183,8 +110,6 @@ class Byron
     def unindent
       @indentation.pop
     end
-    #
-    ##
 
     ##
     # Get current indentation as a string
@@ -192,34 +117,28 @@ class Byron
     def indentation
       @indentation.join ''
     end
-    #
-    ##
 
     ##
     # Move to given `position`.
     #
     def move_to (position)
-      unless position.between?(0, @length)
+      unless position.between? 0, @length
         raise "Cannot move to position #{position}"
       end
 
       @char = @text[@position = position]
     end
-    #
-    ##
 
     ##
     # Move `n` characters starting from current position.
     #
-    # The `n` number can be possitive to move forward, negative to move
-    # backwards or zero not to move at all. Defaults to `1`, which means
-    # `#move` advances one single position.
+    # The `n` number can be positive to move forward, negative to move
+    # backwards or zero to not move at all. Defaults to `1`, which means `#move`
+    # advances one single position.
     #
     def move (n = 1)
       move_to(@position + n)
     end
-    #
-    ##
 
     ##
     # Return `true` if the end of text has been reached; ie: current position is
@@ -228,8 +147,6 @@ class Byron
     def end_of_text?
       @position >= @length
     end
-    #
-    ##
 
     ##
     # Return `true` if at the beginning of the document.
@@ -237,8 +154,6 @@ class Byron
     def start_of_text?
       @position == 0
     end
-    #
-    ##
 
     ###
     # Return `true` if current position is the last on line; ie: if next
@@ -247,10 +162,10 @@ class Byron
     def end_of_line?
       end_of_text? || @char == '\n'
     end
-    #
-    ##
 
     ##
+    # Returns `true` if current position is at the end of a block, ie: it's at
+    # the end of the line and next non-empty line has a different indentation.
     #
     def end_of_block?
       if end_of_line?
@@ -263,14 +178,11 @@ class Byron
             end
           end
         end
-
         return true
       end
 
-      false
+      return false
     end
-    #
-    ##
 
     ##
     # Node maker.
@@ -279,25 +191,16 @@ class Byron
       start = @position
 
       node = kind.new
-      node.start = location
-      node.end = nil
+      node.start = @position
+      node.stop = nil
 
       if false != (yield node)
-        unless node.end
-          # So uncool
-          move -1
-          node.end = location
-          move
-        end
+        node.stop ||= @position
+        return nodenode
 
-        node
-      else
-        move_to start
-        nil
-      end
+      move_to start
+      nil
     end
-    #
-    ##
 
     ##
     # Return the character at given `position`.
@@ -318,12 +221,10 @@ class Byron
       length = [length, @length - from].min
       @text[from, length]
     end
-    #
-    ##
 
     ##
     # Returns next `n` characters, starting from current position, without
-    # changing it.
+    # moving.
     #
     # With default `n` being `1`, this function retrieves the very next
     # character, starting from current position.
@@ -331,8 +232,6 @@ class Byron
     def next_chars (n = 1)
       chars n, (@position + 1)
     end
-    #
-    ##
 
     ##
     # Returns the very next character.
@@ -340,8 +239,6 @@ class Byron
     def next_char
       next_chars 1
     end
-    #
-    ##
 
     ##
     # Move to the begining of the next line. If EOT is found before a line
@@ -356,8 +253,6 @@ class Byron
         raise 'Cannot move to next line: EOT found'
       end
     end
-    #
-    ##
 
     ##
     # Peek the entire current line without moving current position.
@@ -366,14 +261,12 @@ class Byron
       eol = (@text.index "\n", @position) || @length - 1
       chars (eol - @position), (@position - @column)
     end
-    #
-    ##
 
     ##
     # Peek next line without moving current position.
     #
     def next_line
-      # Find two line breaks
+      # Need to find two line breaks
       f = nil
       k = @position
 
@@ -389,13 +282,11 @@ class Byron
         k += 1
       end
     end
-    #
-    ##
 
     ##
-    # If __at the beginning__ of a line, skip any consequtive empty (whitespace
-    # only) lines, including current one and move to the start of the first
-    # non-whitespace line.
+    # If __at the beginning__ of a line, skip any consecutive empty (whitespace
+    # only) lines, including current one and move to the start of the first non-
+    # whitespace line.
     #
     def skip_empty_lines
       if @column != 0
@@ -413,8 +304,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Move forward until the current character is not one of the passed `chars`.
@@ -428,8 +317,6 @@ class Byron
 
       skipped if skipped.length > 0
     end
-    #
-    ##
 
     ##
     # Move forward until current character is one of the passed `chars` or end
@@ -445,8 +332,6 @@ class Byron
 
       skipped if skipped.length > 0
     end
-    #
-    ##
 
     ##
     # Move forward until current character is one of the passed `chars` or end
@@ -462,8 +347,6 @@ class Byron
 
       skipped if skipped.length > 0
     end
-    #
-    ##
 
     ##
     # Skip any horizontal spacing.
@@ -471,8 +354,6 @@ class Byron
     def skip_spaces
       skip_chars " \t"
     end
-    #
-    ##
 
     ##
     # Read an atx-style heading.
@@ -495,16 +376,12 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read a "setext" heading.
     #
     def read_setext_heading
     end
-    #
-    ##
 
     ##
     # Read an "atx" or "setext" heading.
@@ -513,8 +390,6 @@ class Byron
       read_atx_heading ||
       read_setext_heading
     end
-    #
-    ##
 
     ##
     # Read a character node.
@@ -527,8 +402,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     #
@@ -536,16 +409,12 @@ class Byron
       move_to_next_line
       ''
     end
-    #
-    ##
 
     ##
     # Read an indented `CodeBlock`.
     #
     def read_indented_code_block
     end
-    #
-    ##
 
     ##
     # Read a _fenced_ `CodeBlock`.
@@ -571,8 +440,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read a `CodeBlock`.
@@ -581,20 +448,17 @@ class Byron
       read_fenced_code_block ||
       read_indented_code_block
     end
-    #
-    ##
 
     ##
-    # Read an `Emphasis` (_lorem_) or `MoreEmphasis` (__ipsum__) node.
+    # Read an `Emphasis` (_lorem_ or __lorem__) node.
     #
     def read_emphasis
       if @char == '_'
         l = next_char == '_' ? 2 : 1
         eoe = chars l
 
-        cls = l == 1 ? Text::Emphasis : Text::MoreEmphasis
-
-        make_node cls do |emphasis|
+        make_node Text::Emphasis do |emphasis|
+          emphasis.strong? = l == 2
           move l
 
           until eoe == (chars l) do
@@ -611,8 +475,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read a `StringLiteral` node.
@@ -637,8 +499,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read a `NumberLiteral` node.
@@ -650,8 +510,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read an inline `Code` node.
@@ -670,8 +528,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read any kind of atomic literal node.
@@ -681,16 +537,12 @@ class Byron
       read_string_literal ||
       read_number_literal
     end
-    #
-    ##
 
     ##
     # Read a link node.
     #
     def read_link
     end
-    #
-    ##
 
     ##
     # Read an inline *important* node.
@@ -700,9 +552,7 @@ class Byron
         l = next_char == '*' ? 2 : 1
         eoi = chars l
 
-        cls = l == 1 ? Text::ImportantSpan : Text::MoreImportantSpan
-
-        make_node cls do |important|
+        make_node Text::ImportantSpan do |important|
           move l
 
           until eoi == (chars l) do
@@ -719,8 +569,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read an `Inline` node unless current character is at the end of the block.
@@ -734,8 +582,6 @@ class Byron
         read_character
       end
     end
-    #
-    ##
 
     ##
     # Read a `Paragraph` node.
@@ -752,16 +598,12 @@ class Byron
         return false unless paragraph.children?
       end
     end
-    #
-    ##
 
     ##
     # Read an ordered list.
     #
     def read_ordered_list
     end
-    #
-    ##
 
     ##
     # Read an unordered list.
@@ -787,7 +629,7 @@ class Byron
                 list_item = Text::ListItem.new
                 list_item.append *blocks
                 list_item.start = blocks.first.start.clone
-                list_item.end = blocks.last.end.clone
+                list_item.stop = blocks.last.stop
                 list.append list_item
                 back = @position
               end
@@ -807,17 +649,11 @@ class Byron
 
             return false unless list.children?
           end
-          #
-          ## do |list|
 
         end
-        #
-        ## if next_char == ' '
 
       end
     end
-    #
-    ##
 
     ##
     # Read a `List` node, either an `UnorderedList` or an `OrderedList`.
@@ -826,18 +662,16 @@ class Byron
       read_unordered_list ||
       read_ordered_list
     end
-    #
-    ##
 
     ##
     #
     #
     def read_quotation_block
     end
-    #
-    ##
 
     ##
+    # Expect current indentation at the begining of a line and skip it. If a
+    # different indentation is found, an exception is raised.
     #
     def skip_indentation
       indent = indentation
@@ -849,15 +683,17 @@ class Byron
 
       move(i - @column)
     end
-    #
-    ##
 
     ##
+    # Read a `Break` node.
+    #
+    # Only hyphens (`---`) and underscores (`___`) allowed.
     #
     def read_break
+      if start_of
+      if ['```', '~~~~'].include? fence
+
     end
-    #
-    ##
 
     ##
     # Read a `Block` level node.
@@ -870,8 +706,6 @@ class Byron
       read_break ||
       read_paragraph
     end
-    #
-    ##
 
     ##
     # Read one or more equally-indented block nodes. Empty lines around blocks
@@ -901,8 +735,6 @@ class Byron
       move_to back
       blocks
     end
-    #
-    ##
 
     ##
     # Start a `Section` node and read its contents.
@@ -923,8 +755,6 @@ class Byron
         end
       end
     end
-    #
-    ##
 
     ##
     # Read meta data from document YAML front matter.
@@ -932,8 +762,6 @@ class Byron
     def read_meta
       {}
     end
-    #
-    ##
 
     ##
     # Read the document itself.
@@ -953,15 +781,15 @@ class Byron
     # This method will scan the passed `text` and return, when successfully, a
     # `Document` instance containing the structure of the text.
     #
-    def scan(text)
+    def scan (text)
       prepare text
       read_document
     end
-    #
-    ##
 
     protected :prepare, :make_node, :read_document
 
-  end # class Scanner
+  end
+  #
+  ## class Scanner
 
 end # class Byron

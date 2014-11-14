@@ -1,7 +1,7 @@
-require_relative '../noun'
+require_relative 'undetermined'
 
 class Byron
-  class AdjectivedNounPhraseParser < NounPhraseParser
+  class AdjectivedNounPhraseParser < UndeterminedNounPhraseParser
   end
 end
 

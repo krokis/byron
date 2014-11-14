@@ -20,8 +20,6 @@ class Byron
     def important?
       !(@node.ancestor Text::Important).nil?
     end
-    #
-    ##
 
     ##
     # Try to read a single important `Character` node and return its text. In
@@ -38,8 +36,6 @@ class Byron
 
       raise 'Cannot read a `Character`'
     end
-    #
-    ##
 
     ##
     # Try to read one or more significant `Character` nodes and return their
@@ -55,18 +51,16 @@ class Byron
         while char = read_character
           token.text << char.text
           token.start ||= token.start
-          token.end = char.end
+          token.stop = char.stop
         end
       end
 
-      return token if token.end
+      return token if token.stop
 
       move_to start
 
       raise 'Cannot read any `Character`'
     end
-    #
-    ##
 
     ##
     # Try to read one or more significant `Character` nodes until one matches
@@ -101,8 +95,6 @@ class Byron
       move_to start
       raise 'Cannot read any `Character`'
     end
-    #
-    ##
 
     ##
     # Try to read one or more significant whitespace characters.
@@ -112,15 +104,13 @@ class Byron
         begin
           node = get_atomic_node Text::Character
           if node.text.strip == ''
-            Token.new node.text, node.start, node.end
+            Token.new node.text, node.start, node.stop
           end
         end
       end
 
       raise 'Cannot read a whitespace node'
     end
-    #
-    ##
 
     ##
     # Skip any consequitive significant whitespace characters.
@@ -131,8 +121,6 @@ class Byron
       rescue
       end
     end
-    #
-    ##
 
     ##
     # Read consecutive non-punctuation characters inside an important element.
@@ -140,8 +128,6 @@ class Byron
     def read_word (ignore_whitespace = true)
       read_characters_until @@PUNCTUATION, ignore_whitespace
     end
-    #
-    ##
 
     ##
     # Read a significant punctuation character
@@ -156,8 +142,6 @@ class Byron
 
       raise 'Cannot read a `Punctuation`'
     end
-    #
-    ##
 
     ##
     # Read non significative (not inside an *important* node) `Character` or
@@ -184,8 +168,6 @@ class Byron
 
       chars.length > 0 ? chars : nil
     end
-    #
-    ##
 
     ##
     # Skip blah tokens.
@@ -195,13 +177,8 @@ class Byron
         read_blah
       end
     end
-    #
-    ##
-
   end
   #
-  ## class Lexer
+  ##  class Lexer
 
 end
-#
-## class Byron

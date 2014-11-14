@@ -5,10 +5,16 @@ require_relative '../feature/regularity'
 
 class Byron
   module Grammar
+
+    ##
+    #
+    #
     class Noun < Word
       include Category::Noun
-      include Feature::Uniqueness
-      include Feature::Regularity
+      include Feature::Number
     end
+    #
+    ##
+
   end
 end

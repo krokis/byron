@@ -1,6 +1,7 @@
 require_relative '../plugin'
 
 class Byron
+
   ##
   #
   #
@@ -10,8 +11,6 @@ class Byron
     # The kind of constituent this delegate can parse.
     #
     PARSES = nil
-    #
-    ##
 
     def initialize
       @parser = nil
@@ -26,8 +25,6 @@ class Byron
         @parser.delegate parses, self
       end
     end
-    #
-    ##
 
     def method_missing (method, *args)
       @parser.send method, *args
@@ -42,6 +39,6 @@ class Byron
     end
   end
   #
-  ## class Byron::ParserDelegate
+  ## class ParserDelegate
 
 end

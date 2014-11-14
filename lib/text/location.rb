@@ -1,5 +1,4 @@
 class Byron
-
   module Text
 
     ##
@@ -17,17 +16,10 @@ class Byron
         self.line     ||= 1
         self.column   ||= 0
       end
-      #
-      ##
 
     end
     #
-    ## class Byron::Text:Location
+    ## class Location
 
   end
-  #
-  ## module Byron::Text
-
 end
-#
-## class Byron

@@ -9,7 +9,7 @@ class Byron
     module Block
     end
     #
-    ##
+    ## module Block
 
   end
 end

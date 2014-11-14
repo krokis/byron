@@ -1,8 +1,8 @@
 class Byron
   module Grammar
     module Feature
-      module Transitiveness
-        TRANSITIVENESSES = [
+      module Transitivity
+        TRANSITIVITIES = [
           'transitive',
           'intransitive',
           'ditransitive'

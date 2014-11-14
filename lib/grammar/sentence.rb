@@ -1,4 +1,4 @@
-require_relative 'constituent'
+require_relative 'branch'
 
 class Byron
 
@@ -11,15 +11,9 @@ class Byron
     # 2) Start with a capitalized letter.
     # 3) End with a period, ellipsis or an interrogation or exclamation mark.
     #
-    class Sentence < Constituent
+    class Sentence < Branch
     end
-    #
-    ##
 
   end
-  #
-  ## module Byron::Grammar
 
 end
-#
-## class Byron

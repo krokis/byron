@@ -1,12 +1,12 @@
-require_relative '../feature/number'
-require_relative '../feature/uniqueness'
 require_relative '../feature/regularity'
+require_relative '../feature/gender'
 
 class Byron
   module Grammar
     module Category
       module Noun
-        include Feature::Number
+        include Feature::Regularity
+        include Feature::Gender
       end
     end
   end
