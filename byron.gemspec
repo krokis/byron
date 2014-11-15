@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.version       = Byron::VERSION
   spec.authors       = ['Jaume Alemany']
   spec.email         = ['jaume@krokis.com']
-  spec.homepage      = 'https://github.com/krokis/byron'
+  spec.homepage      = 'https://byron.krokis.com'
   spec.license       = 'BSD-3-Clause'
 
   spec.files         = Dir['bin/**/*'] +
@@ -22,7 +22,6 @@ Gem::Specification.new do |spec|
   #spec.testfiles    = []
 
   # Runtime dependencies
-  # s.add_runtime_dependency 'bind-it', '~>0.2.5'
 
   # Development dependencies.
   spec.add_development_dependency 'rake'
