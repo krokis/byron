@@ -9,7 +9,7 @@ class Byron
       ##
       #
       #
-      module Verbal
+      module Verb
         include Feature::Regularity
         include Feature::Transitivity
         include Feature::Linking

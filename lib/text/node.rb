@@ -7,19 +7,19 @@ class Byron
     class Node
 
       ##
-      # Holds a reference to node's parent, if any.
+      # Returns a reference to node's parent, if any.
       #
       attr_accessor :parent
 
       ##
-      # Start positeion.
+      # Start position.
       #
       attr_accessor :start
 
       ##
       # End position.
       #
-      attr_accessor :end
+      attr_accessor :stop
 
       ##
       # Array of children of this node. Might be empty.
@@ -34,10 +34,10 @@ class Byron
       end
 
       ##
-      # Reference to the document this node belongs to. Note this getter will return
-      # the node's parent document, if it has one, even though if this property has
-      # been set before. Ie: you can only set the `document` of a node if it has no
-      # `parent`.
+      # Reference to the document this node belongs to. Note this getter will
+      # return its node's parent document, if it has one, even though if this
+      # property has been set before. Ie: you can only set the `document` of a
+      # node if it has no `parent`.
       #
       def document
         @parent ? @parent.document : @document
@@ -74,7 +74,7 @@ class Byron
       end
 
       ##
-      # Check if a node can be added as a child of this node.
+      # Check if another node can be added as a child of this node.
       #
       def can_append_child? (child)
         raise 'Oops' # TODO
@@ -120,7 +120,7 @@ class Byron
       # last among its siblings
       #
       def last_child?
-        @parent && (@parent.index self) == (@parent.children.length - 1)
+        @parent && ((@parent.index self) == (@parent.children.length - 1))
       end
 
       ##
@@ -158,7 +158,7 @@ class Byron
       #
       # The first node (including `this` if `itself` is `yes`) that is found to
       # be an instance of `kind` is returned. If no suitable node is found, then
-      #  `null` is returned.
+      # `null` is returned.
       #
       def ancestor (kind, itself = true)
         node = itself ? self : @parent
@@ -207,7 +207,6 @@ class Byron
         @content
       end
 
-
       ##
       # Get a JSON representation of this node.
       #
@@ -216,7 +215,7 @@ class Byron
 
     end
     #
-    ## class Node
+    ##
 
   end
 end

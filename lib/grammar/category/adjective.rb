@@ -1,5 +1,4 @@
 require_relative '../feature/regularity'
-require_relative '../feature/gender'
 
 class Byron
   module Grammar
@@ -8,9 +7,8 @@ class Byron
       ##
       #
       #
-      module Nominal
+      module Adjective
         include Feature::Regularity
-        include Feature::Gender
       end
       #
       ##

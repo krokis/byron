@@ -7,7 +7,7 @@ class Byron
       ##
       #
       #
-      module Adverbial
+      module Adverb
         include Feature::Regularity
       end
       #

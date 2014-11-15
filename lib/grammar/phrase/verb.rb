@@ -1,10 +1,10 @@
 require_relative '../phrase'
-require_relative '../category/verbal'
+require_relative '../category/verb'
 
 class Byron
   module Grammar
     class VerbPhrase < Phrase
-      include Category::Verbal
+      include Category::Verb
     end
   end
 end

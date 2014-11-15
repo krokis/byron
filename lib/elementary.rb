@@ -1,7 +1,5 @@
 require_relative 'lexeme'
-require_relative 'lexeme/adjective'
-require_relative 'lexeme/noun'
-require_relative 'lexeme/verb'
+require_relative 'lexicon'
 
 ##
 # Parsers
@@ -37,6 +35,23 @@ class Byron
     #
     def use (byron)
 
+      # Lexicon
+      byron.lexicon.add (
+        Lexicon.from_yaml_file 'lexicon/adjectives.yaml',
+        Grammar::Category::Adjective
+      )
+
+      byron.lexicon.add (
+        Lexion.from_yaml_file 'lexicon/nouns.yaml',
+        Grammar::Category::Noun
+      )
+
+      byron.lexicon.add (
+        Lexicon.from_yaml_file 'lexicon/verbs.yaml',
+        Grammar::Category::Verb
+      )
+
+      # Parsers
       byron.use *[
         WordParser,
         NounParser,
@@ -57,24 +72,9 @@ class Byron
         DeclarativeClauseParser,
         SentenceParser
       ]
-
-      byron.lexicon.add (
-        Grammar::Lexeme.from_yaml 'lexicon/adjectives.yaml',
-        Grammar::AdjectiveLexeme
-      )
-
-      byron.lexicon.add (
-        Grammar::Lexeme.from_yaml 'lexicon/nouns.yaml',
-        Grammar::NounLexeme
-      )
-
-      byron.lexicon.add (
-        Grammar::Lexeme.from_yaml 'lexicon/verbs.yaml',
-        Grammar::VerbLexeme
-      )
-
     end
-
   end
+  #
+  ##
 
 end

@@ -9,7 +9,7 @@ class Byron
     module Inline
     end
     #
-    ## module Inline
+    ##
 
   end
 end
