@@ -1,9 +1,10 @@
+require_relative 'version'
 require_relative 'scanner'
 require_relative 'parser'
 require_relative 'evaluator'
 require_relative 'lexicon'
 require_relative 'text/document'
-require_relative 'grammar/constituent'
+require_relative 'grammar/node'
 require_relative 'elementary'
 
 ##
@@ -12,18 +13,16 @@ require_relative 'elementary'
 class Byron
 
   #
-  VERSION = '0.0.1'
-
-  #
   attr_reader :scanner
   attr_reader :parser
   attr_reader :evaluator
 
-  ##
-  #
-  #
   def lexicon
     @parser.lexicon
+  end
+
+  def lexicon= (lexicon)
+    @parser.lexicon = lexicon
   end
 
   ##
@@ -33,12 +32,14 @@ class Byron
     @scanner = Scanner.new
     @parser = Parser.new
     @evaluator = Evaluator.new
-    @lexicon = Lexicon.new
 
+    # Use the `Elementary` core plugin; it provides all needed grammar parsers
+    # and lexicon.
     use Elementary
   end
 
   ##
+  # Use one or more plugins on this instance.
   #
   def use (*classes)
     classes.each do |plugin_class|
@@ -50,6 +51,9 @@ class Byron
     end
   end
 
+  ##
+  #
+  #
   def scan (text)
     unless text.kind_of? String
       raise 'Cannot scan that'
@@ -58,6 +62,9 @@ class Byron
     @scanner.scan text
   end
 
+  ##
+  #
+  #
   def parse (text)
     if text.kind_of? String
       text = scan text
@@ -82,7 +89,7 @@ class Byron
       text = parse text
     end
 
-    unless text.kind_of? Grammar::Constituent
+    unless text.kind_of? Grammar::Node
       raise 'Cannot evaluate that'
     end
 

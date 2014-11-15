@@ -3,17 +3,51 @@
 class Byron
   module Grammar
     module Feature
+
+      ##
+      #
+      #
       module Mood
+
+        INDICATIVE    = :indicative
+        SUBJUNCTIVE   = :subjunctive
+        CONDITIONAL   = :conditional
+        IMPERATIVE    = :imperative
+        INTERROGATIVE = :interrogative
+
         MOODS = [
-          'indicative'
-          'subjunctive'
-          'conditional'
-          'imperative'
-          'interrogative'
+          INDICATIVE,
+          SUBJUNCTIVE,
+          CONDITIONAL,
+          IMPERATIVE,
+          INTERROGATIVE
         ]
-        # def realis?
-        # def irrealis?
+
+        def indicative?
+        end
+
+        def subjunctive?
+        end
+
+        def conditional?
+        end
+
+        def imperative?
+        end
+
+        def interrogative?
+        end
+
+        def realis?
+        end
+
+        def irrealis?
+        end
+
       end
+      #
+      ##
+
     end
   end
 end

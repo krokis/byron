@@ -10,7 +10,7 @@ class Byron
         SINGULAR = :singular
         PLURAL   = :plural
 
-        VALUES = [SINGULAR, PLURAL]
+        NUMBERS = [SINGULAR, PLURAL]
 
         def self.make_singular
           raise ':('

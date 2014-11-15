@@ -17,6 +17,6 @@ class Byron
 
   end
   #
-  ## class Token
+  ##
 
 end

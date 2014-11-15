@@ -5,7 +5,7 @@ class Byron
 
     ##
     #
-    class MainClause < Clause
+    class EmbeddedClause < Clause
     end
     #
     ##

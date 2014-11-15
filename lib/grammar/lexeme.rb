@@ -11,9 +11,13 @@ class Byron
 
       attr_reader :category
       attr_reader :lemma
-      attr_reader :forms
 
-      def initialize (category, lemma, features, forms)
+      ##
+      # Return a list of unique forms for this lexeme, as strings.
+      def forms
+      end
+
+      def initialize (lemma, features)
         @lemma = lemma
       end
 

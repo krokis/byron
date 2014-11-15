@@ -792,4 +792,4 @@ class Byron
   #
   ## class Scanner
 
-end # class Byron
+end

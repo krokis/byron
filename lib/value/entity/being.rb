@@ -1,4 +1,4 @@
-require_relative '../value'
+require_relative '../entity'
 
 class Byron
   module Value
@@ -6,7 +6,7 @@ class Byron
     ##
     #
     #
-    class Number
+    class Being < Entity
     end
     #
     ##

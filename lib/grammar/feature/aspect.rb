@@ -4,18 +4,35 @@ class Byron
   module Grammar
     module Feature
 
+      ##
+      #
+      #
       module Aspect
-
-        PRESENT_SIMPLE      = :present_simple
-        PRESENT_PROGRESSIVE = :present_progressive
+        SIMPLE              = :simple
+        PROGRESSIVE         = :progressive
+        PERFECT             = :perfect
+        PERFECT_PROGRESSIVE = :perfect_progressive
         # ...
 
-        VALUES = [
-          PRESENT_SIMPLE,
-          PRESENT_PROGRESSIVE,
-          #...
+        ASPECTS = [
+          SIMPLE,
+          PROGRESSIVE,
+          PERFECT,
+          PERFECT_PROGRESSIVE
         ]
+
+        def simple?
+        end
+
+        def progressive?
+        end
+
+        def perfect?
+        end
+
       end
+      #
+      ##
 
     end
   end

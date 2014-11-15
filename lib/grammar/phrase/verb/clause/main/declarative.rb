@@ -1,11 +1,11 @@
-require_relative '../clause'
+require_relative '../main'
 
 class Byron
   module Grammar
 
     ##
     #
-    class MainClause < Clause
+    class DeclarativeClause < MainClause
     end
     #
     ##

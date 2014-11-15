@@ -1,6 +1,10 @@
 # Std-lib
 require 'yaml'
 
+require_relative 'grammar/lexeme/noun'
+require_relative 'grammar/lexeme/verb'
+require_relative 'grammar/lexeme/adjective'
+
 class Byron
 
   ##
@@ -17,7 +21,7 @@ class Byron
     end
 
     ##
-    # Add lexemes to the lexicon.
+    # Add lexemes to this lexicon.
     #
     def add (*lexemes)
     end
@@ -32,20 +36,17 @@ class Byron
     #
     #
     def self.from_yaml (yaml, kind)
+      lexemes = []
     end
-    #
-    ##
 
     ##
     #
     #
     def self.from_yaml_file (path, kind)
     end
-    #
-    ##
 
   end
   #
-  ## class Lexicon
+  ##
 
 end

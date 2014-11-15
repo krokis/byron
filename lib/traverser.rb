@@ -108,11 +108,11 @@ class Byron
       while (eat Text::Whitespace) do; end
       @node
     end
+
     ##
-    #
-        # Consume an inline node of given `type`. If current node is a block one,
+    # Consume an inline node of given `type`. If current node is a block one,
     # then descend down to an inline node.
-    ##
+    #
     def get_inline_node (type = Text::Inline, ignore_whitespace = false)
       descend Text::Inline
       skip_whitespace if ignore_whitespace
@@ -123,7 +123,7 @@ class Byron
     # Consume an atomic node of given `type`. If current node is not of `Atomic`
     # class, then descend down to an atomic node. If first `Atomic` node is not
     # of given `type`, an exception is thrown
-    ##
+    #
     def get_atomic_node (type = Text::Atomic, ignore_whitespace = false)
       descend Text::Atomic
       skip_whitespace if ignore_whitespace
@@ -132,6 +132,6 @@ class Byron
 
   end
   #
-  ## class Traverser
+  ## class Byron::Traverser
 
 end

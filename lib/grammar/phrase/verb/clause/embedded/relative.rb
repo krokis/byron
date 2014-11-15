@@ -1,11 +1,11 @@
-require_relative '../clause'
+require_relative '../embedded'
 
 class Byron
   module Grammar
 
     ##
     #
-    class MainClause < Clause
+    class RelativeClause < EmbeddedClause
     end
     #
     ##

@@ -1,8 +1,7 @@
-require_relative 'plugin'
 require_relative 'lexer'
-require_relative 'discourse'
 require_relative 'grammar/constituent'
 require_relative 'grammar/sentence'
+require_relative 'discourse'
 require_relative 'lexicon'
 
 class Byron
@@ -12,11 +11,12 @@ class Byron
   #
   class Parser < Lexer
 
+    attr_accessor :lexicon
+
     ##
     #
     #
     def initialize (lexicon = nil)
-      super
       @lexicon = lexicon || Lexicon.new
       @delegates = []
       prepare
@@ -108,8 +108,10 @@ class Byron
       skip_whitespace
 
       until end_of_text? do
-        discourse.sentences << parse_a(Grammar::Sentence) do |sentence|
+        discourse.sentences << (parse_a Grammar::Sentence) do |sentence|
+
           skip_whitespace
+
           period =
             begin
               parse_a Grammar::Period
@@ -120,11 +122,13 @@ class Byron
           unless period || start_of_block? || !important?
             raise 'Unterminated sentence' # Try again
           end
+
         end
+
         skip_whitespace
       end
 
-      return discourse
+      discourse
     end
 
     protected :prepare, :sort_delegates, :delegates_for
@@ -134,6 +138,6 @@ class Byron
 
   end
   #
-  ## class Parser
+  ##
 
 end

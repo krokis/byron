@@ -1,18 +1,25 @@
 - lemma: 'rock'
   regular: true
+  transitivity: 'intransitive'
 
 - lemma: 'be'
   linking: true
   regular: false
+  transitivity: 'intransitive'
   forms:
-    be: infinitive
-    being: present_participle
-    been: past_participle
+    be:
+      tense: infinitive
+    being:
+      tense: gerund
+    been:
+      tense: participle
     am:
-      person: fisrt
+      person: first
+      number: singular
       tense: present
     is:
       person: third
+      number: singular
       tense: present
     are:
       - person: second
@@ -28,4 +35,22 @@
         number: plural
         tense: present
     was:
+      - person: first
+        number: singular
+        tense: past
+      - person: third
+        number: singular
+        tense: past
     were:
+      - person: second
+        number: singular
+        tense: past
+      - person: first
+        number: plural
+        tense: past
+      - person: second
+        number: plural
+        tense: past
+      - person: third
+        number: plural
+        tense: past

@@ -9,9 +9,7 @@ require_relative '../lib/scanner'
 require_relative '../lib/parser'
 require_relative '../lib/evaluator'
 
-##
-# Byron class to be used and reused
-#
+# Byron class to be used and reused.
 $byron = Byron.new
 
 HELP =  <<-EOH

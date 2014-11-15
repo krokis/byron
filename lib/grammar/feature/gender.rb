@@ -11,6 +11,16 @@ class Byron
         NEUTER  = :neuter
 
         GENDERS = [MALE, FEMALE, NEUTER]
+
+        def male?
+        end
+
+        def female?
+        end
+
+        def neuter?
+        end
+
       end
 
     end
