@@ -4,15 +4,13 @@ class Byron
 
       ##
       #
+      #
       module Voice
 
         ACTIVE  = :active
         PASSIVE = :passive
 
-        VOICES = [
-          ACTIVE,
-          PASSIVE
-        ]
+        VOICES = [ACTIVE, PASSIVE]
 
         def active?
         end

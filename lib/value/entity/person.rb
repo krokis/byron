@@ -7,8 +7,6 @@ class Byron
     #
     #
     class Person < Animal
-      attr_accessor :name
-      attr_accessor :age
     end
     #
     ##

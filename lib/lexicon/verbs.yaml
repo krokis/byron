@@ -1,11 +1,11 @@
 - lemma: 'rock'
   regular: true
-  transitivity: 'intransitive'
+  transitivity: intransitive
 
 - lemma: 'be'
   linking: true
   regular: false
-  transitivity: 'intransitive'
+  transitivity: intransitive
   forms:
     be:
       tense: infinitive

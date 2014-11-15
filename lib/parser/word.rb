@@ -3,6 +3,9 @@ require_relative 'delegate'
 
 class Byron
 
+  ##
+  #
+  #
   class WordParser < ParserDelegate
 
     ##
@@ -19,4 +22,7 @@ class Byron
     ##
 
   end
+  #
+  ##
+
 end

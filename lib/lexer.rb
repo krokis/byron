@@ -179,6 +179,6 @@ class Byron
     end
   end
   #
-  ##  class Lexer
+  ##
 
 end

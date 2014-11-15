@@ -1,6 +1,6 @@
 class Byron
   module Grammar
-    module Regularity
+    module Feature
 
       ##
       #

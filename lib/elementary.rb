@@ -4,9 +4,7 @@ require_relative 'lexeme/verb'
 require_relative 'lexeme/adjective'
 require_relative 'lexicon'
 
-##
 # Parsers
-#
 require_relative 'parser/word'
 require_relative 'parser/word/noun'
 require_relative 'parser/word/verb'
@@ -26,6 +24,8 @@ require_relative 'parser/phrase/verb/simple/ditransitive'
 require_relative 'parser/phrase/verb/clause/main/declarative'
 require_relative 'parser/sentence'
 
+# Evaluators
+
 class Byron
 
   ##
@@ -34,7 +34,8 @@ class Byron
   class Elementary < Plugin
 
     ##
-    #
+    # The "Elementary" plugin. Contains all built-in lexicon, parsers and
+    # evaluators.
     #
     def use (byron)
 
@@ -75,6 +76,10 @@ class Byron
         DeclarativeClauseParser,
         SentenceParser
       ]
+
+      # Evaluators
+      byron.use *[]
+
     end
   end
   #

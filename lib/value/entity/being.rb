@@ -7,6 +7,8 @@ class Byron
     #
     #
     class Being < Entity
+      attr_accessor :name
+      attr_accessor :age
     end
     #
     ##

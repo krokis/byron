@@ -8,11 +8,11 @@ class Byron
       #
       #
       module Aspect
+
         SIMPLE              = :simple
         PROGRESSIVE         = :progressive
         PERFECT             = :perfect
         PERFECT_PROGRESSIVE = :perfect_progressive
-        # ...
 
         ASPECTS = [
           SIMPLE,

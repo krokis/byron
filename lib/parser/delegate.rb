@@ -39,6 +39,6 @@ class Byron
     end
   end
   #
-  ## class ParserDelegate
+  ##
 
 end

@@ -37,12 +37,15 @@ class Byron
     #
     def self.from_yaml (yaml, kind)
       lexemes = []
+      add *lexemes
     end
 
     ##
     #
     #
     def self.from_yaml_file (path, kind)
+      yaml = nil
+      from_yaml yaml, kind
     end
 
   end

@@ -17,6 +17,7 @@ class Byron
   attr_reader :parser
   attr_reader :evaluator
 
+  # Proxy for parser's lexicon
   def lexicon
     @parser.lexicon
   end
@@ -28,21 +29,24 @@ class Byron
   ##
   #
   def initialize
+    # Used plugins
     @plugins = {}
-    @scanner = Scanner.new
-    @parser = Parser.new
+
+    # Initialize all components.
+    @scanner   = Scanner.new
+    @parser    = Parser.new
     @evaluator = Evaluator.new
 
-    # Use the `Elementary` core plugin; it provides all needed grammar parsers
-    # and lexicon.
+    # Use the `Elementary` core plugin; it provides all needed grammar parsers,
+    # evaluators and lexicon.
     use Elementary
   end
 
   ##
   # Use one or more plugins on this instance.
   #
-  def use (*classes)
-    classes.each do |plugin_class|
+  def use (*plugins)
+    plugins.each do |plugin_class|
       unless @plugins.has_key? plugin_class
         plugin = plugin_class.new
         plugin.use self
@@ -52,7 +56,7 @@ class Byron
   end
 
   ##
-  #
+  # Scan a text an return a `Document` instance.
   #
   def scan (text)
     unless text.kind_of? String
@@ -63,7 +67,7 @@ class Byron
   end
 
   ##
-  #
+  # Parse a text or a `Document` and return a `Discourse`.
   #
   def parse (text)
     if text.kind_of? String
@@ -78,7 +82,7 @@ class Byron
   end
 
   ##
-  #
+  # Evaluate a text, a `Document` or a `Discourse`.
   #
   def evaluate (text)
     if text.kind_of? String
@@ -95,4 +99,7 @@ class Byron
 
     @evaluator.evaluate text
   end
+
 end
+#
+##

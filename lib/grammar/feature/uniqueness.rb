@@ -6,6 +6,7 @@ class Byron
       #
       #
       module Uniqueness
+
         PROPER = :proper
         MASS   = :mass
 
@@ -18,6 +19,7 @@ class Byron
         end
 
         alias_method :common, :mass
+
       end
       #
       ##
