@@ -10,7 +10,7 @@ class Byron
     attr_accessor :sentences
 
     ##
-    # Original or generated text
+    # Original or generated discourse text.
     #
     def text
     end
