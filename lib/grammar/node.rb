@@ -12,11 +12,11 @@ class Byron
       #
       #
       def children
-        nil
+        []
       end
 
       ##
-      # Tell if this constituent has any children (a head or an argument).
+      # Tell if this constituent has any children.
       #
       def children?
         false

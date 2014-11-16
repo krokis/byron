@@ -14,11 +14,12 @@ require_relative 'parser/phrase/noun/determined'
 require_relative 'parser/phrase/noun/undetermined'
 require_relative 'parser/phrase/noun/adjectived'
 require_relative 'parser/phrase/verb/simple'
-require_relative 'parser/phrase/verb/simple/linking'
-require_relative 'parser/phrase/verb/simple/intransitive'
-require_relative 'parser/phrase/verb/simple/transitive'
-require_relative 'parser/phrase/verb/simple/ditransitive'
+require_relative 'parser/phrase/verb/predicate/linking'
+require_relative 'parser/phrase/verb/predicate/intransitive'
+require_relative 'parser/phrase/verb/predicate/transitive'
+require_relative 'parser/phrase/verb/predicate/ditransitive'
 require_relative 'parser/phrase/verb/clause/main/declarative'
+require_relative 'parser/argument/verb/subject'
 require_relative 'parser/sentence'
 
 # Evaluators
@@ -59,14 +60,15 @@ class Byron
         VerbParser,
         AdjectiveParser,
         SimpleNounPhraseParser,
-        DeterminedNounPhraseParser,
         UndeterminedNounPhraseParser,
         AdjectivedNounPhraseParser,
+        DeterminedNounPhraseParser,
         SimpleVerbPhraseParser,
-        SimpleLinkingVerbPhraseParser,
-        SimpleIntransitiveVerbPhraseParser,
-        SimpleTransitiveVerbPhraseParser,
-        SimpleDitransitiveVerbPhraseParser,
+        LinkingPredicateParser,
+        IntransitivePredicateParser,
+        TransitivePredicateParser,
+        DitransitivePredicateParser,
+        SubjectParser,
         DeclarativeClauseParser,
         SentenceParser
       ]

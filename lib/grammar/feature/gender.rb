@@ -6,6 +6,7 @@ class Byron
       #
       #
       module Gender
+
         MALE    = :male
         FEMALE  = :female
         NEUTER  = :neuter
@@ -22,6 +23,8 @@ class Byron
         end
 
       end
+      #
+      ##
 
     end
   end

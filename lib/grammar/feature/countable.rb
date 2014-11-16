@@ -10,6 +10,9 @@ class Byron
         def countable?
         end
 
+        def mass?
+        end
+
       end
       #
       ##

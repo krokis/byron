@@ -1,3 +1,5 @@
+require_relative 'grammar/node/sentence'
+
 class Byron
 
   ##
@@ -5,7 +7,7 @@ class Byron
   class Discourse
 
     ##
-    # Array of `Text::Sentence`s this `Discourse` is made of.
+    # Array of `Grammar::Sentence`s this `Discourse` is made of.
     #
     attr_accessor :sentences
 
@@ -23,5 +25,7 @@ class Byron
     end
 
   end
+  #
+  ##
 
 end

@@ -6,6 +6,7 @@ class Byron
       #
       #
       module Tense
+
         PRESENT    = :present
         PAST       = :past
         FUTURE     = :future

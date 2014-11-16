@@ -8,8 +8,8 @@ class Byron
     #
     class Branch < Node
 
-      attr_accessor :head
-      attr_accessor :argument
+      attr_reader :head
+      attr_reader :argument
 
       def initialize (head = nil, argument = nil, features = nil)
         @head = head

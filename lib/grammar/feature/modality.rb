@@ -3,6 +3,10 @@
 class Byron
   module Grammar
     module Feature
+
+      ##
+      #
+      #
       module Modality
         MODALITIES = [
           'epistemic'
@@ -14,6 +18,9 @@ class Byron
           'emphasis'
         ]
       end
+      #
+      ##
+
     end
   end
 end

@@ -9,7 +9,6 @@ class Byron
     #
     class Lexeme < Constituent
 
-      attr_reader :category
       attr_reader :lemma
 
       ##

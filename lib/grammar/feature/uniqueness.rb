@@ -8,17 +8,15 @@ class Byron
       module Uniqueness
 
         PROPER = :proper
-        MASS   = :mass
+        COMMON = :common
 
-        UNIQUENESSES = [PROPER, MASS]
+        UNIQUENESSES = [PROPER, COMMON]
 
         def proper?
         end
 
-        def mass?
+        def common?
         end
-
-        alias_method :common, :mass
 
       end
       #

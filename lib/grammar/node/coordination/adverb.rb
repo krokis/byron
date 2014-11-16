@@ -1,12 +1,13 @@
 require_relative '../coordination'
-require_relative '../phrase/verb'
+require_relative '../phrase/adverb'
 
 class Byron
   module Grammar
 
     ##
     #
-    class VerbCoordination < Coordination
+    #
+    class AdverbCoordination < Coordination
     end
     #
     ##
