@@ -11,8 +11,6 @@ require_relative 'parser/word/verb'
 require_relative 'parser/word/adjective'
 require_relative 'parser/punctuation'
 require_relative 'parser/phrase/noun/simple'
-require_relative 'parser/phrase/noun/simple/mass'
-require_relative 'parser/phrase/noun/simple/proper'
 require_relative 'parser/phrase/noun/determined'
 require_relative 'parser/phrase/noun/undetermined'
 require_relative 'parser/phrase/noun/adjectived'
@@ -63,8 +61,6 @@ class Byron
         AdjectiveParser,
         PunctuationParser,
         SimpleNounPhraseParser,
-        SimpleMassNounPhraseParser,
-        SimpleProperNounPhraseParser,
         DeterminedNounPhraseParser,
         UndeterminedNounPhraseParser,
         AdjectivedNounPhraseParser,

@@ -17,7 +17,7 @@ class Byron
   attr_reader :parser
   attr_reader :evaluator
 
-  # Proxy for parser's lexicon
+  # Proxy to parser's lexicon.
   def lexicon
     @parser.lexicon
   end
@@ -37,7 +37,7 @@ class Byron
     @parser    = Parser.new
     @evaluator = Evaluator.new
 
-    # Use the `Elementary` core plugin; it provides all needed grammar parsers,
+    # Use the `Elementary` core plugin; it provides all basic grammar parsers,
     # evaluators and lexicon.
     use Elementary
   end

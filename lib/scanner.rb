@@ -458,7 +458,7 @@ class Byron
         eoe = chars l
 
         make_node Text::Emphasis do |emphasis|
-          emphasis.strong? = l == 2
+          # emphasis.strong? = (l == 2)
           move l
 
           until eoe == (chars l) do
@@ -690,9 +690,8 @@ class Byron
     # Only hyphens (`---`) and underscores (`___`) allowed.
     #
     def read_break
-      if start_of
-      if ['```', '~~~~'].include? fence
-
+      #if start_of
+      #if ['```', '~~~~'].include? fence
     end
 
     ##

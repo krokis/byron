@@ -24,6 +24,15 @@ class Byron
     # Add lexemes to this lexicon.
     #
     def add (*lexemes)
+      lexemes.each do |lexeme|
+        @lexemes << lexeme
+        lexeme.forms.each do |word|
+          unless @words.has_key? word
+            @words[word] = []
+          end
+          @words[word] << lexeme
+        end
+      end
     end
 
     ##
@@ -36,15 +45,22 @@ class Byron
     #
     #
     def self.from_yaml (yaml, kind)
-      lexemes = []
-      add *lexemes
+      lexemes = YAML.load yaml
+
+      lexemes.each do |feats|
+        if feats.has_key? :lemma
+          lemma = feats.lemma
+          feats.delete :lemma
+          lexeme = kind.new lemma, feats
+          add lexeme
+      end
     end
 
     ##
     #
     #
     def self.from_yaml_file (path, kind)
-      yaml = nil
+      yaml = File.read file
       from_yaml yaml, kind
     end
 

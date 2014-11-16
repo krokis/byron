@@ -1,4 +1,4 @@
-require_relative 'Node'
+require_relative 'node'
 
 class Byron
   module Grammar

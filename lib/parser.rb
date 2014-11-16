@@ -108,7 +108,8 @@ class Byron
       skip_whitespace
 
       until end_of_text? do
-        discourse.sentences << (parse_a Grammar::Sentence) do |sentence|
+
+        discourse.sentences << parse_a(Grammar::Sentence) do |sentence|
 
           skip_whitespace
 

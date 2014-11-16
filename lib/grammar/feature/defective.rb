@@ -5,9 +5,9 @@ class Byron
       ##
       #
       #
-      module Countable
+      module Defective
 
-        def countable?
+        def defective?
         end
 
       end

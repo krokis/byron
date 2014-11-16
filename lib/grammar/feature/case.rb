@@ -1,15 +1,13 @@
+# http://en.wikipedia.org/wiki/Grammatical_case
+
 class Byron
   module Grammar
-    module Feature
+    module Case
 
       ##
       #
       #
-      module Countable
-
-        def countable?
-        end
-
+      module Case
       end
       #
       ##

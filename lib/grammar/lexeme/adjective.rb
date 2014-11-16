@@ -1,4 +1,4 @@
-require_relative '../category/verb'
+require_relative '../category/adjective'
 require_relative '../lexeme'
 
 class Byron
