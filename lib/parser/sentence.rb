@@ -1,6 +1,6 @@
 require_relative 'delegate'
-require_relative '../grammar/sentence'
-require_relative '../grammar/phrase/verb/clause/main'
+require_relative '../grammar/node/sentence'
+require_relative '../grammar/node/phrase/verb/clause/main'
 
 class Byron
 

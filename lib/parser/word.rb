@@ -1,4 +1,4 @@
-require_relative '../grammar/word'
+require_relative '../grammar/node/word'
 require_relative 'delegate'
 
 class Byron

@@ -1,4 +1,3 @@
-require_relative 'version'
 require_relative 'scanner'
 require_relative 'parser'
 require_relative 'evaluator'
@@ -11,6 +10,8 @@ require_relative 'elementary'
 # The core `Byron` class.
 #
 class Byron
+
+  VERSION = '0.0.1'
 
   #
   attr_reader :scanner

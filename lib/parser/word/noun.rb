@@ -1,5 +1,5 @@
 require_relative '../word'
-require_relative '../../grammar/word/noun'
+require_relative '../../grammar/node/word/noun'
 
 class Byron
   class NounParser < WordParser

@@ -1,5 +1,5 @@
-require_relative '../../../grammar/word/noun'
-require_relative '../../../grammar/phrase/noun'
+require_relative '../../../grammar/node/word/noun'
+require_relative '../../../grammar/node/phrase/noun'
 require_relative '../noun'
 
 class Byron
