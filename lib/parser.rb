@@ -1,6 +1,6 @@
 require_relative 'lexer'
 require_relative 'grammar/constituent'
-require_relative 'grammar/sentence'
+require_relative 'grammar/node/sentence'
 require_relative 'discourse'
 require_relative 'lexicon'
 

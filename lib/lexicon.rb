@@ -53,6 +53,7 @@ class Byron
           feats.delete :lemma
           lexeme = kind.new lemma, feats
           add lexeme
+        end
       end
     end
 

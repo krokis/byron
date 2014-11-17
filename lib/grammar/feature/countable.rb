@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -6,6 +8,10 @@ class Byron
       #
       #
       module Countable
+
+        include Features
+
+        @@features[:countable] = false
 
         def countable?
         end

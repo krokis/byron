@@ -20,14 +20,7 @@ class Byron
         HABITUAL            = :habitual
         PROSPECTIVE         = :prospective
 
-        ASPECTS = [
-          SIMPLE,
-          PROGRESSIVE,
-          PERFECT,
-          PERFECT_PROGRESSIVE
-          HABITUAL,
-          PROSPECTIVE
-        ]
+        @@features[:aspect] = nil
 
         def simple?
         end

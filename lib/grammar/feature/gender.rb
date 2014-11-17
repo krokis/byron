@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -7,11 +9,13 @@ class Byron
       #
       module Gender
 
+        include Features
+
         MALE    = :male
         FEMALE  = :female
         NEUTER  = :neuter
 
-        GENDERS = [MALE, FEMALE, NEUTER]
+        @@features[:gender] = nil
 
         def male?
         end
