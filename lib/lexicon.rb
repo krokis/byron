@@ -57,6 +57,7 @@ class Byron
       lexicon = self.new
 
       lexemes.each do |feats|
+        p feats
         if feats.has_key? :lemma
           lemma = feats.lemma
           feats.delete :lemma
