@@ -1,5 +1,5 @@
 require_relative '../word'
-require_relative '../category/preposition'
+require_relative '../../category/preposition'
 
 class Byron
   module Grammar

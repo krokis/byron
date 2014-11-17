@@ -1,9 +1,9 @@
 require_relative '../word'
-require_relative '../category/verb'
-require_relative '../feature/person'
-require_relative '../feature/number'
-require_relative '../feature/tense'
-require_relative '../feature/aspect'
+require_relative '../../category/verb'
+require_relative '../../feature/person'
+require_relative '../../feature/number'
+require_relative '../../feature/tense'
+require_relative '../../feature/aspect'
 
 class Byron
   module Grammar

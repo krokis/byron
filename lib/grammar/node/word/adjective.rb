@@ -1,5 +1,5 @@
-require_relative '../category/adjective'
-require_relative '../feature/comparison'
+require_relative '../../category/adjective'
+require_relative '../../feature/comparison'
 
 class Byron
   module Grammar

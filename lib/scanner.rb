@@ -196,7 +196,8 @@ class Byron
 
       if false != (yield node)
         node.stop ||= @position
-        return nodenode
+        return node
+      end
 
       move_to start
       nil
@@ -476,6 +477,213 @@ class Byron
       end
     end
 
+    ##
+    # Read a `StringLiteral` node.
+    #
+    def read_string_literal
+      if @char && ("'\"".include? @char)
+        q = @char
+
+        make_node Text::StringLiteral do |str|
+          loop do
+            move
+            if end_of_block?
+              raise "Unterminated #{q}string#{q} literal"
+            end
+
+            break if @char == q
+            str.text << @char
+            move
+          end
+
+          move
+        end
+      end
+    end
+
+    ##
+    # Read a `NumberLiteral` node.
+    #
+    def read_number_literal
+      if /\d/ =~ @char
+        make_node Text::NumberLiteral do |num|
+          move until end_of_block? || /\d/ !~ @char
+        end
+      end
+    end
+
+    ##
+    # Read an inline `Code` node.
+    #
+    def read_code_literal
+      if @char == '`'
+        make_node Text::InlineCode do |code|
+          move
+          until @char == '`' do
+            if end_of_block?
+              raise 'Unterminated `code`'
+            end
+            code.text << @char
+            move
+          end
+        end
+      end
+    end
+
+    ##
+    # Read any kind of atomic literal node.
+    #
+    def read_literal
+      read_code_literal ||
+      read_string_literal ||
+      read_number_literal
+    end
+
+    ##
+    # Read a link node.
+    #
+    def read_link
+    end
+
+    ##
+    # Read an inline *important* node.
+    #
+    def read_important
+      if @char == '*'
+        l = next_char == '*' ? 2 : 1
+        eoi = chars l
+
+        make_node Text::ImportantSpan do |important|
+          move l
+
+          until eoi == (chars l) do
+            if end_of_block?
+              raise 'Unterminated *important*'
+            end
+
+            if inline = read_inline
+              important.append inline
+            end
+          end
+
+          move l
+        end
+      end
+    end
+
+    ##
+    # Read an `Inline` node unless current character is at the end of the block.
+    #
+    def read_inline
+      unless end_of_block?
+        read_emphasis ||
+        read_important ||
+        read_link ||
+        read_literal ||
+        read_character
+      end
+    end
+
+    ##
+    # Read a `Paragraph` node.
+    #
+    def read_paragraph
+      make_node Text::Paragraph do |paragraph|
+        skip_spaces
+
+        while inline = read_inline do
+          paragraph.append inline
+        end
+
+        # Don't make the node if it's empty
+        return false unless paragraph.children?
+      end
+    end
+
+    ##
+    # Read an ordered list.
+    #
+    def read_ordered_list
+    end
+
+    ##
+    # Read an unordered list.
+    #
+    def read_unordered_list
+      if @char && ('*+-'.include? @char)
+        bullet = @char
+        back = @position
+
+        # Require whitespace separation
+        if next_char == ' '
+
+          make_node Text::UnorderedList do |list|
+            list.bullet = bullet
+
+            loop do
+              indent '  '
+              move 2
+
+              blocks = read_blocks
+
+              unless blocks.empty?
+                list_item = Text::ListItem.new
+                list_item.append *blocks
+                list_item.start = blocks.first.start.clone
+                list_item.stop = blocks.last.stop
+                list.append list_item
+                back = @position
+              end
+
+              unindent
+
+              begin
+                move_to_next_line
+                skip_empty_lines
+                skip_indentation
+                next if @char == bullet
+              end
+
+              move_to back
+              break
+            end
+
+            return false unless list.children?
+          end
+
+        end
+
+      end
+    end
+
+    ##
+    # Read a `List` node, either an `UnorderedList` or an `OrderedList`.
+    #
+    def read_list
+      read_unordered_list ||
+      read_ordered_list
+    end
+
+    ##
+    #
+    #
+    def read_quotation_block
+    end
+
+    ##
+    # Expect current indentation at the begining of a line and skip it. If a
+    # different indentation is found, an exception is raised.
+    #
+    def skip_indentation
+      indent = indentation
+      i = indent.length
+
+      if indent != (chars i, (@position - @column))
+        raise "Not the expected indentation (#{i})"
+      end
+
+      move(i - @column)
+    end
 
     ##
     # Read a `Break` node.

@@ -3,6 +3,7 @@
 # http://en.wikipedia.org/wiki/Habitual_aspect
 # http://en.wikipedia.org/wiki/Prospective_aspect
 
+require_relative '../features'
 
 class Byron
   module Grammar
@@ -12,6 +13,8 @@ class Byron
       # Aspect expresses how an action (verb) relates to the flow of time.
       #
       module Aspect
+
+        include Features
 
         SIMPLE              = :simple
         PROGRESSIVE         = :progressive

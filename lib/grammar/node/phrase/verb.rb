@@ -1,6 +1,6 @@
 require_relative '../phrase'
-require_relative '../category/verb'
-require_relative '../feature/voice'
+require_relative '../../category/verb'
+require_relative '../../feature/voice'
 
 class Byron
   module Grammar

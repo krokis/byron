@@ -1,5 +1,5 @@
 require_relative 'leaf'
-require_relative 'lexeme'
+require_relative '../lexeme'
 
 class Byron
   module Grammar

@@ -60,9 +60,9 @@ class Byron
     ##
     #
     #
-    def self.from_yaml_file (path, kind)
+    def self.from_yaml_file (file, kind)
       yaml = File.read file
-      from_yaml yaml, kind
+      self.from_yaml yaml, kind
     end
 
   end

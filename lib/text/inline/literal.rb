@@ -1,6 +1,6 @@
 require_relative 'atomic'
 
-module Byron
+class Byron
   module Text
     class Literal < InlineAtomic
     end

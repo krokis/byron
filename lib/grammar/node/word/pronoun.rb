@@ -1,5 +1,5 @@
 require_relative '../word'
-require_relative '../category/pronoun'
+require_relative '../../category/pronoun'
 
 class Byron
   module Grammar

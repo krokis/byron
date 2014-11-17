@@ -1,7 +1,6 @@
 require_relative '../word'
-require_relative '../category/noun'
-require_relative '../feature/uniqueness'
-require_relative '../feature/regularity'
+require_relative '../../category/noun'
+require_relative '../../feature/number'
 
 class Byron
   module Grammar

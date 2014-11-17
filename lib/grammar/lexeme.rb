@@ -16,7 +16,7 @@ class Byron
       def forms
       end
 
-      def initialize (lemma, features)
+      def initialize (lemma, features = {}, forms = [])
         @lemma = lemma
       end
 

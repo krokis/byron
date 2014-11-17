@@ -1,5 +1,5 @@
 require_relative 'specifier'
-require_relative '../../category/noun'
+require_relative '../../../category/noun'
 
 class Byron
   module Grammar
