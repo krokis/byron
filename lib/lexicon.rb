@@ -12,6 +12,8 @@ class Byron
   #
   class Lexicon
 
+    attr_reader :lexemes
+
     ##
     #
     #
@@ -25,7 +27,13 @@ class Byron
     #
     def add (*lexemes)
       lexemes.each do |lexeme|
+        if lexeme.kind_of? self.class
+          add *lexeme.lexemes
+          next
+        end
+
         @lexemes << lexeme
+
         lexeme.forms.each do |word|
           unless @words.has_key? word
             @words[word] = []
@@ -46,15 +54,32 @@ class Byron
     #
     def self.from_yaml (yaml, kind)
       lexemes = YAML.load yaml
+      lexicon = self.new
 
       lexemes.each do |feats|
         if feats.has_key? :lemma
           lemma = feats.lemma
           feats.delete :lemma
-          lexeme = kind.new lemma, feats
-          add lexeme
+
+          # Form hints
+          forms = {}
+
+          if feats.has_key? :forms
+            feats[forms].each do |frm, fts|
+              fts = [fts] unless fts.respond_to? :each
+              fts.each do |ft|
+                forms[ft] = frm
+              end
+            end
+          end
+
+          lexeme = kind.new lemma, feats, forms
+
+          lexicon.add lexeme
         end
       end
+
+      lexicon
     end
 
     ##

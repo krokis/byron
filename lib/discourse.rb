@@ -7,9 +7,9 @@ class Byron
   class Discourse
 
     ##
-    # Array of `Grammar::Sentence`s this `Discourse` is made of.
+    # List of `Grammar::Sentence`s this `Discourse` is made of.
     #
-    attr_accessor :sentences
+    attr_reader :sentences
 
     ##
     # Original or generated discourse text.

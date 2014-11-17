@@ -37,21 +37,18 @@ class Byron
     #
     def use (byron)
 
+      __dir__ = File.dirname __FILE__
+
       # Lexicon
-      nouns_yaml = File.expand_path 'lexicon/nouns.yaml', (File.dirname __FILE__)
-      byron.lexicon.add (
-        Lexicon.from_yaml_file nouns_yaml,
-        Grammar::NounLexeme
-      )
+      nouns_yaml = File.expand_path 'lexicon/nouns.yaml', __dir__
+      byron.lexicon.add Lexicon.from_yaml_file nouns_yaml, Grammar::NounLexeme
 
-      byron.lexicon.add (
-        Lexicon.from_yaml_file 'lexicon/verbs.yaml',
-        Grammar::VerbLexeme
-      )
+      verbs_yaml = File.expand_path 'lexicon/verbs.yaml', __dir__
+      byron.lexicon.add Lexicon.from_yaml_file verbs_yaml, Grammar::VerbLexeme
 
+      adjectives_yaml = File.expand_path 'lexicon/adjectives.yaml', __dir__
       byron.lexicon.add (
-        Lexicon.from_yaml_file 'lexicon/adjectives.yaml',
-        Grammar::AdjectiveLexeme
+        Lexicon.from_yaml_file adjectives_yaml, Grammar::AdjectiveLexeme
       )
 
       # Parsers
