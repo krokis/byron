@@ -15,8 +15,9 @@ class Byron
         yield (Grammar::Sentence.new clause)
       end
     end
+
   end
   #
-  ## class SentenceParser
+  ##
 
 end

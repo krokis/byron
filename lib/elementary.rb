@@ -74,7 +74,7 @@ class Byron
       # Evaluators
       byron.use *[]
 
-      p byron.lexicon
+      p byron.lexicon.words.keys
 
     end
   end

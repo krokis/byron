@@ -16,7 +16,7 @@ class Byron
       #
       attr_reader :forms
 
-      def initialize (lemma, features = {}, forms = [])
+      def initialize (lemma, features = {}, forms = {})
         @lemma = lemma
         @forms = forms
         make_forms

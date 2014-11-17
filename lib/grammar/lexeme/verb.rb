@@ -10,13 +10,6 @@ class Byron
 
       include Category::Verb
 
-      def initialize (lemma, features, forms)
-        super lemma
-      end
-
-      def forms
-      end
-
       def inflect (features)
       end
 

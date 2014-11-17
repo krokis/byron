@@ -13,13 +13,13 @@ class Byron
     #
     def parse
       if parses = self.class.PARSES
-        @parser.lexicon.find kind: parses do |word|
-          yield (parses.new word)
+        if wd = read_word
+          @parser.lexicon.find wd, parses do |word|
+            yield word
+          end
         end
       end
     end
-    #
-    ##
 
   end
   #

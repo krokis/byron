@@ -13,6 +13,7 @@ class Byron
   class Lexicon
 
     attr_reader :lexemes
+    attr_reader :words
 
     ##
     #
@@ -34,11 +35,9 @@ class Byron
 
         @lexemes << lexeme
 
-        lexeme.forms.each do |word|
-          unless @words.has_key? word
-            @words[word] = []
-          end
-          @words[word] << lexeme
+        lexeme.forms.each do |feats, word|
+          @words[word] ||= []
+          @words[word] << [lexeme, feats]
         end
       end
     end
@@ -47,6 +46,16 @@ class Byron
     # Find a word (ie: a form of a lexeme).
     #
     def find (word = nil, kind = nil)
+      if @words.has_key? word
+        @words[word].map! do |wd|
+          if wd.kind_of? Array
+            wd = @wd[0].new @wd[1]
+          end
+
+          yield wd
+          wd
+        end
+      end
     end
 
     ##
@@ -56,27 +65,30 @@ class Byron
       lexemes = YAML.load yaml
       lexicon = self.new
 
-      lexemes.each do |feats|
-        p feats
-        if feats.has_key? :lemma
-          lemma = feats.lemma
-          feats.delete :lemma
+      if lexemes
+        lexemes.each do |feats|
 
-          # Form hints
-          forms = {}
+          if feats.has_key? 'lemma'
+            lemma = feats['lemma']
+            feats.delete 'lemma'
 
-          if feats.has_key? :forms
-            feats[forms].each do |frm, fts|
-              fts = [fts] unless fts.respond_to? :each
-              fts.each do |ft|
-                forms[ft] = frm
+            # Form hints
+            forms = {}
+
+            if feats.has_key? 'forms'
+              feats['forms'].each do |frm, fts|
+
+                fts = [fts] unless fts.kind_of? Array
+                fts.each do |ft|
+                  forms[ft] = frm
+                end
               end
             end
+
+            lexeme = kind.new lemma, feats, forms
+
+            lexicon.add lexeme
           end
-
-          lexeme = kind.new lemma, feats, forms
-
-          lexicon.add lexeme
         end
       end
 

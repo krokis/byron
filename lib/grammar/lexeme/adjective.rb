@@ -8,6 +8,10 @@ class Byron
     #
     class AdjectiveLexeme < Lexeme
       include Category::Adjective
+
+      def make_forms
+        @forms[{}] = @lemma
+      end
     end
     #
     ##

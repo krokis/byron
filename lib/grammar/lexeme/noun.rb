@@ -7,15 +7,20 @@ class Byron
     ##
     #
     class NounLexeme < Lexeme
-      include Category::Noun
 
-      def initialize (lemma, features, forms)
-      end
+      include Category::Noun
 
       def inflect (features)
       end
 
-      def forms
+      def make_forms
+        @forms[{
+          number: :singular
+        }] = @lemma
+
+        @forms[{
+          number: :plural
+        }] = "#{@lemma}s"
       end
 
     end
