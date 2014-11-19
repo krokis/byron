@@ -11,13 +11,14 @@ class Byron
   class Lexer < Traverser
 
     # Known punctuation characters
-    PUNCTUATION = '\\.,:;'
+    @@PUNCTUATION = '\\.,:;'
 
     ##
     # Tell if current node or one of its ancestors is considered "important",
     # ie: it is of kind `Text::Important`.
     #
     def important?
+      return true
       !(@node.ancestor Text::Important).nil?
     end
 
@@ -69,7 +70,7 @@ class Byron
     #
     def read_characters_until (delim, ignore_whitespace = false)
       start = @node
-      token = Token.new
+      token = Token.new ''
 
       begin
         skip_whitespace if ignore_whitespace
@@ -77,20 +78,20 @@ class Byron
         prev = @node
 
         while char = read_character
-          if delim.include? char.to_lower
+          if delim.include? char.value.downcase
             move_to prev
             break
           end
 
-          token.text << char.text
+          token.value << char.value
           token.start ||= char.start
-          token.end = char.end
+          token.stop = char.stop
 
           prev = @node
         end
       end
 
-      return token if token.end
+      return token if token.stop
 
       move_to start
       raise 'Cannot read any `Character`'

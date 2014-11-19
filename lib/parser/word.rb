@@ -12,7 +12,7 @@ class Byron
     #
     #
     def parse
-      if parses = self.class.PARSES
+      if parses = self.class::PARSES
         if wd = read_word
           @parser.lexicon.find wd, parses do |word|
             yield word

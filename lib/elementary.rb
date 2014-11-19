@@ -53,7 +53,6 @@ class Byron
 
       # Parsers
       byron.use *[
-        WordParser,
         NounParser,
         VerbParser,
         AdjectiveParser,

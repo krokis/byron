@@ -77,7 +77,6 @@ class Byron
 
             if feats.has_key? 'forms'
               feats['forms'].each do |frm, fts|
-
                 fts = [fts] unless fts.kind_of? Array
                 fts.each do |ft|
                   forms[ft] = frm

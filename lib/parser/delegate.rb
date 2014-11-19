@@ -22,7 +22,7 @@ class Byron
     def use (byron)
       if parses = self.class::PARSES
         @parser = byron.parser
-        @parser.delegate parses, self
+        @parser.delegate parses, (method :parse)
       end
     end
 
@@ -35,7 +35,6 @@ class Byron
     end
 
     def parse
-      raise 'Oops'
     end
   end
   #

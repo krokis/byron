@@ -26,7 +26,15 @@ class Byron
     #
     #
     def sort_delegates
-      @delegates.sort! { |a, b| a <=> b } # Uh?
+      @delegates.sort! do |a, b|
+        if (a[0]).kind_of? (b[0])
+          -1
+        elsif (b[0]).kind_of? (a[0])
+          1
+        else
+          0
+        end
+      end
     end
 
     ##
@@ -42,19 +50,24 @@ class Byron
     # Add a delegate to this parser.
     #
     def delegate (kind, parser)
+      #p 'delegating',kind, parser
+      @delegates.push [kind, parser]
+      #p 'now',@delegates
     end
 
     ##
     #
     #
-    def delegates_for (type, &block)
+    def delegates_for (kind, &block)
       delegates = []
 
       if block
-        delegates.each do |delegate|
-          @stack << delegate
-          yield delegate
-          @stack.pop
+        @delegates.each do |del|
+          if del[0] <= kind
+            @stack << del
+            yield del[1]
+            @stack.pop
+          end
         end
       end
 
@@ -68,11 +81,11 @@ class Byron
       old_node = new_node = @node
       yielt = []
 
-      delegates_for type do |delegate|
+      delegates_for type do |parser|
 
         move_to old_node
 
-        delegate.parse do |constituent|
+        parser.call do |constituent|
           begin
             yield constituent
             new_node = @node
