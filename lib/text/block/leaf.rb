@@ -9,11 +9,13 @@ class Byron
     #
     #
     class BlockLeaf < Node
+
       include Block
       include Leaf
+
     end
     #
-    ## class BlockLeaf
+    ##
 
   end
 end

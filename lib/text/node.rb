@@ -54,10 +54,11 @@ class Byron
       end
 
       ##
-      # Holds node contents as a string.
+      # Returns node contents as a string.
       #
       def content
         str = ''
+
         @children.each do |child|
           str << child.content
         end
@@ -90,6 +91,8 @@ class Byron
         else
           raise "Cannot append #{child} to #{self}"
         end
+
+        self
       end
 
       ##
@@ -134,9 +137,7 @@ class Byron
             return node.parent.children[(node.parent.children.rindex self) + 1]
           end
           node = node.parent
-        end
-
-        nil # Needed? :S
+        end || nil
       end
 
       ##
@@ -195,9 +196,7 @@ class Byron
           if node = (child.descendant kind)
             return node
           end
-        end
-
-        nil # Needed? :S
+        end || nil
       end
 
       ##
@@ -211,6 +210,18 @@ class Byron
       # Get a JSON representation of this node.
       #
       def to_json
+      end
+
+      ##
+      # Get a YAML representation of this node.
+      #
+      def to_yaml
+      end
+
+      ##
+      # Get an HTML representation of this node.
+      #
+      def to_html
       end
 
     end

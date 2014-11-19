@@ -50,9 +50,7 @@ class Byron
     # Add a delegate to this parser.
     #
     def delegate (kind, parser)
-      #p 'delegating',kind, parser
       @delegates.push [kind, parser]
-      #p 'now',@delegates
     end
 
     ##

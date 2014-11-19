@@ -18,8 +18,7 @@ class Byron
     # ie: it is of kind `Text::Important`.
     #
     def important?
-      return true
-      !(@node.ancestor Text::Important).nil?
+      true # !(@node.ancestor Text::Important).nil?
     end
 
     ##
@@ -28,14 +27,10 @@ class Byron
     #
     def read_character (ignore_whitespace = false)
       if important?
-        begin
-          char = get_atomic_node Text::Character
-          return Token.new char.text, char, char
-        rescue
+        if char = (get_atomic_node Text::Character)
+          Token.new char.text, char, char
         end
       end
-
-      raise 'Cannot read a `Character`'
     end
 
     ##
@@ -46,21 +41,20 @@ class Byron
       start = @node
       token = Token.new
 
-      begin
-        skip_whitespace if ignore_whitespace
+      skip_whitespace if ignore_whitespace
 
-        while char = read_character
-          token.text << char.text
-          token.start ||= token.start
-          token.stop = char.stop
-        end
+      while char = read_character
+        token.text << char.text
+        token.start ||= token.start
+        token.stop = char.stop
       end
 
-      return token if token.stop
-
-      move_to start
-
-      raise 'Cannot read any `Character`'
+      if token.stop
+        token
+      else
+        move_to start
+        nil
+      end
     end
 
     ##
@@ -72,29 +66,29 @@ class Byron
       start = @node
       token = Token.new ''
 
-      begin
-        skip_whitespace if ignore_whitespace
+      skip_whitespace if ignore_whitespace
+
+      prev = @node
+
+      while char = read_character
+        if delim.include? char.value.downcase
+          move_to prev
+          break
+        end
+
+        token.value << char.value
+        token.start ||= char.start
+        token.stop = char.stop
 
         prev = @node
-
-        while char = read_character
-          if delim.include? char.value.downcase
-            move_to prev
-            break
-          end
-
-          token.value << char.value
-          token.start ||= char.start
-          token.stop = char.stop
-
-          prev = @node
-        end
       end
 
-      return token if token.stop
-
-      move_to start
-      raise 'Cannot read any `Character`'
+      if token.stop
+        token
+      else
+        move_to start
+        nil
+      end
     end
 
     ##
@@ -102,25 +96,19 @@ class Byron
     #
     def read_whitespace
       if important?
-        begin
-          node = get_atomic_node Text::Character
+        if node = (get_atomic_node Text::Character)
           if node.text.strip == ''
             Token.new node.text, node.start, node.stop
           end
         end
       end
-
-      raise 'Cannot read a whitespace node'
     end
 
     ##
     # Skip any consequitive significant whitespace characters.
     #
     def skip_whitespace
-      begin
-        read_whitespace until end_of_text?
-      rescue
-      end
+      read_whitespace until end_of_text?
     end
 
     ##
@@ -135,13 +123,16 @@ class Byron
     #
     def read_punctuation (ignore_whitespace = true)
       if important?
-        begin
-          char = read_character ignore_whitespace
-          return char if @@PUNCTUATION.include? char.text
+        start = @node
+        char = read_character ignore_whitespace
+        if @@PUNCTUATION.include? char.text
+          return char
+        else
+          move_to start
         end
       end
 
-      raise 'Cannot read a `Punctuation`'
+      nil
     end
 
     ##
@@ -149,34 +140,16 @@ class Byron
     # `Whitespace` nodes.
     #
     def read_blah
-      unless important?
-        chars = ''
-
-        begin
-          chars << (get_atomic_node Text::Character).text
-        rescue e
-          raise e
-        end
-      else
-        raise 'Cannot read blah characters'
-      end
-
       until important? do
-        begin
-          chars << (get_atomic_node Text::Character).text
-        end
+        break unless get_node
       end
-
-      chars.length > 0 ? chars : nil
     end
 
     ##
     # Skip blah tokens.
     #
     def skip_blah
-      begin
-        read_blah
-      end
+      while read_blah do; end
     end
   end
   #

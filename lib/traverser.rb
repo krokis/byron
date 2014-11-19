@@ -11,6 +11,8 @@ class Byron
   #
   class Traverser
 
+    attr_reader :node
+
     ##
     #
     #
@@ -23,42 +25,30 @@ class Byron
     # Move to a particular node in the document.
     #
     def move_to (node)
+      # Should check `!node || node.document == @node.document`
       old, @node = @node, node
-      old
+      @node
     end
 
     ##
-    # Move to next node.
+    # Move to next node in document.
     #
     def move
       move_to @node.next
     end
 
     ##
-    # Try to consume a node of given `type`.
+    # Try to consume a node of given `kind`.
     #
-    def get_node (type = Text::Node)
-      unless @node.kind_of? type
-        raise "Cannot get node of type #{type}"
-      end
-
-      move
-    end
-
-    ##
-    # Try to consume a node of given `type` or return `nil`.
-    #
-    def eat_node (type = Text::NODE)
-      begin
-        get_node type
-      end
+    def get_node (kind = Text::Node)
+      (@node.kind_of? kind) && move
     end
 
     ##
     # Returns `true` if current node starts a block. This can also tell if last
-    # read node ended a block by calling.
+    # read node ended a block???.
     #
-    def start_of_block? (node = @node)
+    def start_of_block?
       !@node || !@node.parent || @node.first_child?
     end
 
@@ -66,8 +56,8 @@ class Byron
     # Returns `true` if current node *ends* a block, ie: there are no further
     # elements after `current` until current block is closed.
     #
-    def end_of_block? (node = @node)
-      return true if end_of_text? || !node || !node.parent
+    def end_of_block?
+      (end_of_text? || !@node || !@node.parent) || false
     end
 
     ##
@@ -78,10 +68,10 @@ class Byron
     end
 
     ##
-    # Ascend current node ancestors until a node of `type` is found.
+    # Ascend current node ancestors until a node of `kind` is found.
     #
-    def ascend (type = Text::Node)
-      if ancestor = (@node.ancestor type)
+    def ascend (kind = Text::Node)
+      if ancestor = (@node.ancestor kind)
         move_to ancestor
       else
         raise 'Cannot ascend'
@@ -89,11 +79,11 @@ class Byron
     end
 
     ##
-    # Move to a `type` descendant of current node.
+    # Move to a `kind` descendant of current node.
     #
-    def descend (type = Text::Node)
+    def descend (kind = Text::Node)
       unless end_of_text?
-        if descendant = (@node.descendant type)
+        if descendant = (@node.descendant kind)
           move_to descendant
         else
           raise 'Cannot descend'
@@ -105,33 +95,52 @@ class Byron
     #
     #
     def skip_whitespace
-      while (eat Text::Whitespace) do; end
-      @node
+      while (get_node Text::Whitespace) do; end
     end
 
     ##
-    # Consume an inline node of given `type`. If current node is a block one,
+    # Consume an inline node of given `kind`. If current node is a block one,
     # then descend down to an inline node.
     #
-    def get_inline_node (type = Text::Inline, ignore_whitespace = false)
-      descend Text::Inline
-      skip_whitespace if ignore_whitespace
-      get_node type
+    def get_inline_node (kind = Text::Inline, ignore_whitespace = false)
+      start = @node
+
+      begin
+        descend Text::Inline
+        skip_whitespace if ignore_whitespace
+        if node = (get_node kind)
+          return node
+        end
+      rescue
+      end
+
+      move_to start
+      nil
     end
 
     ##
-    # Consume an atomic node of given `type`. If current node is not of `Atomic`
+    # Consume an atomic node of given `kind`. If current node is not of `Atomic`
     # class, then descend down to an atomic node. If first `Atomic` node is not
-    # of given `type`, an exception is thrown
+    # of given `kind`, an exception is thrown
     #
-    def get_atomic_node (type = Text::Atomic, ignore_whitespace = false)
-      descend Text::Atomic
-      skip_whitespace if ignore_whitespace
-      get_node type
+    def get_atomic_node (kind = Text::Atomic, ignore_whitespace = false)
+      start = @node
+
+      begin
+        descend Text::Atomic
+        skip_whitespace if ignore_whitespace
+        if node = (get_node kind)
+          return node
+        end
+      rescue
+      end
+
+      move_to start
+      nil
     end
 
   end
   #
-  ## class Byron::Traverser
+  ##
 
 end

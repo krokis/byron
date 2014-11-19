@@ -7,9 +7,9 @@ describe "Scanner" do
 
     Dir[files].each do |md_file|
       source = File.read md_file
-      yaml_file = md_file.sub /\.md$/, '.yaml'
-      expected = File.read yaml_file
-      it md_file do
+      html_file = md_file.sub /\.md$/, '.html'
+      expected = File.read html_file
+      it (File.basename md_file) do
         scanner = Byron::Scanner.new
         actual = scanner.scan source
         #puts actual.to_yaml
