@@ -35,7 +35,7 @@ class Byron
       #
       #
       def to_s
-        raise 'Oops'
+        self.class.name
       end
 
     end

@@ -41,7 +41,11 @@ class Byron
     # Try to consume a node of given `kind`.
     #
     def get_node (kind = Text::Node)
-      (@node.kind_of? kind) && move
+      if @node.kind_of? kind
+        node = @node
+        move
+        node
+      end
     end
 
     ##
@@ -125,7 +129,6 @@ class Byron
     #
     def get_atomic_node (kind = Text::Atomic, ignore_whitespace = false)
       start = @node
-
       begin
         descend Text::Atomic
         skip_whitespace if ignore_whitespace

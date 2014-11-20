@@ -12,6 +12,7 @@ class Byron
 
     # Known punctuation characters
     @@PUNCTUATION = '\\.,:;'
+    @@WORD_STOP = @@PUNCTUATION + " \t\n\r"
 
     ##
     # Tell if current node or one of its ancestors is considered "important",
@@ -28,7 +29,7 @@ class Byron
     def read_character (ignore_whitespace = false)
       if important?
         if char = (get_atomic_node Text::Character)
-          Token.new char.text, char, char
+          Token.new char.text, char.start, char.stop
         end
       end
     end
@@ -59,8 +60,7 @@ class Byron
 
     ##
     # Try to read one or more significant `Character` nodes until one matches
-    # one of the passed `delim` characters. In case of failure, a `LexerFail` is
-    # thrown.
+    # one of the passed `delim` characters.
     #
     def read_characters_until (delim, ignore_whitespace = false)
       start = @node
@@ -71,6 +71,7 @@ class Byron
       prev = @node
 
       while char = read_character
+
         if delim.include? char.value.downcase
           move_to prev
           break
@@ -96,26 +97,32 @@ class Byron
     #
     def read_whitespace
       if important?
+        start = @node
         if node = (get_atomic_node Text::Character)
           if node.text.strip == ''
-            Token.new node.text, node.start, node.stop
+            return Token.new node.text, node.start, node.stop
           end
         end
+        move_to start
+        return nil
       end
     end
 
     ##
-    # Skip any consequitive significant whitespace characters.
+    # Skip any consecutive significant whitespace characters.
     #
     def skip_whitespace
-      read_whitespace until end_of_text?
+      until end_of_text? do
+        space = read_whitespace
+        break unless space
+      end
     end
 
     ##
     # Read consecutive non-punctuation characters inside an important element.
     #
     def read_word (ignore_whitespace = true)
-      read_characters_until @@PUNCTUATION, ignore_whitespace
+      read_characters_until @@WORD_STOP, ignore_whitespace
     end
 
     ##

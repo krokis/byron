@@ -15,7 +15,7 @@ class Byron
         @head = head
         @argument = argument
 
-        super features
+        # super features
       end
 
       ##

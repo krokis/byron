@@ -14,7 +14,7 @@ class Byron
 
     def parse
       parse_a Grammar::UndeterminedNounPhrase do |noun|
-        yield Grammar::DeterminedNounPhrase.new noun
+        yield (Grammar::DeterminedNounPhrase.new noun)
       end
     end
 

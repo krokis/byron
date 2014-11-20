@@ -26,8 +26,8 @@ class Byron
       end
     end
 
-    def method_missing (method, *args)
-      @parser.send method, *args
+    def method_missing (method, *args, &block)
+      @parser.__send__ method, *args, &block
     end
 
     def respond_to_missing?(name, include_private = false)

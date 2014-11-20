@@ -4,6 +4,7 @@ require 'yaml'
 require_relative 'grammar/lexeme/noun'
 require_relative 'grammar/lexeme/verb'
 require_relative 'grammar/lexeme/adjective'
+require_relative 'grammar/node/word'
 
 class Byron
 
@@ -49,11 +50,10 @@ class Byron
       if @words.has_key? word
         @words[word].map! do |wd|
           if wd.kind_of? Array
-            wd = @wd[0].new @wd[1]
+            wd = Grammar::Word.new wd[0], wd[1]
           end
 
           yield wd
-          wd
         end
       end
     end

@@ -610,7 +610,7 @@ class Byron
     # Read an unordered list.
     #
     def read_unordered_list
-      if @char && ('*+-'.include? @char)
+      if '*+-'.include? @char
         bullet = @char
         back = @position
 

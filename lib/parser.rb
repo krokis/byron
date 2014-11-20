@@ -75,7 +75,7 @@ class Byron
     ##
     # Parse a grammar constituent of given `type`.
     #
-    def parse_constituent (type = Grammar::Constituent)
+    def parse_constituent (type = Grammar::Constituent, &blck)
       old_node = new_node = @node
       yielt = []
 
@@ -88,22 +88,23 @@ class Byron
             yield constituent
             new_node = @node
             yielt << constituent
+          rescue Exception => e
+            puts e
+            raise e
           end
         end
-
       end
 
       if yielt.length == 1
         move_to new_node
-        return yielt.first
-      end
-
-      move_to old_node
-
-      if yielt.length > 1
-        raise "Ambiguity (#{yielt.length})"
       else
-        raise "Could not parse a #{type}"
+        move_to old_node
+
+        if yielt.length > 1
+          raise "Ambiguity (#{yielt.length})"
+        else
+          raise "Could not parse a #{type}"
+        end
       end
     end
 

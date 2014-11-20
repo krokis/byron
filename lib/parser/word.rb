@@ -13,10 +13,9 @@ class Byron
     #
     def parse
       if parses = self.class::PARSES
-        puts "reading a word at", node.start
         if wd = read_word
-          puts wd.value
-          @parser.lexicon.find wd, parses do |word|
+          @parser.lexicon.find wd.value, parses do |word|
+            puts word
             yield word
           end
         end
