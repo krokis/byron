@@ -75,7 +75,7 @@ class Byron
     ##
     # Parse a grammar constituent of given `type`.
     #
-    def parse_constituent (type = Grammar::Constituent, &blck)
+    def parse_constituent (type = Grammar::Constituent)
       old_node = new_node = @node
       yielt = []
 
