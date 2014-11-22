@@ -2,4 +2,4 @@
 
 English for machines.
 
-[![Build Status](https://travis-ci.org/krokis/byron.png?branch=wip)](https://travis-ci.org/krokis/byron)
+[![Build Status](https://img.shields.io/travis/krokis/byron/wip.svg?style=flat-square)](https://travis-ci.org/krokis/byron)

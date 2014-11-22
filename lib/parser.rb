@@ -56,20 +56,14 @@ class Byron
     ##
     #
     #
-    def delegates_for (kind, &block)
-      delegates = []
-
-      if block
-        @delegates.each do |del|
-          if del[0] <= kind
-            @stack << del
-            yield del[1]
-            @stack.pop
-          end
+    def delegates_for (kind)
+      @delegates.each do |del|
+        if del[0] <= kind
+          @stack << del
+          yield del[1]
+          @stack.pop
         end
       end
-
-      return delegates
     end
 
     ##
@@ -120,22 +114,17 @@ class Byron
       skip_whitespace
 
       until end_of_text? do
-
         discourse.sentences << parse_a(Grammar::Sentence) do |sentence|
-
           skip_whitespace
-
           period =
             begin
               parse_a Grammar::Period
             rescue
               nil
             end
-
           unless period || start_of_block? || !important?
             raise 'Unterminated sentence' # Try again
           end
-
         end
 
         skip_whitespace
