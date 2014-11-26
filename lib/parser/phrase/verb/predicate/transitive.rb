@@ -12,9 +12,10 @@ class Byron
 
     def parse
       parse_a Grammar::VerbPhrase do |verb|
-        # Check verb phrase's head verb(s) is transitive...
-        parse_a Grammar::DirectObject do |direct_object|
-          yield (Grammar::Predicate.new verb, direct_object)
+        if verb_phrase.intransitive?
+          parse_a Grammar::DirectObject do |direct_object|
+            yield (Grammar::Predicate.new verb, direct_object)
+          end
         end
       end
     end

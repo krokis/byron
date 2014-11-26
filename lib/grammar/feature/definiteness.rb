@@ -7,7 +7,12 @@ class Byron
       ##
       #
       module Definiteness
+
         include Features
+
+        def definite?
+        end
+
       end
       #
       ##

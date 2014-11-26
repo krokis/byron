@@ -11,10 +11,11 @@ class Byron
   class LinkingPredicateParser < PredicateParser
 
     def parse
-      parse_a Grammar::VerbPhrase do |verb|
-        # Check verb phrase's head verb(s) is linking...
-        parse_a Grammar::Predicative do |predicative|
-          yield (Grammar::Predicate.new verb, predicative)
+      parse_a Grammar::VerbPhrase do |verb_phrase|
+        if verb_phrase.linking?
+          parse_a Grammar::Predicative do |predicative|
+            yield (Grammar::Predicate.new verb_phrase, predicative)
+          end
         end
       end
     end

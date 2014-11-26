@@ -1,5 +1,6 @@
-require_relative '../category/noun'
 require_relative '../lexeme'
+require_relative '../../category/noun'
+require_relative '../../feature/regularity'
 
 class Byron
   module Grammar
@@ -9,9 +10,7 @@ class Byron
     class NounLexeme < Lexeme
 
       include Category::Noun
-
-      def inflect (features)
-      end
+      include Feature::Regularity
 
       def make_forms
         @forms[{
@@ -21,6 +20,9 @@ class Byron
         @forms[{
           number: :plural
         }] = "#{@lemma}s"
+      end
+
+      def inflect (features)
       end
 
     end

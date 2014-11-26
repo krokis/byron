@@ -9,8 +9,16 @@ class Byron
     #
     #
     class VerbPhrase < Phrase
+
       include Category::Verb
       include Feature::Voice
+
+      ##
+      # Head verb
+      #
+      def verb
+      end
+
     end
     #
     ##

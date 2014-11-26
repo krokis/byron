@@ -8,28 +8,17 @@ class Byron
     #
     class Branch < Node
 
-      attr_reader :head
-      attr_reader :argument
-
-      def initialize (head = nil, argument = nil, features = nil)
-        @head = head
-        @argument = argument
-
-        # super features
-      end
-
       ##
       #
       #
       def children
-        [@head, @argument].compact
       end
 
       ##
       # Tell if this constituent has any children (a head or an argument).
       #
       def children?
-        !!(@head || @argument)
+        !children.empty?
       end
 
       ##

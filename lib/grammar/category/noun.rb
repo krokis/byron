@@ -1,4 +1,3 @@
-require_relative '../feature/regularity'
 require_relative '../feature/gender'
 
 class Byron
@@ -9,7 +8,6 @@ class Byron
       #
       #
       module Noun
-        include Feature::Regularity
         include Feature::Gender
       end
       #

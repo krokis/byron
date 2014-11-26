@@ -9,8 +9,19 @@ class Byron
     #
     #
     class NounPhrase < Phrase
+
       include Category::Noun
       include Feature::Definiteness
+
+      ##
+      # Get head noun.
+      #
+      def noun
+      end
+
+      def determined?
+      end
+
     end
     #
     ##

@@ -1,4 +1,4 @@
-require_relative 'constituent'
+require_relative 'features'
 
 class Byron
   module Grammar
@@ -6,7 +6,9 @@ class Byron
     ##
     #
     #
-    class Node < Constituent
+    class Node
+
+      include Features
 
       ##
       #

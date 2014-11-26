@@ -1,9 +1,9 @@
 # Std-lib
 require 'yaml'
 
-require_relative 'grammar/lexeme/noun'
-require_relative 'grammar/lexeme/verb'
-require_relative 'grammar/lexeme/adjective'
+require_relative 'grammar/node/lexeme/noun'
+require_relative 'grammar/node/lexeme/verb'
+require_relative 'grammar/node/lexeme/adjective'
 require_relative 'grammar/node/word'
 
 class Byron

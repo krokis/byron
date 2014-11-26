@@ -26,6 +26,9 @@ class Byron
       def included (another)
       end
 
+      def agrees (another, features = nil)
+      end
+
     end
     #
     ##

@@ -1,4 +1,3 @@
-require_relative '../feature/regularity'
 
 class Byron
   module Grammar
@@ -8,7 +7,6 @@ class Byron
       #
       #
       module Adverb
-        include Feature::Regularity
       end
       #
       ##

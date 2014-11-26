@@ -1,5 +1,5 @@
-require_relative 'leaf'
-require_relative '../lexeme'
+require_relative 'branch'
+require_relative 'unary'
 
 class Byron
   module Grammar
@@ -16,17 +16,16 @@ class Byron
     #     i_am.present? # true
     #     i_am.regular? # false, same as i_am.lexeme.regular?
     #
-    class Word < Leaf
+    class Word < Branch
 
-      attr_reader :lexeme
+      include Unary
 
-      def lemma
-        @lexeme.lemma
+      def lexeme
+        @head
       end
 
-      def initialize (lexeme, features = nil)
-        @lexeme = lexeme
-        # Now inherit lexeme features before passed features
+      def lemma
+        @head && @head.lemma
       end
 
       def inflect (features)

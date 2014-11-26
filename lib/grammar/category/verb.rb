@@ -1,7 +1,6 @@
-require_relative '../feature/regularity'
+# http://en.wikipedia.org/wiki/Gender
+
 require_relative '../feature/transitivity'
-require_relative '../feature/linking'
-require_relative '../feature/defective'
 
 class Byron
   module Grammar
@@ -11,10 +10,7 @@ class Byron
       #
       #
       module Verb
-        include Feature::Regularity
         include Feature::Transitivity
-        include Feature::Linking
-        include Feature::Defective
       end
       #
       ##

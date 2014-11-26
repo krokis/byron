@@ -15,6 +15,8 @@ class Byron
     def parse
       parse_a Grammar::Subject do |subject|
         parse_a Grammar::Predicate do |predicate|
+          # Now match agreement between subject and predicate.
+          if
           yield (Grammar::DeclarativeClause.new predicate, subject)
         end
       end

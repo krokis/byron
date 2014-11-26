@@ -1,5 +1,4 @@
-require_relative 'features'
-require_relative 'constituent'
+require_relative 'leaf'
 
 class Byron
   module Grammar
@@ -7,7 +6,7 @@ class Byron
     ##
     #
     #
-    class Lexeme < Constituent
+    class Lexeme < Leaf
 
       attr_reader :lemma
 
@@ -31,6 +30,8 @@ class Byron
       def to_s
         @lemma
       end
+
+      protected :make_forms
 
     end
     #

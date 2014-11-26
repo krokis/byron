@@ -12,8 +12,8 @@ class Byron
     PARSES = Grammar::Subject
 
     def parse
-      parse_a Grammar::DeterminedNounPhrase do |noun|
-        yield (Grammar::Subject.new noun)
+      parse_a Grammar::DeterminedNounPhrase do |noun_phrase|
+        yield (Grammar::Subject.new noun_phrase)
       end
     end
   end

@@ -1,15 +1,12 @@
-require_relative '../node'
-
 class Byron
   module Grammar
 
     ##
     #
-    #
-    class Leaf < Node
+    module Unary
 
-      def children
-        []
+      def initialize (head, features = nil)
+        @head = head
       end
 
     end

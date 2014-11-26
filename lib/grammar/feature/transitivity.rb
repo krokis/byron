@@ -10,11 +10,13 @@ class Byron
         TRANSITIVE   = :transitive
         INTRANSITIVE = :intransitive
         DITRANSITIVE = :ditransitive
+        LINKING      = :linking
 
         TRANSITIVITIES = [
           TRANSITIVE,
           INTRANSITIVE,
-          DITRANSITIVE
+          DITRANSITIVE,
+          LINKING
         ]
 
         def transitive?
@@ -24,6 +26,9 @@ class Byron
         end
 
         def ditransitive?
+        end
+
+        def linking?
         end
 
       end
