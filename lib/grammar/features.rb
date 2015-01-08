@@ -6,6 +6,17 @@ class Byron
     #
     module Features
 
+      class << self
+
+        def add_feature (name, values = [])
+          @own_features ||= {}
+          @own_features[name] = values
+        end
+
+        def features
+        end
+
+
       @@features = {}
 
       ##
@@ -27,6 +38,9 @@ class Byron
       end
 
       def agrees (another, features = nil)
+      end
+
+      def self.add_feature (name, falues)
       end
 
     end

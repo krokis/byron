@@ -21,7 +21,7 @@ class Byron
       # Tell if this constituent has any children.
       #
       def children?
-        false
+        not @children.empty?
       end
 
       ##

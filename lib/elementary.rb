@@ -1,7 +1,7 @@
-require_relative 'grammar/lexeme'
-require_relative 'grammar/lexeme/noun'
-require_relative 'grammar/lexeme/verb'
-require_relative 'grammar/lexeme/adjective'
+require_relative 'grammar/node/lexeme'
+require_relative 'grammar/node/lexeme/noun'
+require_relative 'grammar/node/lexeme/verb'
+require_relative 'grammar/node/lexeme/adjective'
 require_relative 'lexicon'
 
 # Parsers
@@ -73,7 +73,7 @@ class Byron
       # Evaluators
       byron.use *[]
 
-      p byron.lexicon.words.keys
+      puts byron.lexicon.words.keys
 
     end
   end

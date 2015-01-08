@@ -95,7 +95,7 @@ class Byron
     end
 
     unless text.kind_of? Grammar::Node
-      raise 'Cannot evaluate that'
+      raise 'Cannot evaluate that!'
     end
 
     @evaluator.evaluate text
