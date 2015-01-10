@@ -21,8 +21,9 @@ class Byron
           end
 
         unless period || end_of_block? || !important?
-            raise 'Unterminated sentence' # Try again
-          end
+          raise 'Unterminated sentence' # Try again
+        end
+
         yield (Grammar::Sentence.new clause)
       end
     end
