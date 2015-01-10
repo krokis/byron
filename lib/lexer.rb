@@ -131,12 +131,12 @@ class Byron
     def read_punctuation (ignore_whitespace = true)
       if important?
         start = @node
-        char = read_character ignore_whitespace
-        if @@PUNCTUATION.include? char.text
-          return char
-        else
-          move_to start
+        if char = (read_character ignore_whitespace)
+          if @@PUNCTUATION.include? char.value
+            return char
+          end
         end
+        move_to start
       end
 
       nil

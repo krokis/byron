@@ -27,9 +27,9 @@ class Byron
     #
     def sort_delegates
       @delegates.sort! do |a, b|
-        if (a[0]).kind_of? (b[0])
+        if a[0] < b[0]
           -1
-        elsif (b[0]).kind_of? (a[0])
+        elsif b[0] < a[0]
           1
         else
           0
@@ -61,7 +61,12 @@ class Byron
         if del[0] <= kind
           unless @stack.include? del
             @stack << del
-            yield del[1]
+            begin
+              yield del[1]
+            rescue Exception => e
+              puts ":( #{e}"
+              puts e.backtrace
+            end
             @stack.pop
           end
         end
@@ -72,50 +77,40 @@ class Byron
     # Parse a grammar constituent of given `kind`.
     #
     def parse_constituent (kind = Grammar::Constituent, &block)
-
-      puts "Trying to read a #{kind} @ #{@node.start}"
-
       old_node = new_node = @node
 
       yielt = []
 
+      puts "Trying to read a #{kind}"
+
       delegates_for kind do |parser|
-
-        puts "    with a #{parser}"
-
+        puts "With a #{parser}"
         move_to old_node
 
-        parser.call do |constituent|
-          begin
-            puts "    got a #{constituent}"
-            if block
-              yield constituent
-            else
-              puts "not yielding a #{constituent}"
-            end
-
+        begin
+          parser.call do |constituent|
+            puts "Got a #{constituent}"
+            yield constituent if block
             new_node = @node
-            puts "pushing a #{constituent}"
             yielt << constituent
-          rescue
           end
+        rescue Exception => e
+          puts ":( #{e}"
+          puts e.backtrace
         end
       end
-
-      puts "yielt for #{kind}: #{yielt}"
 
       if yielt.length == 1
         move_to new_node
         yielt[0]
       else
-
         move_to old_node
 
         if yielt.length > 1
-          raise "Ambiguity (#{yielt.length})"
-        else
-          nil
+          puts "AMBIGUITY for #{kind}!!! (#{yielt.length})"
         end
+
+        nil
       end
     end
 
@@ -131,13 +126,10 @@ class Byron
       skip_whitespace
 
       until end_of_text? do
-        begin
-          sentence = parse_a Grammar::Sentence
-          puts "Sentence!!!!!!!!!!!!!!!!!!: #{sentence}"
+        if sentence = (parse_a Grammar::Sentence)
           discourse.sentences << sentence
           skip_whitespace
-        rescue Exception => e
-          puts ":( #{e}"
+        else
           break
         end
       end

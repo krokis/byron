@@ -1,5 +1,4 @@
-__END__
-require_relative 'lib/byron'
+require './lib/byron'
 
 ##
 #
@@ -27,6 +26,9 @@ Gem::Specification.new do |spec|
   # Development dependencies.
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rack', '~> 1.5.2'
+  spec.add_development_dependency 'sinatra'
+  spec.add_development_dependency 'slim'
 end
 #
 ##

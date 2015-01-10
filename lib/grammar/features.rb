@@ -22,6 +22,19 @@ class Byron
         @features[name] = values
       end
 
+      def make_features (tokens)
+        if tokens.kind_of? String
+          tokens = str.split /[\s\,]+/
+        end
+
+        tokens.each do |token|
+          features.each do |name, values|
+            puts name
+          end
+          #puts token
+        end
+      end
+
       def self.included (other)
         other.extend self
       end

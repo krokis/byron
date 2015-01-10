@@ -15,7 +15,8 @@ class Byron
       #
       #
       def specifier
-        (@argument.kind_of? Specifier) || @head && @head.specifier
+        (@argument.kind_of? Specifier) ||
+        @head && (@head.kind_of? Phrase) && @head.specifier
       end
 
       def specifier?
@@ -29,7 +30,7 @@ class Byron
         complements = []
         if @argument.kind_of? Complement
           complements << @arguments
-          if @head
+          if @head && (@head.kind_of? Phrase)
             complements += @head.complements
           end
         end
@@ -47,7 +48,7 @@ class Byron
         adjuncts = []
         if @argument.kind_of? Adjunct
           adjuncts << @arguments
-          if @head
+          if @head && (@head.kind_of? Phrase)
             adjuncts += @head.adjuncts
           end
         end

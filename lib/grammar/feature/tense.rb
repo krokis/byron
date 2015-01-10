@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -7,20 +9,15 @@ class Byron
       #
       module Tense
 
-        PRESENT    = :present
-        PAST       = :past
-        FUTURE     = :future
-        INFINITIVE = :infinitive
-        PARTICIPLE = :participle
-        GERUND     = :gerund
+        include Features
 
-        TENSES = [
-          PRESENT,
-          PAST,
-          FUTURE,
-          INFINITIVE,
-          PARTICIPLE,
-          GERUND
+        add_feature :tense, [
+          :present,
+          :past,
+          :future,
+          :infinitive,
+          :participle,
+          :gerund
         ]
 
         def present?

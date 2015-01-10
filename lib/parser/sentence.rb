@@ -20,11 +20,9 @@ class Byron
             nil
           end
 
-        unless period || end_of_block? || !important?
-          raise 'Unterminated sentence' # Try again
+        if period || end_of_block? || !important?
+          yield (Grammar::Sentence.new clause)
         end
-
-        yield (Grammar::Sentence.new clause)
       end
     end
 

@@ -10,8 +10,6 @@ class Byron
 
       include Features
 
-      attr_accessor :head
-
       def initialize (features = {})
         features.each do |name, value|
           self[name] = value

@@ -6,6 +6,9 @@ module Byron::Text
   #
   #
   class UnorderedList < List
+
+    attr_accessor :bullet
+
   end
   #
   ##

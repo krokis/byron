@@ -3,11 +3,25 @@
   transitivity: intransitive
   features:
     - regular
-    - intansitive
+    - intransitive
+  forms:
+    rocks:
+      person: third
+      number: singular
+      tense: present
 
 - lemma: 'work'
   regularity: regular
   transitivity: intransitive
+  forms:
+    works:
+      person: third
+      number: singular
+      tense: present
+    work:
+      person: third
+      number: plural
+      tense: present
 
 - lemma: 'be'
   regularity: irregular

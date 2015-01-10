@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -7,25 +9,25 @@ class Byron
       #
       module Transitivity
 
-        TRANSITIVE   = :transitive
-        INTRANSITIVE = :intransitive
-        DITRANSITIVE = :ditransitive
-        LINKING      = :linking
+        include Features
 
-        TRANSITIVITIES = [
-          TRANSITIVE,
-          INTRANSITIVE,
-          DITRANSITIVE,
-          LINKING
+        add_feature :transitivity, [
+          :transitive,
+          :intransitive,
+          :ditransitive,
+          :linking
         ]
 
         def transitive?
+          self[:transitivity] == :transitive
         end
 
         def intransitive?
+          self[:transitivity] == :intransitive
         end
 
         def ditransitive?
+          self[:transitivity] == :ditransitive
         end
 
         def linking?

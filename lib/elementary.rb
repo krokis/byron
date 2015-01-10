@@ -62,7 +62,6 @@ class Byron
         VerbParser,
         AdjectiveParser,
         AdjectiveParser,
-        SimpleNounPhraseParser,
         UndeterminedNounPhraseParser,
         AdjectivedNounPhraseParser,
         DeterminedNounPhraseParser,
@@ -75,14 +74,12 @@ class Byron
         AdjectivePredicativeParser,
         SubjectParser,
         DeclarativeClauseParser,
-        SentenceParser
+        SentenceParser,
+        SimpleNounPhraseParser
       ]
 
       # Evaluators
       byron.use *[]
-
-      puts byron.lexicon.words.keys
-
     end
   end
   #

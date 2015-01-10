@@ -1,0 +1,51 @@
+@import url(http://fonts.googleapis.com/css?family=IM+Fell+English);
+@import url(https://raw.githubusercontent.com/necolas/normalize.css/master/normalize.css);
+
+body {
+  background-color: rgba(0, 0, 0, .07);
+}
+
+body, td, th, input {
+  color: #333;
+  font-size: 14px;
+}
+
+h1 {
+  font-family: "IM Fell English";
+  font-size: 62px;
+  text-align: center;
+  margin: 1em;
+}
+
+form {
+  width: 30em;
+  margin: 0 auto;
+  text-align: center;
+}
+
+form input[name=sentence] {
+  font-size: 18px;
+  background-color: white;
+  border: 1px solid rgba(0,0,0,.35);
+  border-radius: 4px;
+  padding: .4em;
+  display: block;
+  width: 100%;
+  box-sizing: boder-box;
+}
+
+form button {
+  font-family: "IM Fell English";
+  font-size: 20px;
+  margin: 1em 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+  outline: none;
+}
+
+.mermaid {
+  text-align: center;
+  margin: 2em 0;
+}

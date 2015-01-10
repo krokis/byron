@@ -18,14 +18,21 @@ class Byron
       # Head verb
       #
       def verb
-        verb = @head
+        verb = self
 
         while verb
+
           return verb if verb.kind_of? Lexeme
-          verb = verb.head
+
+          begin
+            verb = verb.head
+          rescue Exception => e
+            puts "Verb has no head!!! #{self}, #{verb}, #{self.head}"
+            raise e
+          end
         end
 
-        verb
+        nil
       end
 
     end

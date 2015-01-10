@@ -49,9 +49,7 @@ class Byron
     def find (word = nil, kind = nil)
       if @words.has_key? word
         @words[word].each do |lexeme, features|
-          wd = Grammar::Word.new lexeme, features
-          puts wd
-          yield wd
+          yield (Grammar::Word.new lexeme, features)
         end
       end
     end
@@ -95,7 +93,6 @@ class Byron
             end
 
             lexeme = kind.new features, lemma, forms
-            puts lexeme.features
             lexicon.add lexeme
           end
         end

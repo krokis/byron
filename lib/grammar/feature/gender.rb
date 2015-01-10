@@ -11,11 +11,7 @@ class Byron
 
         include Features
 
-        MALE    = :male
-        FEMALE  = :female
-        NEUTER  = :neuter
-
-        self.add_feature :gender, [:male, :female]
+        add_feature :gender, [:male, :female]
 
         def male?
         end

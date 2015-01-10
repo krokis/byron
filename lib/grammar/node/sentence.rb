@@ -13,7 +13,9 @@ class Byron
     # 3) End with a period, ellipsis or an interrogation or exclamation mark.
     #
     class Sentence < Branch
+
       include Unary
+
     end
 
   end

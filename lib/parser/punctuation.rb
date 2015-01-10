@@ -13,7 +13,7 @@ class Byron
     def parse
       if self.class::PARSES
         if token = read_punctuation
-          if self.class::PARSES.forms.include? token.value
+          if self.class::PARSES::FORMS.include? token.value
             yield self.class::PARSES.new
           end
         end

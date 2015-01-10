@@ -15,8 +15,6 @@ class Byron
       parse_a Grammar::VerbPhrase do |verb_phrase|
         if verb_phrase.verb.linking?
           parse_a Grammar::Predicative do |predicative|
-            puts verb_phrase
-            puts predicative
             yield (Grammar::LinkingPredicate.new verb_phrase, predicative)
           end
         end
