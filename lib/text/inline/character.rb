@@ -1,6 +1,8 @@
 require_relative 'atomic'
 
-module Byron::Text
-  class Character < InlineAtomic
+class Byron
+  module Text
+    class Character < InlineAtomic
+    end
   end
 end

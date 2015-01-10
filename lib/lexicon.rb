@@ -48,11 +48,9 @@ class Byron
     #
     def find (word = nil, kind = nil)
       if @words.has_key? word
-        @words[word].map! do |wd|
-          if wd.kind_of? Array
-            wd = Grammar::Word.new wd[0], wd[1]
-          end
-
+        @words[word].each do |lexeme, features|
+          wd = Grammar::Word.new lexeme, features
+          puts wd
           yield wd
         end
       end
@@ -67,25 +65,37 @@ class Byron
 
       if lexemes
         lexemes.each do |feats|
-
           if feats.has_key? 'lemma'
-            lemma = feats['lemma']
-            feats.delete 'lemma'
 
-            # Form hints
+            features = {}
             forms = {}
+            lemma = nil
 
-            if feats.has_key? 'forms'
-              feats['forms'].each do |frm, fts|
-                fts = [fts] unless fts.kind_of? Array
-                fts.each do |ft|
-                  forms[ft] = frm
+            feats.each do |name, val|
+
+              case name
+              when 'forms'
+                # Form hints
+                val.each do |frm, fts|
+                  fts = [fts] unless fts.kind_of? Array
+                  forms[fts] = frm
                 end
+              when 'lemma'
+                lemma = feats['lemma']
+              when 'features'
+                next
+              when String
+                name = name.to_sym
+                val = val.to_sym
+                features[name] = val
+              else
+                raise 'Ooops'
               end
+
             end
 
-            lexeme = kind.new lemma, feats, forms
-
+            lexeme = kind.new features, lemma, forms
+            puts lexeme.features
             lexicon.add lexeme
           end
         end
@@ -101,7 +111,6 @@ class Byron
       yaml = File.read file
       self.from_yaml yaml, kind
     end
-
   end
   #
   ##

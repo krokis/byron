@@ -59,46 +59,53 @@ class Byron
     def delegates_for (kind)
       @delegates.each do |del|
         if del[0] <= kind
-          @stack << del
-          yield del[1]
-          @stack.pop
+          unless @stack.include? del
+            @stack << del
+            yield del[1]
+            @stack.pop
+          end
         end
       end
     end
 
     ##
-    # Parse a grammar constituent of given `type`.
+    # Parse a grammar constituent of given `kind`.
     #
-    def parse_constituent (type = Grammar::Constituent)
+    def parse_constituent (kind = Grammar::Constituent)
+
+      puts "Trying to read a #{kind}"
+
       old_node = new_node = @node
       yielt = []
 
-      delegates_for type do |parser|
+      delegates_for kind do |parser|
+
+        puts "    with a #{parser}"
 
         move_to old_node
 
         parser.call do |constituent|
           begin
+            puts "    got a #{constituent}"
             yield constituent
             new_node = @node
             yielt << constituent
-          rescue Exception => e
-            puts e
-            raise e
+          rescue
           end
         end
       end
 
       if yielt.length == 1
         move_to new_node
-      else
-        move_to old_node
+        return yielt[0]
+      end
 
-        if yielt.length > 1
-          raise "Ambiguity (#{yielt.length})"
-        else
-          raise "Could not parse a #{type}"
-        end
+      move_to old_node
+
+      if yielt.length > 1
+        raise "Ambiguity (#{yielt.length})"
+      else
+        raise "Could not parse a #{kind}"
       end
     end
 
@@ -114,19 +121,9 @@ class Byron
       skip_whitespace
 
       until end_of_text? do
-        discourse.sentences << parse_a(Grammar::Sentence) do |sentence|
-          skip_whitespace
-          period =
-            begin
-              parse_a Grammar::Period
-            rescue
-              nil
-            end
-          unless period || start_of_block? || !important?
-            raise 'Unterminated sentence' # Try again
-          end
-        end
-
+        sentence = parse_a Grammar::Sentence
+        puts "S! #{sentence}"
+        discourse.sentences << sentence
         skip_whitespace
       end
 

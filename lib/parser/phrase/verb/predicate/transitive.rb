@@ -12,7 +12,7 @@ class Byron
 
     def parse
       parse_a Grammar::VerbPhrase do |verb|
-        if verb_phrase.intransitive?
+        if verb.transitive?
           parse_a Grammar::DirectObject do |direct_object|
             yield (Grammar::Predicate.new verb, direct_object)
           end

@@ -1,6 +1,15 @@
 require_relative '../literal'
 
-module Byron::Text
-  class NumberLiteral < Literal
+class Byron
+  module Text
+
+    ##
+    #
+    #
+    class NumberLiteral < Literal
+    end
+    #
+    ##
+
   end
 end

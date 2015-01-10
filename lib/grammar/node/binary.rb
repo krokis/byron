@@ -11,9 +11,10 @@ class Byron
       # Hey! We need to know which child is on the left and which is on the
       # right.
       #
-      def initialize (head, argument, features = nil)
+      def initialize (head, argument, features = {})
+        @head = head
         @argument = argument
-        super head, features
+        super features
       end
 
       ##

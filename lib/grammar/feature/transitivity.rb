@@ -29,6 +29,7 @@ class Byron
         end
 
         def linking?
+          self[:transitivity] == :linking
         end
 
       end

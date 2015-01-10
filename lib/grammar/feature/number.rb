@@ -11,10 +11,7 @@ class Byron
 
         include Features
 
-        SINGULAR = :singular
-        PLURAL   = :plural
-
-        @@features[:number] = nil
+        add_feature :number, [:singular, :plural]
 
         ##
         #

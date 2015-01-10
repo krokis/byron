@@ -1,11 +1,17 @@
 - lemma: 'rock'
   regularity: regular
   transitivity: intransitive
+  features:
+    - regular
+    - intansitive
+
+- lemma: 'work'
+  regularity: regular
+  transitivity: intransitive
 
 - lemma: 'be'
-  linking: true
   regularity: irregular
-  transitivity: intransitive
+  transitivity: linking
   forms:
     be:
       tense: infinitive

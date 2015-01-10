@@ -72,7 +72,7 @@ class Byron
     end
 
     ##
-    # Ascend current node ancestors until a node of `kind` is found.
+    # Ascend current node ancestors until a node of given `kind` is found.
     #
     def ascend (kind = Text::Node)
       if ancestor = (@node.ancestor kind)

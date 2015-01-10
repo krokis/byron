@@ -4,11 +4,6 @@ class Byron
     ##
     #
     module Unary
-
-      def initialize (head, features = nil)
-        @head = head
-      end
-
     end
     #
     ##

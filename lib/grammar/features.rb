@@ -6,18 +6,25 @@ class Byron
     #
     module Features
 
-      class << self
-
-        def add_feature (name, values = [])
-          @own_features ||= {}
-          @own_features[name] = values
+      def features
+        @features ||= {}
+        if self.class.superclass && self.class.superclass.respond_to?(:features)
+          feats = (self.class.superclass.public_method :features).call
+        else
+          feats = {}
         end
 
-        def features
-        end
+        feats.merge! @features
+      end
 
+      def add_feature (name, values = [])
+        @features ||= {}
+        @features[name] = values
+      end
 
-      @@features = {}
+      def self.included (other)
+        other.extend self
+      end
 
       ##
       #
@@ -30,17 +37,11 @@ class Byron
       #
       #
       def []= (feature, value)
-        @features = {} unless defined? @features
+        @features ||= {}
         @features[feature] = value
       end
 
-      def included (another)
-      end
-
       def agrees (another, features = nil)
-      end
-
-      def self.add_feature (name, falues)
       end
 
     end

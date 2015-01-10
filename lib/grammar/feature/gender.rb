@@ -15,7 +15,7 @@ class Byron
         FEMALE  = :female
         NEUTER  = :neuter
 
-        @@features[:gender] = nil
+        self.add_feature :gender, [:male, :female]
 
         def male?
         end
@@ -29,6 +29,7 @@ class Byron
       end
       #
       ##
+      #
 
     end
   end

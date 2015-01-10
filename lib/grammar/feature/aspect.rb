@@ -16,14 +16,14 @@ class Byron
 
         include Features
 
-        SIMPLE              = :simple
-        PROGRESSIVE         = :progressive
-        PERFECT             = :perfect
-        PERFECT_PROGRESSIVE = :perfect_progressive
-        HABITUAL            = :habitual
-        PROSPECTIVE         = :prospective
-
-        @@features[:aspect] = nil
+        add_feature :aspect, [
+          :simple,
+          :progressive,
+          :perfect,
+          :perfect_progressive,
+          :habitual,
+          :prospective,
+        ]
 
         def simple?
         end

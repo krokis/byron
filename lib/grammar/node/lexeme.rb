@@ -15,10 +15,11 @@ class Byron
       #
       attr_reader :forms
 
-      def initialize (lemma, features = {}, forms = {})
+      def initialize (features = {}, lemma = nil, forms = {})
         @lemma = lemma
         @forms = forms
         make_forms
+        super features
       end
 
       ##
@@ -28,7 +29,7 @@ class Byron
       end
 
       def to_s
-        @lemma
+        "[Lexeme \"#{@lemma}\"]"
       end
 
       protected :make_forms

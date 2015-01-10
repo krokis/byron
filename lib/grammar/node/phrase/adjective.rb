@@ -1,5 +1,5 @@
 require_relative '../phrase'
-require_relative '../category/adjective'
+require_relative '../../category/adjective'
 
 class Byron
   module Grammar

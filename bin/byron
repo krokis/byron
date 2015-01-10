@@ -91,6 +91,7 @@ ARGV.each do |file|
 end
 
 if repl
+  evaluate "Byron is cool."
   begin
     loop do
 

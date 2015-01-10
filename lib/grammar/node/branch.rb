@@ -8,6 +8,11 @@ class Byron
     #
     class Branch < Node
 
+      def initialize (head, features = {})
+        @head = head
+        super features
+      end
+
       ##
       #
       #

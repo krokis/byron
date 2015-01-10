@@ -5,14 +5,17 @@ require_relative 'grammar/node/lexeme/adjective'
 require_relative 'lexicon'
 
 # Parsers
+require_relative 'parser/punctuation/period'
 require_relative 'parser/word'
 require_relative 'parser/word/noun'
 require_relative 'parser/word/verb'
+require_relative 'parser/word/adjective'
 require_relative 'parser/word/adjective'
 require_relative 'parser/phrase/noun/simple'
 require_relative 'parser/phrase/noun/determined'
 require_relative 'parser/phrase/noun/undetermined'
 require_relative 'parser/phrase/noun/adjectived'
+require_relative 'parser/phrase/adjective/simple'
 require_relative 'parser/phrase/verb/simple'
 require_relative 'parser/phrase/verb/predicate/linking'
 require_relative 'parser/phrase/verb/predicate/intransitive'
@@ -20,6 +23,7 @@ require_relative 'parser/phrase/verb/predicate/transitive'
 require_relative 'parser/phrase/verb/predicate/ditransitive'
 require_relative 'parser/phrase/verb/clause/main/declarative'
 require_relative 'parser/argument/verb/subject'
+require_relative 'parser/argument/verb/predicative/adjective'
 require_relative 'parser/sentence'
 
 # Evaluators
@@ -53,18 +57,22 @@ class Byron
 
       # Parsers
       byron.use *[
+        PeriodParser,
         NounParser,
         VerbParser,
+        AdjectiveParser,
         AdjectiveParser,
         SimpleNounPhraseParser,
         UndeterminedNounPhraseParser,
         AdjectivedNounPhraseParser,
         DeterminedNounPhraseParser,
+        SimpleAdjectivePhraseParser,
         SimpleVerbPhraseParser,
         LinkingPredicateParser,
         IntransitivePredicateParser,
         TransitivePredicateParser,
         DitransitivePredicateParser,
+        AdjectivePredicativeParser,
         SubjectParser,
         DeclarativeClauseParser,
         SentenceParser
