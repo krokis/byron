@@ -8,20 +8,8 @@ class Byron
       #
       #
       module Number
-
         include Features
-
         add_feature :number, [:singular, :plural]
-
-        ##
-        #
-        def singular?
-          self[:number] == :singular
-        end
-
-        def plural?
-          self[:number] == :plural
-        end
       end
       #
       ##

@@ -16,14 +16,6 @@ class Byron
           :passive
         ]
 
-        def active?
-          self[:voice] == :active
-        end
-
-        def passive?
-          self[:voice] == :passive
-        end
-
       end
       #
       ##

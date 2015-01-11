@@ -11,23 +11,11 @@ class Byron
         include Features
 
         add_feature :person, [
-          :first,
-          :second,
-          :third,
+          :first_person,
+          :second_person,
+          :third_person,
           :none
         ]
-
-        def first_person?
-          self[:person] == :fist_person
-        end
-
-        def second_person?
-          self[:person] == :second_person
-        end
-
-        def third_person?
-          self[:person] == :third_person
-        end
 
         def personal?
           self[:person] != :none

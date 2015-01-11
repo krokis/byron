@@ -18,22 +18,6 @@ class Byron
           :linking
         ]
 
-        def transitive?
-          self[:transitivity] == :transitive
-        end
-
-        def intransitive?
-          self[:transitivity] == :intransitive
-        end
-
-        def ditransitive?
-          self[:transitivity] == :ditransitive
-        end
-
-        def linking?
-          self[:transitivity] == :linking
-        end
-
       end
       #
       ##

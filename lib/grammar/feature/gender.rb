@@ -13,18 +13,6 @@ class Byron
 
         add_feature :gender, [:male, :female]
 
-        def male?
-          self[:gender] == :male
-        end
-
-        def female?
-          self[:gender] == :female
-        end
-
-        def neuter?
-          self[:gender] == :neuter
-        end
-
       end
       #
       ##

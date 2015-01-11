@@ -16,15 +16,6 @@ class Byron
           :irregular
         ]
 
-
-        def regular?
-          self[:regularity] == :regular
-        end
-
-        def irregular?
-          self[:regularity] == :irregular
-        end
-
       end
       #
       ##

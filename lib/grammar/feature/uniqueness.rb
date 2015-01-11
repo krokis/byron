@@ -12,14 +12,6 @@ class Byron
           :common
         ]
 
-        def proper?
-          self[:uniqueness] == :proper
-        end
-
-        def common?
-          self[:uniqueness] == :common
-        end
-
       end
       #
       ##

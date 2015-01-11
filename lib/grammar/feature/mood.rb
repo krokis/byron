@@ -7,34 +7,13 @@ class Byron
       #
       module Mood
 
-        INDICATIVE    = :indicative
-        SUBJUNCTIVE   = :subjunctive
-        CONDITIONAL   = :conditional
-        IMPERATIVE    = :imperative
-        INTERROGATIVE = :interrogative
-
-        MOODS = [
-          INDICATIVE,
-          SUBJUNCTIVE,
-          CONDITIONAL,
-          IMPERATIVE,
-          INTERROGATIVE
+        add_feature :mood, [
+          :indicative,
+          :subjunctive,
+          :conditional,
+          :imperative,
+          :interrogative
         ]
-
-        def indicative?
-        end
-
-        def subjunctive?
-        end
-
-        def conditional?
-        end
-
-        def imperative?
-        end
-
-        def interrogative?
-        end
 
         def realis?
         end

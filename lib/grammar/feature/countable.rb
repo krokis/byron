@@ -13,10 +13,6 @@ class Byron
 
         add_feature :countable, [true, false]
 
-        def countable?
-          self[:countable] == true
-        end
-
         def mass?
           self[:countable] == false
         end

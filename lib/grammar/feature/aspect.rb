@@ -25,21 +25,6 @@ class Byron
           :prospective,
         ]
 
-        def simple?
-        end
-
-        def progressive?
-        end
-
-        def perfect?
-        end
-
-        def habitual?
-        end
-
-        def prospective?
-        end
-
       end
       #
       ##

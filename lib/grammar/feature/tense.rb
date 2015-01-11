@@ -20,34 +20,9 @@ class Byron
           :gerund
         ]
 
-        def present?
-          self[:tense] == :present
-        end
-
-        def past?
-          self[:tense] == :past
-        end
-
-        def future?
-          self[:tense] == :future
-        end
-
-        def infinitive?
-          self[:tense] == :infinitive
-        end
-
-        def participle?
-          self[:tense] == :participle
-        end
-
-        def gerund?
-          self[:tense] == :gerund
-        end
-
         def finitive?
           [:present, :past, :future].include? self[:tense]
         end
-
       end
       #
       ##
