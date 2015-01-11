@@ -22,6 +22,9 @@ class Byron
       def html_empty_tag (name)
       end
 
+      def to_html
+      end
+
       protected :html_tag_name
 
     end

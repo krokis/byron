@@ -29,7 +29,7 @@ class Byron
       end
 
       def to_s
-        "[Lexeme \"#{@lemma}\"]"
+        @lemma
       end
 
       protected :make_forms

@@ -9,6 +9,7 @@ class Byron
     #
     #
     class InlineElement < Node
+
       include Inline
       include Element
 
@@ -19,7 +20,6 @@ class Byron
         # Cannot append a non-inline child to an inline node.
         child.kind_of? Inline
       end
-
     end
     #
     ## class InlineElement

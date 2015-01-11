@@ -5,6 +5,9 @@ require_relative 'grammar/node/lexeme/noun'
 require_relative 'grammar/node/lexeme/verb'
 require_relative 'grammar/node/lexeme/adjective'
 require_relative 'grammar/node/word'
+require_relative 'grammar/node/word/noun'
+require_relative 'grammar/node/word/verb'
+require_relative 'grammar/node/word/adjective'
 
 class Byron
 
@@ -49,7 +52,18 @@ class Byron
     def find (word = nil, kind = nil)
       if @words.has_key? word
         @words[word].each do |lexeme, features|
-          yield (Grammar::Word.new lexeme.clone, features)
+          cls = case lexeme
+            when Grammar::NounLexeme
+              Grammar::Noun
+            when Grammar::VerbLexeme
+              Grammar::Verb
+            when Grammar::AdjectiveLexeme
+              Grammar::Adjective
+            else
+              Grammar::Word
+            end
+
+          yield (cls.new lexeme.clone, features)
         end
       end
     end

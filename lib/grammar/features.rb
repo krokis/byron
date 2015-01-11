@@ -8,6 +8,7 @@ class Byron
 
       def features
         @features ||= {}
+
         if self.class.superclass && self.class.superclass.respond_to?(:features)
           feats = (self.class.superclass.public_method :features).call
         else
@@ -48,7 +49,6 @@ class Byron
           features.each do |name, values|
             puts name
           end
-          #puts token
         end
       end
 
@@ -73,14 +73,9 @@ class Byron
 
       def agrees? (another, features = nil)
         features ||= (self.features.keys & another.features.keys)
-
-        features.each do |name|
-          if self.features[name] != other.features[name]
-            return false
-          end
+        features.all? do |name|
+          self.features[name] == other.features[name]
         end
-
-        true
       end
 
     end

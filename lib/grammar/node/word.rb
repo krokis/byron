@@ -22,10 +22,6 @@ class Byron
       def inflect (features)
         # Call @lexeme.inflect
       end
-
-      def to_s
-        "[Word #{@lemma}]"
-      end
     end
     #
     ##

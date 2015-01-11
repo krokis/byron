@@ -16,7 +16,7 @@ def make_mermaid_node (node)
       arrow = '---'
     end
 
-    label = (child.class.name.split '::').last
+    label = child.to_s
 
     if child.children.empty?
       label = "[#{label}]"
