@@ -6,11 +6,6 @@ set :public_folder, File.dirname(__FILE__) + '/static'
 
 $byron = Byron.new
 
-# A[Square Rect] -- Link text --> B((Circle))
-#   A --> C(Round Rect)
-#   B --> D{Rhombus}
-#   C --> D
-
 def make_mermaid_node (node)
   s = "\n"
   node.children.each do |child|
@@ -37,11 +32,12 @@ def make_mermaid_node (node)
 end
 
 def make_mermaid_graph (discourse)
-  s = "graph TD"
+  s = "graph TD
+  Discourse((Discourse))"
 
   discourse.sentences.each do |sentence|
     s += "
-    #{sentence.id}((Sentence))
+    Discourse --- #{sentence.id}{Sentence}
     " + (make_mermaid_node sentence)
   end
 
@@ -58,7 +54,6 @@ get '/' do
 
   if sentence
     locals[:sentence] = sentence
-
     if discourse = $byron.parse(sentence)
       unless discourse.sentences.empty?
         locals[:mermaid] = make_mermaid_graph discourse

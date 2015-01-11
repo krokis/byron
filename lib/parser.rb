@@ -1,5 +1,5 @@
 require_relative 'lexer'
-require_relative 'grammar/constituent'
+require_relative 'grammar/node'
 require_relative 'grammar/node/sentence'
 require_relative 'discourse'
 require_relative 'lexicon'
@@ -76,7 +76,7 @@ class Byron
     ##
     # Parse a grammar constituent of given `kind`.
     #
-    def parse_constituent (kind = Grammar::Constituent, &block)
+    def parse_node (kind = Grammar::Node, &block)
       old_node = new_node = @node
 
       yielt = []
@@ -85,10 +85,10 @@ class Byron
         move_to old_node
 
         begin
-          parser.call do |constituent|
-            yield constituent if block
+          parser.call do |node|
+            yield node if block
             new_node = @node
-            yielt << constituent
+            yielt << node
           end
         rescue Exception => e
           puts ":( #{e}"
@@ -137,6 +137,7 @@ class Byron
     protected    :prepare,
                  :sort_delegates,
                  :delegates_for
+    alias_method :parse_constituent, :parse_node
     alias_method :parse_a, :parse_constituent
     alias_method :parse_an, :parse_a
 
