@@ -71,7 +71,7 @@ class Byron
         @features[feature] = value
       end
 
-      def agrees (another, features = nil)
+      def agrees? (another, features = nil)
         features ||= (self.features.keys & another.features.keys)
 
         features.each do |name|
