@@ -7,7 +7,9 @@ class Byron
     ##
     #
     class Coordination < Branch
+
       include Ternary
+
     end
     #
     ##

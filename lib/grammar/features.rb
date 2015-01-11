@@ -20,6 +20,23 @@ class Byron
       def add_feature (name, values = [])
         @features ||= {}
         @features[name] = values
+
+        # Getters
+        if ([true, false] & values) == [true, false]
+          self.class_eval do
+            define_method name do
+              self[name] == true
+            end
+          end
+        else
+          values.each do |value|
+            self.class_eval do
+              define_method name do
+                self[name] == value
+              end
+            end
+          end
+        end
       end
 
       def make_features (tokens)
@@ -55,6 +72,15 @@ class Byron
       end
 
       def agrees (another, features = nil)
+        features ||= (self.features.keys & another.features.keys)
+
+        features.each do |name|
+          if self.features[name] != other.features[name]
+            return false
+          end
+        end
+
+        true
       end
 
     end

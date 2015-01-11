@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -6,31 +8,33 @@ class Byron
       #
       module Person
 
-        FIRST      = :first
-        SECOND     = :second
-        THIRD      = :third
-        NONE       = :none
-        IMPERSONAL = NONE
+        include Features
 
-        PERSONS = [
-          FIRST,
-          SECOND,
-          NONE
+        add_feature :person, [
+          :first,
+          :second,
+          :third,
+          :none
         ]
 
         def first_person?
+          self[:person] == :fist_person
         end
 
         def second_person?
+          self[:person] == :second_person
         end
 
         def third_person?
+          self[:person] == :third_person
         end
 
         def personal?
+          self[:person] != :none
         end
 
         def impersonal?
+          self[:person] == :none
         end
 
       end

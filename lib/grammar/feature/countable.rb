@@ -11,12 +11,14 @@ class Byron
 
         include Features
 
-        @@features[:countable] = false
+        add_feature :countable, [true, false]
 
         def countable?
+          self[:countable] == true
         end
 
         def mass?
+          self[:countable] == false
         end
 
       end

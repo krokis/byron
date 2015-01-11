@@ -15,25 +15,12 @@ class Byron
 
         ##
         #
-        #
-        def to_singular
-        end
-
-        ##
-        #
-        #
-        def to_plural
-        end
-
-
-        ##
-        #
         def singular?
-          @features[:number] == SINGULAR
+          self[:number] == :singular
         end
 
         def plural?
-          @features[:number] == PLURAL
+          self[:number] == :plural
         end
       end
       #

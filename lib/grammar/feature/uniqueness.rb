@@ -7,15 +7,17 @@ class Byron
       #
       module Uniqueness
 
-        PROPER = :proper
-        COMMON = :common
-
-        UNIQUENESSES = [PROPER, COMMON]
+        add_feature :uniqueness, [
+          :proper,
+          :common
+        ]
 
         def proper?
+          self[:uniqueness] == :proper
         end
 
         def common?
+          self[:uniqueness] == :common
         end
 
       end

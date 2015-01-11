@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -7,15 +9,19 @@ class Byron
       #
       module Voice
 
-        ACTIVE  = :active
-        PASSIVE = :passive
+        include Features
 
-        VOICES = [ACTIVE, PASSIVE]
+        add_feature :voice, [
+          :active,
+          :passive
+        ]
 
         def active?
+          self[:voice] == :active
         end
 
         def passive?
+          self[:voice] == :passive
         end
 
       end

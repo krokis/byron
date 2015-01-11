@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -6,18 +8,21 @@ class Byron
       #
       #
       module Regularity
-        REGULAR   = :regular
-        IRREGULAR = :irregular
 
-        REGULARITIES = [
-          REGULAR,
-          IRREGULAR
+        include Features
+
+        add_feature :regularity, [
+          :regular,
+          :irregular
         ]
 
+
         def regular?
+          self[:regularity] == :regular
         end
 
         def irregular?
+          self[:regularity] == :irregular
         end
 
       end

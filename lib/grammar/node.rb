@@ -10,10 +10,20 @@ class Byron
 
       include Features
 
+      last_id = 0
+
+      def self.make_id
+        "#{self.name}#{++last_id}"
+      end
+
       def initialize (features = {})
         features.each do |name, value|
           self[name] = value
         end
+      end
+
+      def id
+        @id |= self.class.make_id
       end
 
       ##
