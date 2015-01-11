@@ -11,7 +11,6 @@ class Byron
       attr_accessor :head
 
       def initialize (head, features = {})
-        puts "Branch: #{self}, #{head}"
         @head = head
         super features
       end

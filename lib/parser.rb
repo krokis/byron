@@ -81,15 +81,11 @@ class Byron
 
       yielt = []
 
-      puts "Trying to read a #{kind}"
-
       delegates_for kind do |parser|
-        puts "With a #{parser}"
         move_to old_node
 
         begin
           parser.call do |constituent|
-            puts "Got a #{constituent}"
             yield constituent if block
             new_node = @node
             yielt << constituent

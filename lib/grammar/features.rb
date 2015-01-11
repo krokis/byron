@@ -21,17 +21,20 @@ class Byron
         @features ||= {}
         @features[name] = values
 
+        method_name = "#{name}?".to_sym
+
         # Getters
         if ([true, false] & values) == [true, false]
           self.class_eval do
-            define_method name do
+            define_method method_name do
               self[name] == true
             end
           end
         else
           values.each do |value|
             self.class_eval do
-              define_method name do
+              define_method method_name do
+                puts name, value, self[name]
                 self[name] == value
               end
             end

@@ -14,7 +14,6 @@ class Byron
       def initialize (head, argument, features = {})
         @argument = argument
         super head, features
-        puts "Binary: #{self}, #{@head}, #{argument}"
       end
 
       ##
