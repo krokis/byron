@@ -23,8 +23,8 @@ class Byron
     end
 
     ##
-    # Try to read a single important `Character` node and return its text. In
-    # case of failure, an exception is raised.
+    # Try to read a single important `Character` token. In case of failure, an
+    # exception is raised.
     #
     def read_character (ignore_whitespace = false)
       if important?
@@ -35,8 +35,8 @@ class Byron
     end
 
     ##
-    # Try to read one or more significant `Character` nodes and return their
-    # text. In case of failure, an exception is raised.
+    # Try to read one or more significant `Character` tokens. In case of
+    # failure, an exception is raised.
     #
     def read_characters (ignore_whitespace = false)
       start = @node

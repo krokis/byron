@@ -101,11 +101,6 @@ class Byron
         yielt[0]
       else
         move_to old_node
-
-        if yielt.length > 1
-          puts "AMBIGUITY for #{kind}!!! (#{yielt.length})"
-        end
-
         nil
       end
     end
@@ -126,7 +121,13 @@ class Byron
           discourse.sentences << sentence
           skip_whitespace
         else
-          break
+          skip_whitespace
+
+          if end_of_text?
+            break
+          else
+            raise "Ooops"
+          end
         end
       end
 

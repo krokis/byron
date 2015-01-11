@@ -19,6 +19,7 @@ class Byron
       #
       #
       def children
+        [@head].compact
       end
 
       ##

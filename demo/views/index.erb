@@ -3,19 +3,21 @@
   <head>
     <title>Byron</title>
     <link rel="stylesheet" href="/index.css">
-    <script src="https://cdn.rawgit.com/knsv/mermaid/0.3.1/dist/mermaid.full.min.js"></script>
+    <script src="https://cdn.rawgit.com/knsv/mermaid/master/dist/mermaid.full.min.js"></script>
   </head>
 
   <body>
+
     <h1>Byron</h1>
+
     <form method="get">
       <input type="text" name="sentence" value="<%= sentence %>">
-      <button type="submit">Analyze</button>
     </form>
 
     <div class="mermaid">
       <%= mermaid %>
     </div>
+
   </body>
 </html>
 

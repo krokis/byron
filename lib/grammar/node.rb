@@ -10,10 +10,10 @@ class Byron
 
       include Features
 
-      last_id = 0
+      @@last_id = 0
 
       def self.make_id
-        "#{self.name}#{++last_id}"
+        "#{(self.name.split '::').last}_#{@@last_id += 1}"
       end
 
       def initialize (features = {})
@@ -23,7 +23,7 @@ class Byron
       end
 
       def id
-        @id |= self.class.make_id
+        @id ||= self.class.make_id
       end
 
       ##

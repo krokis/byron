@@ -49,7 +49,7 @@ class Byron
     def find (word = nil, kind = nil)
       if @words.has_key? word
         @words[word].each do |lexeme, features|
-          yield (Grammar::Word.new lexeme, features)
+          yield (Grammar::Word.new lexeme.clone, features)
         end
       end
     end

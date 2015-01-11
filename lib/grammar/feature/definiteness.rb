@@ -10,8 +10,10 @@ class Byron
 
         include Features
 
-        def definite?
-        end
+        add_feature :definiteness, [
+          :definite,
+          :undefinite
+        ]
 
       end
       #
