@@ -7,6 +7,7 @@ class Byron
     #
     #
     class NumberLiteral < Literal
+      HTML_TAG_NAME = 'var'
     end
     #
     ##

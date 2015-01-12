@@ -7,6 +7,7 @@ class Byron
     #
     #
     class String < Literal
+      HTML_TAG_NAME = 'q'
     end
     #
     ##

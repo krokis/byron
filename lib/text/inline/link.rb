@@ -7,6 +7,7 @@ class Byron
     #
     #
     class Link < InlineElement
+      HTML_TAG_NAME = 'a'
     end
     #
     ##

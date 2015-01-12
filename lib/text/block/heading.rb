@@ -12,6 +12,10 @@ class Byron
       def initialize
         @level = 0
       end
+
+      def html_tag_name
+        "h#{@level}"
+      end
     end
     #
     ##

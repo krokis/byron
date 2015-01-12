@@ -14,6 +14,10 @@ class Byron
         @strong = false
       end
 
+      def html_tag_name
+        @strong ? 'strong' : 'em'
+      end
+
       alias_method :strong?, :strong
     end
     #

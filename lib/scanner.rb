@@ -160,7 +160,7 @@ class Byron
     # character is a line break or the end of the text.
     #
     def end_of_line?
-      end_of_text? || @char == '\n'
+      end_of_text? || @char == "\n"
     end
 
     ##
@@ -173,7 +173,7 @@ class Byron
           line = next_line
 
           unless line.strip.empty?
-            if line.start_with? @indentation
+            if line.start_with? indentation
               return false
             end
           end
@@ -267,6 +267,25 @@ class Byron
     # Peek next line without moving current position.
     #
     def next_line
+
+      # Find two line breaks
+      # f = null
+      # k = @position
+
+      # loop
+      #   c = @charAt k
+      #   if c is "\n" or c is null
+      #     if f isnt null
+      #       return @chars k - f - 1, f + 1
+      #     else if c isnt null
+      #       f = k
+      #     else
+      #       break
+      #   k++
+
+      # return null
+
+
       # Need to find two line breaks
       f = nil
       k = @position
@@ -274,11 +293,13 @@ class Byron
       loop do
         c = char_at k
         if c == "\n" or !c
-          return chars (k - f), (f + 1)
-        elsif c
-          f = k
-        else
-          break
+          if f
+            return chars (k - f), (f + 1)
+          elsif c
+            f = k
+          else
+            break
+          end
         end
         k += 1
       end
@@ -291,7 +312,7 @@ class Byron
     #
     def skip_empty_lines
       if @column != 0
-        raise 'Can only skip empty lines from column 0'
+        raise "Can only skip empty lines from column 0 (@ #{@column}"
       end
 
       loop do
@@ -558,7 +579,7 @@ class Byron
 
           until eoi == (chars l) do
             if end_of_block?
-              raise 'Unterminated *important*'
+              raise "Unterminated *important* @ #{@position}"
             end
 
             if inline = read_inline
@@ -610,49 +631,53 @@ class Byron
     # Read an unordered list.
     #
     def read_unordered_list
-      if @char && ('*+-'.include? @char)
-        bullet = @char
-        back = @position
+      unless end_of_text?
 
-        # Require whitespace separation
-        if next_char == ' '
+        if '*+-'.include? @char
+          bullet = @char
+          back = @position
 
-          make_node Text::UnorderedList do |list|
-            list.bullet = bullet
-
-            loop do
-              indent '  '
-              move 2
-
-              blocks = read_blocks
-
-              unless blocks.empty?
-                list_item = Text::ListItem.new
-                list_item.append *blocks
-                list_item.start = blocks.first.start.clone
-                list_item.stop = blocks.last.stop
-                list.append list_item
-                back = @position
-              end
-
-              unindent
-
+          # Require whitespace separation
+          if next_char == ' '
+            make_node Text::UnorderedList do |list|
+              list.bullet = bullet
               begin
-                move_to_next_line
-                skip_empty_lines
-                skip_indentation
-                next if @char == bullet
+              loop do
+                indent '  '
+                move 2
+
+                blocks = read_blocks
+
+                unless blocks.empty?
+                  list_item = Text::ListItem.new
+                  list_item.append *blocks
+                  list_item.start = blocks.first.start
+                  list_item.stop = blocks.last.stop
+                  list.append list_item
+                  back = @position
+                end
+
+                unindent
+
+                begin
+                  move_to_next_line
+                  skip_empty_lines
+                  skip_indentation
+                  next if @char == bullet
+                end
+
+                move_to back
+                break
               end
 
-              move_to back
-              break
+              return false unless list.children?
+              rescue Exception => e
+                puts e
+                raise e
+              end
             end
-
-            return false unless list.children?
           end
-
         end
-
       end
     end
 
@@ -711,14 +736,14 @@ class Byron
     # Read one or more equally-indented block nodes. Empty lines around blocks
     # are ignored.
     #
-    def read_blocks
+    def read_blocks (&blck)
       back = @position
       blocks = []
 
       loop do
         break unless block = read_block
 
-        yield block
+        yield block if blck
 
         blocks << block
         back = @position

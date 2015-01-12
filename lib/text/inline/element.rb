@@ -22,7 +22,7 @@ class Byron
       end
     end
     #
-    ## class InlineElement
+    ##
 
   end
 end

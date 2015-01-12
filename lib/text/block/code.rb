@@ -7,6 +7,7 @@ class Byron
     #
     #
     class CodeBlock < BlockElement
+      HTML_TAG_NAME = 'pre'
     end
     #
     ##

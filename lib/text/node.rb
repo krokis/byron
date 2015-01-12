@@ -209,20 +209,20 @@ class Byron
       ##
       # Get a JSON representation of this node.
       #
-      def to_json
-      end
+      #def to_json
+      #end
 
       ##
       # Get a YAML representation of this node.
       #
-      def to_yaml
-      end
+      # def to_yaml
+      # end
 
       ##
       # Get an HTML representation of this node.
       #
-      def to_html
-      end
+      # def to_html
+      # end
 
     end
     #

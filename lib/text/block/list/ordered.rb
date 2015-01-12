@@ -7,7 +7,11 @@ class Byron
     #
     #
     class OrderedList < List
+
+      HTML_TAG_NAME = 'ol'
+
       attr_accessor :bullet
+
     end
     #
     ##

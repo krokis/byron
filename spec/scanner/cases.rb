@@ -12,7 +12,7 @@ describe "Scanner" do
       it (File.basename md_file) do
         scanner = Byron::Scanner.new
         actual = scanner.scan source
-        #puts actual.to_yaml
+        puts actual.to_html
       end
     end
   end
