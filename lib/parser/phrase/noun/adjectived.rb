@@ -1,17 +1,17 @@
+require_relative '../noun'
 require_relative '../../../grammar/node/phrase/noun'
 require_relative '../../../grammar/node/argument/noun/adjunct'
-require_relative 'undetermined'
 
 class Byron
 
   ##
   #
   #
-  class AdjectivedNounPhraseParser < UndeterminedNounPhraseParser
+  class AdjectivedNounPhraseParser < NounPhraseParser
 
     def parse
       parse_a Grammar::AdjectiveNounAdjunct do |adjunct|
-        parse_a Grammar::UndeterminedNounPhrase do |noun|
+        parse_a Grammar::NounPhrase do |noun|
           yield (Grammar::NounPhrase.new noun, adjunct)
         end
       end

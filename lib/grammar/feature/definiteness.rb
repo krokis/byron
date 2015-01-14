@@ -12,7 +12,7 @@ class Byron
 
         add_feature :definiteness, [
           :definite,
-          :undefinite
+          :indefinite
         ]
 
       end

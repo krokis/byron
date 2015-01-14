@@ -1,3 +1,5 @@
+require_relative '../features'
+
 class Byron
   module Grammar
     module Feature
@@ -6,6 +8,8 @@ class Byron
       #
       #
       module Uniqueness
+
+        include Features
 
         add_feature :uniqueness, [
           :proper,

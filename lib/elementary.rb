@@ -13,7 +13,6 @@ require_relative 'parser/word/adjective'
 require_relative 'parser/word/adjective'
 require_relative 'parser/phrase/noun/simple'
 require_relative 'parser/phrase/noun/determined'
-require_relative 'parser/phrase/noun/undetermined'
 require_relative 'parser/phrase/noun/adjectived'
 require_relative 'parser/phrase/adjective/simple'
 require_relative 'parser/phrase/verb/simple'
@@ -62,9 +61,8 @@ class Byron
         VerbParser,
         AdjectiveParser,
         AdjectiveParser,
-        UndeterminedNounPhraseParser,
-        AdjectivedNounPhraseParser,
-        DeterminedNounPhraseParser,
+        #AdjectivedNounPhraseParser,
+        #DeterminedNounPhraseParser,
         SimpleAdjectivePhraseParser,
         SimpleVerbPhraseParser,
         LinkingPredicateParser,

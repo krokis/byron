@@ -13,14 +13,39 @@ class Byron
       include Category::Noun
       include Feature::Definiteness
 
+      def definiteness
+        if @head
+          if specifier?
+            :definite
+          elsif @head.class.include? Feature::Definiteness
+            @head.definiteness
+          end
+        else
+          nil
+        end
+      end
+
       ##
       # Get head noun.
       #
       def noun
+        noun = self
+
+        while noun
+          return noun if noun.kind_of? Lexeme
+          begin
+            noun = noun.head
+          rescue
+          end
+        end
+
+        nil
       end
 
-      def determined?
+      def determiner
       end
+
+      alias_method :determined?, :specifier?
 
     end
     #

@@ -61,11 +61,12 @@ class Byron
         if del[0] <= kind
           unless @stack.include? del
             @stack << del
+
             begin
               yield del[1]
             rescue Exception => e
               puts ":( #{e}"
-              puts e.backtrace
+              #puts e.backtrace
             end
             @stack.pop
           end
@@ -92,7 +93,6 @@ class Byron
           end
         rescue Exception => e
           puts ":( #{e}"
-          puts e.backtrace
         end
       end
 
