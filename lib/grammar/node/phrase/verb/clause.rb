@@ -11,8 +11,14 @@ class Byron
 
       include Binary
 
-      attr_accessor :subject # The specifier
-      attr_accessor :predicate # The head (another VerbPhrase)
+      def children
+        [subject, predicate].compact
+      end
+
+      alias_method :subject, :argument # The head (another VerbPhrase)
+      alias_method :predicate, :head # The head (another VerbPhrase)
+      alias_method :predicate=, :head= # The head (another VerbPhrase)
+
     end
     #
     ##

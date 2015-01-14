@@ -17,7 +17,7 @@ class Byron
 
       def definiteness
         if @head
-          if @head.proper? && singular?
+          if plural? || @head.proper?
             :definite
           else
             :indefinite

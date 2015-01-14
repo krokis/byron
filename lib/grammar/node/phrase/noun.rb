@@ -1,4 +1,5 @@
 require_relative '../phrase'
+require_relative '../word/noun'
 require_relative '../../category/noun'
 require_relative '../../feature/definiteness'
 

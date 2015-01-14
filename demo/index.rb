@@ -24,7 +24,7 @@ def make_mermaid_node (node)
       label = "(#{label})"
     end
 
-    s += "#{node.id} #{arrow} #{child.id}#{label}"
+    s += "#{node.id} #{arrow} #{child.id}#{label};"
     s += make_mermaid_node child
   end
 
@@ -32,12 +32,12 @@ def make_mermaid_node (node)
 end
 
 def make_mermaid_graph (discourse)
-  s = "graph TD
-  Discourse((Discourse))"
+  s = "graph TD;
+  Discourse((Discourse));"
 
   discourse.sentences.each do |sentence|
     s += "
-    Discourse --- #{sentence.id}{Sentence}
+    Discourse --- #{sentence.id}{Sentence};
     " + (make_mermaid_node sentence)
   end
 
