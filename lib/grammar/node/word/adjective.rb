@@ -1,5 +1,4 @@
 require_relative '../../category/adjective'
-require_relative '../../feature/comparison'
 
 class Byron
   module Grammar
@@ -8,7 +7,6 @@ class Byron
     #
     class Adjective < Word
       include Category::Adjective
-      include Feature::Comparison
     end
     #
     ##

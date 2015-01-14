@@ -1,6 +1,7 @@
 require_relative '../phrase'
 require_relative '../word/noun'
 require_relative '../../category/noun'
+require_relative '../../feature/number'
 require_relative '../../feature/definiteness'
 
 class Byron
@@ -12,6 +13,7 @@ class Byron
     class NounPhrase < Phrase
 
       include Category::Noun
+      include Feature::Number
       include Feature::Definiteness
 
       def definiteness
@@ -27,7 +29,7 @@ class Byron
       end
 
       ##
-      # Get head noun.
+      # Get head(est) noun.
       #
       def noun
         noun = self
@@ -41,6 +43,10 @@ class Byron
         end
 
         nil
+      end
+
+      def number
+        @head && @head.number
       end
 
       def determiner

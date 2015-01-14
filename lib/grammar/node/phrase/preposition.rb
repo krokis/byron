@@ -1,5 +1,5 @@
 require_relative '../phrase'
-require_relative '../category/preposition'
+require_relative '../category/prepositional'
 
 class Byron
   module Grammar
@@ -7,8 +7,10 @@ class Byron
     ##
     #
     #
-    class PrepositionPhrase < Phrase
-      include Category::Preposition
+    class PrepositionalPhrase < Phrase
+
+      include Category::Prepositional
+
     end
     #
     ##

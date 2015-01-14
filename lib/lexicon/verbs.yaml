@@ -6,7 +6,7 @@
     - intransitive
   forms:
     rocks:
-      person: third
+      person: third-person
       number: singular
       tense: present
 
@@ -15,11 +15,11 @@
   transitivity: intransitive
   forms:
     works:
-      person: third
+      person: third-person
       number: singular
       tense: present
     work:
-      person: third
+      person: third-person
       number: plural
       tense: present
 
@@ -34,43 +34,43 @@
     been:
       tense: participle
     am:
-      person: first
+      person: first-person
       number: singular
       tense: present
     is:
-      person: third
+      person: third-person
       number: singular
       tense: present
     are:
-      - person: second
+      - person: second-person
         number: singular
         tense: present
-      - person: first
+      - person: first-person
         number: plural
         tense: present
-      - person: second
+      - person: second-person
         number: plural
         tense: present
-      - person: third
+      - person: third-person
         number: plural
         tense: present
     was:
-      - person: first
+      - person: first-person
         number: singular
         tense: past
-      - person: third
+      - person: third-person
         number: singular
         tense: past
     were:
-      - person: second
+      - person: second-person
         number: singular
         tense: past
-      - person: first
+      - person: first-person
         number: plural
         tense: past
-      - person: second
+      - person: second-person
         number: plural
         tense: past
-      - person: third
+      - person: third-person
         number: plural
         tense: past

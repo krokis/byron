@@ -2,6 +2,7 @@ require_relative '../lexeme'
 require_relative '../phrase'
 require_relative '../../category/verb'
 require_relative '../../feature/voice'
+require_relative '../../feature/number'
 
 class Byron
   module Grammar
@@ -13,6 +14,7 @@ class Byron
 
       include Category::Verb
       include Feature::Voice
+      include Feature::Number
 
       ##
       # Head verb
@@ -33,6 +35,10 @@ class Byron
         end
 
         nil
+      end
+
+      def number
+        @head && @head.number
       end
 
     end

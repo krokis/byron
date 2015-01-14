@@ -24,7 +24,6 @@ class Byron
 
         # Getters
         self.class_eval do
-
           define_method "#{name}".to_sym do
             if @features
               @features[name]
@@ -76,9 +75,12 @@ class Byron
         @features[feature] = value
       end
 
-      def agrees? (another, features = nil)
-        features ||= (self.features.keys & another.features.keys)
+      def agrees? (other, features = nil)
+        features ||= (self.features.keys & other.features.keys)
+        puts "Agrees? #{other}, #{features}"
+        puts number, other.number
         features.all? do |name|
+          puts self.features[name]
           self.features[name] == other.features[name]
         end
       end

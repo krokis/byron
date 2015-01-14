@@ -7,7 +7,7 @@ class Byron
       ##
       #
       #
-      module Preposition
+      module Prepositional
       end
       #
       ##

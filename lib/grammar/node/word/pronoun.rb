@@ -1,10 +1,10 @@
 require_relative '../word'
-require_relative '../../category/pronoun'
+require_relative '../../category/noun'
 
 class Byron
   module Grammar
     class Pronoun < Word
-      include Category::Pronoun
+      include Category::Noun
     end
   end
 end

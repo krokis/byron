@@ -1,10 +1,10 @@
 require_relative '../word'
-require_relative '../../category/preposition'
+require_relative '../../category/prepositional'
 
 class Byron
   module Grammar
     class Preposition < Word
-      include Category::Preposition
+      include Category::Prepositional
     end
   end
 end

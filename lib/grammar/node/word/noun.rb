@@ -2,6 +2,8 @@ require_relative '../word'
 require_relative '../../category/noun'
 require_relative '../../feature/number'
 require_relative '../../feature/definiteness'
+require_relative '../../feature/regularity'
+require_relative '../../feature/uniqueness'
 
 class Byron
   module Grammar
@@ -12,8 +14,8 @@ class Byron
     class Noun < Word
 
       include Category::Noun
-      include Feature::Number
-      include Feature::Definiteness
+      include Feature::Regularity
+      include Feature::Uniqueness
 
       def definiteness
         if @head

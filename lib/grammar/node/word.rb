@@ -19,8 +19,11 @@ class Byron
         @head && @head.lemma
       end
 
-      def inflect (features)
-        # Call @lexeme.inflect
+      class << self
+        attr_accessor :lemma
+
+        def inflect (features)
+        end
       end
     end
     #

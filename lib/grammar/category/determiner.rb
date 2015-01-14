@@ -1,4 +1,3 @@
-require_relative '../features'
 require_relative '../feature/definiteness'
 
 class Byron
@@ -8,10 +7,7 @@ class Byron
       ###
       #
       module Determiner
-
-        include Features
         include Feature::Definiteness
-
       end
       #
       ##
