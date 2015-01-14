@@ -18,7 +18,7 @@ class Byron
         feats.merge! @features
       end
 
-      def add_feature (name, values = [])
+      def add_feature (name, values = [true, false])
         @features ||= {}
         @features[name] = values
 
