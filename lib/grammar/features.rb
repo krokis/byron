@@ -94,7 +94,7 @@ class Byron
             raise "Unkown feature for class #{self}: #{name}"
           end
 
-          @features[name]
+          @features[name][1]
         end
 
         ##
@@ -105,11 +105,11 @@ class Byron
             raise "Unkown feature for class #{self}: #{name}"
           end
 
-          unless @features[name][1].include? value
+          unless @features[name][0].include? value
             raise "Bad value for feature '#{name}': #{value}"
           end
 
-          @features[feature] = value
+          @features[feature][1] = value
         end
       end
 
