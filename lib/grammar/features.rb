@@ -18,6 +18,48 @@ class Byron
         feats.merge! @features
       end
 
+      def add_feature (name, values = [true, false])
+        @features ||= {}
+        @features[name] = values
+
+        # Getters
+        self.class_eval do
+          define_method "#{name}".to_sym do
+            if @features
+              @features[name]
+            end
+          end
+
+          if ([true, false] & values) == [true, false]
+            define_method "#{name}?".to_sym do
+              (send name) == true
+            end
+          else
+            values.each do |value|
+              define_method "#{value}?".to_sym do
+                (send name) == value
+              end
+            end
+          end
+        end
+      end
+
+      def make_features (tokens)
+        if tokens.kind_of? String
+          tokens = str.split /[\s\,]+/
+        end
+
+        tokens.each do |token|
+          features.each do |name, values|
+            puts name
+          end
+        end
+      end
+
+      def self.included (other)
+        other.extend self
+      end
+
       ##
       #
       #
@@ -43,39 +85,6 @@ class Byron
         end
       end
 
-      module ClassMethods
-        def add_feature (name, values = [true, false])
-          @features ||= {}
-          @features[name] = values
-
-          # Getters
-          self.class_eval do
-            define_method "#{name}".to_sym do
-              if @features
-                @features[name]
-              end
-            end
-
-            if ([true, false] & values) == [true, false]
-              define_method "#{name}?".to_sym do
-                (send name) == true
-              end
-            else
-              values.each do |value|
-                define_method "#{value}?".to_sym do
-                  (send name) == value
-                end
-              end
-            end
-          end
-        end
-      end
-
-      class << self
-        def included (other)
-          other.extend ClassMethods
-        end
-      end
     end
     #
     ##
