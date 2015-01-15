@@ -7,7 +7,7 @@ class Byron
     module Features
 
       def features
-        @features ||= {}
+        @features ||= self.class.default_features
 
         if self.class.superclass && self.class.superclass.respond_to?(:features)
           feats = (self.class.superclass.public_method :features).call
@@ -18,13 +18,44 @@ class Byron
         feats.merge! @features
       end
 
-      def add_feature (name, values = [true, false])
-        @features ||= {}
-        @features[name] = values
+      ##
+      #
+      #
+      def [] (feature)
+        (defined? @features) && @features[feature]
+      end
 
-        # Getters
-        self.class_eval do
+      ##
+      #
+      #
+      def []= (feature, value)
+        @features ||= self.class.default_features
+        @features[feature] = value
+      end
+
+      def agrees? (other, features = nil)
+        features ||= (self.features.keys & other.features.keys)
+        puts "Agrees? #{other}, #{features}"
+        puts number, other.number
+        features.all? do |name|
+          puts self.features[name]
+          self.features[name] == other.features[name]
+        end
+      end
+
+      module ClassMethods
+        def add_feature (name, values = [true, false], default = nil)
+          @features ||= {}
+          @features[name] = [values, default]
+
+          # Accessors
           define_method "#{name}".to_sym do
+            if @features
+              @features[name]
+            end
+          end
+
+          define_method "#{name}=".to_sym do
             if @features
               @features[name]
             end
@@ -42,49 +73,51 @@ class Byron
             end
           end
         end
-      end
 
-      def make_features (tokens)
-        if tokens.kind_of? String
-          tokens = str.split /[\s\,]+/
-        end
+        def default_features
+          feats = {}
 
-        tokens.each do |token|
-          features.each do |name, values|
-            puts name
+          if defined? @features
+            @features.each do |name, d|
+              feats[name] = d[1]
+            end
           end
+
+          feats
+        end
+
+        ##
+        # Get default feature value.
+        #
+        def [] (name)
+          unless defined? @features[name]
+            raise "Unkown feature for class #{self}: #{name}"
+          end
+
+          @features[name]
+        end
+
+        ##
+        # Set default feature value.
+        #
+        def []= (feature, value)
+          unless defined? @features[name]
+            raise "Unkown feature for class #{self}: #{name}"
+          end
+
+          unless @features[name][1].include? value
+            raise "Bad value for feature '#{name}': #{value}"
+          end
+
+          @features[feature] = value
         end
       end
 
-      def self.included (other)
-        other.extend self
-      end
-
-      ##
-      #
-      #
-      def [] (feature)
-        (defined? @features) && @features[feature]
-      end
-
-      ##
-      #
-      #
-      def []= (feature, value)
-        @features ||= {}
-        @features[feature] = value
-      end
-
-      def agrees? (other, features = nil)
-        features ||= (self.features.keys & other.features.keys)
-        puts "Agrees? #{other}, #{features}"
-        puts number, other.number
-        features.all? do |name|
-          puts self.features[name]
-          self.features[name] == other.features[name]
+      class << self
+        def included (other)
+          other.extend ClassMethods
         end
       end
-
     end
     #
     ##
