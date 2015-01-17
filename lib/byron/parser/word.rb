@@ -14,7 +14,7 @@ class Byron
     def parse
       if parses = self.class::PARSES
         if wd = read_word
-          @parser.lexicon.find(wd.value, parses) do |word|
+          @parser.lexicon.find( wd.value, parses) do |word|
             yield word
           end
         end

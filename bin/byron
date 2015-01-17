@@ -25,9 +25,9 @@ require 'pp'
 require 'yaml'
 
 require_relative '../lib/byron'
-require_relative '../lib/scanner'
-require_relative '../lib/parser'
-require_relative '../lib/evaluator'
+require_relative '../lib/byron/scanner'
+require_relative '../lib/byron/parser'
+require_relative '../lib/byron/evaluator'
 
 # Byron class to be used and reused.
 $byron = Byron.new

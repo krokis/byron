@@ -6,10 +6,8 @@ class Byron
     ##
     #
     #
-    class Comma < Punctuation
-
-      FORMS = [',']
-
+    class Semicolon < Punctuation
+      FORMS = [';']
     end
     #
     ##

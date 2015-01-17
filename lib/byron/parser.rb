@@ -77,7 +77,7 @@ class Byron
     ##
     # Parse a grammar constituent of given `kind`.
     #
-    def parse_node (kind = Grammar::Node, &block)
+    def parse_node (kind = Grammar::Node)
       old_node = new_node = @node
 
       yielt = []
@@ -87,7 +87,7 @@ class Byron
 
         begin
           parser.call do |node|
-            yield node if block
+            yield node if block_given?
             new_node = @node
             yielt << node
           end
@@ -111,18 +111,13 @@ class Byron
     #
     def parse (document)
       prepare document
-
       discourse = Discourse.new
 
-      skip_whitespace
-
       until end_of_text? do
+        skip_whitespace
         if sentence = (parse_a Grammar::Sentence)
           discourse.sentences << sentence
-          skip_whitespace
         else
-          skip_whitespace
-
           if end_of_text?
             break
           else
@@ -137,6 +132,7 @@ class Byron
     protected    :prepare,
                  :sort_delegates,
                  :delegates_for
+
     alias_method :parse_constituent, :parse_node
     alias_method :parse_a, :parse_constituent
     alias_method :parse_an, :parse_a

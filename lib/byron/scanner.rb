@@ -267,25 +267,6 @@ class Byron
     # Peek next line without moving current position.
     #
     def next_line
-
-      # Find two line breaks
-      # f = null
-      # k = @position
-
-      # loop
-      #   c = @charAt k
-      #   if c is "\n" or c is null
-      #     if f isnt null
-      #       return @chars k - f - 1, f + 1
-      #     else if c isnt null
-      #       f = k
-      #     else
-      #       break
-      #   k++
-
-      # return null
-
-
       # Need to find two line breaks
       f = nil
       k = @position
@@ -330,7 +311,7 @@ class Byron
     ##
     # Move forward until the current character is not one of the passed `chars`.
     #
-    def skip_chars(chars = '')
+    def skip_chars (chars = '')
       skipped = ''
 
       while @chars && (chars.include? @char) do
@@ -344,7 +325,7 @@ class Byron
     # Move forward until current character is one of the passed `chars` or end
     # of text is reached.
     #
-    def skip_chars_until(chars)
+    def skip_chars_until (chars)
       skipped = ''
 
       until end_of_text? || (chars.include? @char) do
@@ -359,7 +340,7 @@ class Byron
     # Move forward until current character is one of the passed `chars` or end
     # of block is reached.
     #
-    def skip_inline_chars_until(chars)
+    def skip_inline_chars_until (chars)
       skipped = ''
 
       until end_of_block? || (chars.include? @char) do
@@ -524,6 +505,8 @@ class Byron
 
     ##
     # Read a `NumberLiteral` node.
+    #
+    # TODO Decimals
     #
     def read_number_literal
       if /\d/ =~ @char
@@ -736,14 +719,14 @@ class Byron
     # Read one or more equally-indented block nodes. Empty lines around blocks
     # are ignored.
     #
-    def read_blocks (&blck)
+    def read_blocks
       back = @position
       blocks = []
 
       loop do
         break unless block = read_block
 
-        yield block if blck
+        yield block if block_given?
 
         blocks << block
         back = @position

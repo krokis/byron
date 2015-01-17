@@ -7,14 +7,12 @@ class Byron
     module Features
 
       def features
-        @features ||= self.class.default_features
-
         if self.class.superclass && self.class.superclass.respond_to?(:features)
-          feats = (self.class.superclass.public_method :features).call
+          feats = self.class.superclass.features
         else
           feats = {}
         end
-
+        @features ||= self.class.default_features
         feats.merge! @features
       end
 
@@ -45,6 +43,7 @@ class Byron
 
       module ClassMethods
         def add_feature (name, values = [true, false], default = nil)
+          puts self
           @features ||= {}
           @features[name] = [values, default]
 
@@ -74,6 +73,30 @@ class Byron
           end
         end
 
+        def features
+          (defined? @features) ? @features : {}
+        end
+
+        def feature (name)
+          puts "#{self} Own: #{@features} Super: #{self.superclass.features}"
+          if defined? @features
+            @features[name]
+          elsif self.superclass.respond_to? :feature
+            self.superclass.feature name
+          else
+            raise "Unknown feature for class #{self}: #{name}"
+          end
+        end
+
+        def has_feature? (name)
+          begin
+            feature name
+            true
+          rescue
+            false
+          end
+        end
+
         def default_features
           feats = {}
 
@@ -90,26 +113,26 @@ class Byron
         # Get default feature value.
         #
         def [] (name)
-          unless defined? @features[name]
-            raise "Unkown feature for class #{self}: #{name}"
-          end
-
-          @features[name][1]
+          (feature name)[1]
         end
 
         ##
         # Set default feature value.
         #
-        def []= (feature, value)
-          unless defined? @features[name]
-            raise "Unkown feature for class #{self}: #{name}"
-          end
+        def []= (name, value)
+          feat = feature name
 
-          unless @features[name][0].include? value
+          unless feat[0].include? value
             raise "Bad value for feature '#{name}': #{value}"
           end
 
+          @features[name] ||=
+
           @features[feature][1] = value
+        end
+
+        def inherited (other)
+          puts "#{self} inherited on #{other}"
         end
       end
 

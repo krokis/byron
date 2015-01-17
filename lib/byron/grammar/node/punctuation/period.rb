@@ -6,10 +6,8 @@ class Byron
     ##
     #
     #
-    class Colon < Punctuation
-
-      FORMS = [':']
-
+    class Period < Punctuation
+      FORMS = ['.']
     end
     #
     ##

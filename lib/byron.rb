@@ -1,10 +1,10 @@
-require_relative 'scanner'
-require_relative 'parser'
-require_relative 'evaluator'
-require_relative 'lexicon'
-require_relative 'text/document'
-require_relative 'grammar/node'
-require_relative 'elementary'
+require_relative 'byron/scanner'
+require_relative 'byron/parser'
+require_relative 'byron/evaluator'
+require_relative 'byron/lexicon'
+require_relative 'byron/text/document'
+require_relative 'byron/grammar/node'
+require_relative 'byron/elementary'
 
 ##
 # The core `Byron` class.

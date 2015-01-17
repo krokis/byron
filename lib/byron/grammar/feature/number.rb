@@ -1,3 +1,4 @@
+require_relative '../feature'
 require_relative '../features'
 
 class Byron
@@ -9,7 +10,12 @@ class Byron
       #
       module Number
         include Features
+
+        NAME   = :number
+        VALUES = [:singular, :plural]
+
         add_feature :number, [:singular, :plural]
+
       end
       #
       ##

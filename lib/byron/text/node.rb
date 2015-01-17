@@ -105,7 +105,7 @@ class Byron
 
       ##
       #
-      def index(child)
+      def index (child)
         @children.index child
       end
 
@@ -187,7 +187,7 @@ class Byron
       # be an instance of `kind` is returned. If no suitable node is found, then
       # `null` is returned.
       #
-      def descendant(kind = Node, itself = true)
+      def descendant (kind = Node, itself = true)
         if itself && (self.kind_of? kind)
           return self
         end

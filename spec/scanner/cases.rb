@@ -1,7 +1,6 @@
 require_relative '../../lib/scanner'
 
 describe "Scanner" do
-
   describe 'Cases' do
     files = File.expand_path('cases/*.md', File.dirname(__FILE__))
 
