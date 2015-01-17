@@ -43,7 +43,6 @@ class Byron
 
       module ClassMethods
         def add_feature (name, values = [true, false], default = nil)
-          puts self
           @features ||= {}
           @features[name] = [values, default]
 
@@ -132,7 +131,7 @@ class Byron
         end
 
         def inherited (other)
-          puts "#{self} inherited on #{other}"
+          #puts "#{self} inherited on #{other}"
         end
       end
 

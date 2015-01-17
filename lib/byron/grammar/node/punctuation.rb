@@ -11,7 +11,7 @@ class Byron
 
       FORMS = []
 
-      def forms
+      def self.forms
         self::FORMS
       end
 

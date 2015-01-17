@@ -35,8 +35,7 @@ class Byron
     end
 
     ##
-    # Try to read one or more significant `Character` tokens. In case of
-    # failure, an exception is raised.
+    # Try to read one or more significant `Character` tokens
     #
     def read_characters (ignore_whitespace = false)
       start = @node

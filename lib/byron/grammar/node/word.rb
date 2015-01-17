@@ -22,8 +22,18 @@ class Byron
       class << self
         attr_accessor :lemma
 
+        def get_form (features)
+        end
+
+        def set_form (form, features)
+        end
+
+        def get_forms
+        end
+
         def inflect (features)
         end
+
       end
     end
     #
