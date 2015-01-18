@@ -1,9 +1,6 @@
 # Std-lib
 require 'yaml'
 
-require_relative 'grammar/node/lexeme/noun'
-require_relative 'grammar/node/lexeme/verb'
-require_relative 'grammar/node/lexeme/adjective'
 require_relative 'grammar/node/word'
 require_relative 'grammar/node/word/noun'
 require_relative 'grammar/node/word/verb'
@@ -16,54 +13,41 @@ class Byron
   #
   class Lexicon
 
-    attr_reader :lexemes
     attr_reader :words
+    attr_reader :forms
 
     ##
     #
     #
     def initialize
-      @lexemes = []
-      @words = {}
+      @words = []
+      @forms = {}
     end
 
     ##
     # Add lexemes to this lexicon.
     #
-    def add (*lexemes)
-      lexemes.each do |lexeme|
-        if lexeme.kind_of? self.class
-          add *lexeme.lexemes
-          next
-        end
-
-        @lexemes << lexeme
-
-        lexeme.forms.each do |feats, word|
-          @words[word] ||= []
-          @words[word] << [lexeme, feats]
+    def add (*words)
+      words.each do |word|
+        if word.kind_of? self.class
+          add *word.words
+        else
+          @words << word
+          word.each_form do |form, features|
+            @forms[form] ||= []
+            @forms[form] << [word, features]
+          end
         end
       end
     end
 
     ##
-    # Find a word (ie: a form of a lexeme).
+    # Find a word.
     #
-    def find (word = nil, kind = nil)
-      if @words.has_key? word
-        @words[word].each do |lexeme, features|
-          cls = case lexeme
-            when Grammar::NounLexeme
-              Grammar::Noun
-            when Grammar::VerbLexeme
-              Grammar::Verb
-            when Grammar::AdjectiveLexeme
-              Grammar::Adjective
-            else
-              Grammar::Word
-            end
-
-          yield (cls.new lexeme.clone, features)
+    def find (form = nil, kind = nil)
+      if @forms.has_key? form
+        @forms[form].each do |word_class, features|
+          yield (word_class.new features)
         end
       end
     end
@@ -72,42 +56,40 @@ class Byron
     #
     #
     def self.from_yaml (yaml, kind)
-      lexemes = YAML.load yaml
+      words = YAML.load yaml
       lexicon = self.new
 
-      if lexemes
-        lexemes.each do |feats|
-          if feats.has_key? 'lemma'
+      if words
+        words.each do |wd|
+          if wd.has_key? 'lemma'
+            word_class = Class.new kind
+            feats = {}
 
-            features = {}
-            forms = {}
-            lemma = nil
-
-            feats.each do |name, val|
-
+            wd.each do |name, val|
               case name
               when 'forms'
                 # Form hints
                 val.each do |frm, fts|
                   fts = [fts] unless fts.kind_of? Array
-                  forms[fts] = frm
+                  fts.each do |ft|
+                    word_class.add_form frm, ft
+                  end
                 end
               when 'lemma'
-                lemma = feats['lemma']
+                word_class.lemma = val
               when 'features'
                 next
               when String
                 name = name.to_sym
                 val = val.to_sym
-                features[name] = val
+                word_class[name] = val
               else
                 raise 'Ooops'
               end
 
             end
 
-            lexeme = kind.new features, lemma, forms
-            lexicon.add lexeme
+            lexicon.add word_class
           end
         end
       end

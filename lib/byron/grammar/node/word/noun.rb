@@ -13,7 +13,7 @@ class Byron
     #
     class Noun < Word
 
-      include Category::Noun
+      include Category::Noun,
       include Feature::Regularity
       include Feature::Uniqueness
 
@@ -31,23 +31,23 @@ class Byron
 
       class << self
 
-        def get_singular_form
+        def make_singular_form
           @lemma
         end
 
-        def get_plural_form
+        def make_plural_form
           "#{get_singular_form}s"
         end
 
-        def get_form (features)
-          features.each do |name, value|
+        def make_form (feats)
+          feats.each do |name, value|
             if name == :number
               if value == :singular
-                return get_singular_form
+                return makesingular_form
               elsif value == :plural
-                return get_plural_form
+                return make_plural_form
               else
-                raise "Oope"
+                raise "Oops"
               end
             else
               raise "Oops"
@@ -55,7 +55,13 @@ class Byron
           end
         end
 
-        def get_forms
+        def all_forms
+          forms = {}
+          ft = {number: :singular}
+          forms[ft] = make_form ft
+          ft = {number: :plural}
+          forms[ft] = make_form ft
+          forms
         end
 
       end

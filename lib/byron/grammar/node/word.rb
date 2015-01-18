@@ -1,5 +1,4 @@
-require_relative 'branch'
-require_relative 'unary'
+require_relative 'leaf'
 
 class Byron
   module Grammar
@@ -7,16 +6,10 @@ class Byron
     ##
     # A `Word` represents an inflected form of a lexeme.
     #
-    class Word < Branch
-
-      include Unary
-
-      def lexeme
-        @head
-      end
+    class Word < Leaf
 
       def lemma
-        @head && @head.lemma
+        self.class.lemma
       end
 
       class << self
@@ -38,6 +31,12 @@ class Byron
 
         def all_forms
           raise "Oops"
+        end
+
+        def each_form
+          all_forms.each do |form, feats|
+            yield form, feats
+          end
         end
 
         alias_method :inflect, :form

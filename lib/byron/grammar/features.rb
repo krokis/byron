@@ -77,13 +77,12 @@ class Byron
         end
 
         def feature (name)
-          puts "#{self} Own: #{@features} Super: #{self.superclass.features}"
           if defined? @features
             @features[name]
           elsif self.superclass.respond_to? :feature
             self.superclass.feature name
           else
-            raise "Unknown feature for class #{self}: #{name}"
+            raise "Unknown feature for class #{self} '#{name}'"
           end
         end
 
