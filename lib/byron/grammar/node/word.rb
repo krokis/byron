@@ -22,18 +22,25 @@ class Byron
       class << self
         attr_accessor :lemma
 
-        def get_form (features)
+        def make_form (features)
+          @lemma
         end
 
-        def set_form (form, features)
+        def form (features)
+          @forms ||= {}
+          @forms[features] ||= make_form features
         end
 
-        def get_forms
+        def add_form (form, features)
+          @forms ||= {}
+          @forms[features] ||= form
         end
 
-        def inflect (features)
+        def all_forms
+          raise "Oops"
         end
 
+        alias_method :inflect, :form
       end
     end
     #
