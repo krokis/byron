@@ -115,6 +115,7 @@ class Byron
 
       until end_of_text? do
         skip_whitespace
+
         if sentence = (parse_a Grammar::Sentence)
           discourse.sentences << sentence
         else
@@ -129,9 +130,9 @@ class Byron
       discourse
     end
 
-    protected    :prepare,
-                 :sort_delegates,
-                 :delegates_for
+    protected :prepare,
+              :sort_delegates,
+              :delegates_for
 
     alias_method :parse_constituent, :parse_node
     alias_method :parse_a, :parse_constituent

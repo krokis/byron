@@ -14,15 +14,11 @@ class Byron
           :first_person,
           :second_person,
           :third_person,
-          :none
+          :impersonal
         ]
 
         def personal?
-          self[:person] != :none
-        end
-
-        def impersonal?
-          self[:person] == :none
+          not impersonal?
         end
 
       end

@@ -1,5 +1,3 @@
-require_relative '../feature/definiteness'
-
 class Byron
   module Grammar
     module Category
@@ -7,7 +5,6 @@ class Byron
       ###
       #
       module Determiner
-        include Feature::Definiteness
       end
       #
       ##

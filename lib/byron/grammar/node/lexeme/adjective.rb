@@ -10,11 +10,8 @@ class Byron
     class AdjectiveLexeme < Lexeme
 
       include Category::Adjective
-      include Feature::Regularity
 
-      def make_forms
-        @forms[{}] = @lemma
-      end
+      include Feature::Regularity
 
     end
     #

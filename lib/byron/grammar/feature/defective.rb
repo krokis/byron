@@ -7,6 +7,8 @@ class Byron
       #
       module Defective
 
+        include Features
+
         def defective?
         end
 

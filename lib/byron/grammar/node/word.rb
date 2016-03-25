@@ -19,29 +19,12 @@ class Byron
         @head && @head.lemma
       end
 
-      class << self
-        attr_accessor :lemma
-
-        def make_form (features)
-          @lemma
-        end
-
-        def form (features)
-          @forms ||= {}
-          @forms[features] ||= make_form features
-        end
-
-        def add_form (form, features)
-          @forms ||= {}
-          @forms[features] ||= form
-        end
-
-        def all_forms
-          raise "Oops"
-        end
-
-        alias_method :inflect, :form
+      def form (features)
+        @head && @head.form features
       end
+
+      alias_method :inflect, :form
+
     end
     #
     ##

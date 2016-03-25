@@ -1,76 +1,27 @@
 - lemma: 'rock'
-  regularity: regular
-  transitivity: intransitive
-  features:
-    - regular
-    - intransitive
-  forms:
-    rocks:
-      person: third-person
-      number: singular
-      tense: present
+  features: regular intransitive
 
 - lemma: 'work'
-  regularity: regular
-  transitivity: intransitive
-  forms:
-    works:
-      person: third-person
-      number: singular
-      tense: present
-    work:
-      person: third-person
-      number: plural
-      tense: present
+  features: regular intransitive
 
 - lemma: 'be'
-  regularity: irregular
-  transitivity: linking
+  features: irregular linking
   forms:
-    be:
-      tense: infinitive
-    being:
-      tense: gerund
-    been:
-      tense: participle
-    am:
-      person: first-person
-      number: singular
-      tense: present
-    is:
-      person: third-person
-      number: singular
-      tense: present
+    be: infinitive
+    being: gerund
+    been: participle
+    am: first-person singular present indicative
+    is: third-person singular present indicative
     are:
-      - person: second-person
-        number: singular
-        tense: present
-      - person: first-person
-        number: plural
-        tense: present
-      - person: second-person
-        number: plural
-        tense: present
-      - person: third-person
-        number: plural
-        tense: present
+      - second-person singular present indicative
+      - first-person plural present indicative
+      - second-person plural present indicative
+      - third-person plural present indicative
     was:
-      - person: first-person
-        number: singular
-        tense: past
-      - person: third-person
-        number: singular
-        tense: past
+      - first-person singular past indicative
+      - third-person singular past indicative
     were:
-      - person: second-person
-        number: singular
-        tense: past
-      - person: first-person
-        number: plural
-        tense: past
-      - person: second-person
-        number: plural
-        tense: past
-      - person: third-person
-        number: plural
-        tense: past
+      - second-person singular past indicative
+      - first-person plural past indicative
+      - second-person plural pas indicativet indicative
+      - third-person plural past indicative

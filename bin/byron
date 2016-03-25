@@ -86,7 +86,7 @@ def evaluate text
 end
 
 ARGV.each do |file|
-  contents = File.read file
+  text = File.read file
   evaluate text
 end
 

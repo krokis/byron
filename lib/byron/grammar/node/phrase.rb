@@ -28,12 +28,14 @@ class Byron
       #
       def complements
         complements = []
+
         if @argument.kind_of? Complement
           complements << @arguments
           if @head && (@head.kind_of? Phrase)
             complements += @head.complements
           end
         end
+
         complements
       end
 
@@ -46,12 +48,14 @@ class Byron
       #
       def adjuncts
         adjuncts = []
+
         if @argument.kind_of? Adjunct
           adjuncts << @arguments
           if @head && (@head.kind_of? Phrase)
             adjuncts += @head.adjuncts
           end
         end
+
         adjuncts
       end
 

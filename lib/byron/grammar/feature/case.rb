@@ -1,4 +1,6 @@
+##
 # http://en.wikipedia.org/wiki/Grammatical_case
+#
 
 class Byron
   module Grammar
@@ -8,6 +10,7 @@ class Byron
       #
       #
       module Case
+        include Features
       end
       #
       ##

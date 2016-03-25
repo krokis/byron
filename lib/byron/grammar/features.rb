@@ -1,3 +1,5 @@
+require_relative 'feature.rb'
+
 class Byron
   module Grammar
 
@@ -42,7 +44,7 @@ class Byron
       end
 
       module ClassMethods
-        def add_feature (name, values = [true, false], default = nil)
+        def add_feature (name, values = Feature::TRUE_FALSE, default = nil)
           @features ||= {}
           @features[name] = [values, default]
 
@@ -59,7 +61,7 @@ class Byron
             end
           end
 
-          if ([true, false] & values) == [true, false]
+          if (Feature::TRUE_FALSE & values) == Feature::TRUE_FALSE
             define_method "#{name}?".to_sym do
               (send name) == true
             end

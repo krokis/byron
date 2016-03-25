@@ -1,3 +1,4 @@
 - lemma: 'Byron'
-  uniqueness: proper
-  gender: neuter
+  features:
+    - proper
+    - neuter

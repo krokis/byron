@@ -1,5 +1,3 @@
-require_relative '../feature/comparison'
-
 class Byron
   module Grammar
     module Category
@@ -8,7 +6,6 @@ class Byron
       #
       #
       module Adjective
-        include Feature::Comparison
       end
       #
       ##

@@ -1,5 +1,5 @@
 require_relative '../phrase'
-require_relative '../word/noun'
+require_relative '../word'
 require_relative '../../category/noun'
 require_relative '../../feature/number'
 require_relative '../../feature/definiteness'
@@ -13,6 +13,7 @@ class Byron
     class NounPhrase < Phrase
 
       include Category::Noun
+
       include Feature::Number
       include Feature::Definiteness
 
@@ -22,20 +23,20 @@ class Byron
             :definite
           elsif @head.class.include? Feature::Definiteness
             @head.definiteness
+          # else??
           end
-        else
-          nil
         end
       end
 
       ##
-      # Get head(est) noun.
+      # Get head(est) noun word.
       #
       def noun
         noun = self
 
         while noun
-          return noun if noun.kind_of? Lexeme
+          return noun if noun.kind_of? Word
+
           begin
             noun = noun.head
           rescue
@@ -50,6 +51,7 @@ class Byron
       end
 
       def determiner
+        specifier
       end
 
       alias_method :determined?, :specifier?

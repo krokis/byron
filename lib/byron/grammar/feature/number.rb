@@ -9,10 +9,8 @@ class Byron
       #
       #
       module Number
-        include Features
 
-        NAME   = :number
-        VALUES = [:singular, :plural]
+        include Features
 
         add_feature :number, [:singular, :plural]
 

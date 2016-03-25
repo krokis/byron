@@ -1,7 +1,9 @@
 require_relative '../word'
 require_relative '../../category/verb'
-require_relative '../../feature/regularity'
-require_relative '../../feature/defective'
+require_relative '../../feature/person'
+require_relative '../../feature/number'
+require_relative '../../feature/tense'
+require_relative '../../feature/aspect'
 
 class Byron
   module Grammar
@@ -12,24 +14,11 @@ class Byron
     class Verb < Word
 
       include Category::Verb
-      include Feature::Regularity
-      include Feature::Defective
 
-      class << self
-        def get_s_form
-        end
-
-        def get_ing_form
-        end
-
-        def get_form (features)
-        end
-
-        def get_forms
-        end
-      end
-
-      self.singleton_class.send :alias_method, :conjugate, :inflect
+      include Feature::Person
+      include Feature::Number
+      include Feature::Tense
+      include Feature::Aspect
 
     end
     #

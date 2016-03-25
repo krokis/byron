@@ -11,7 +11,7 @@ class Byron
 
         include Features
 
-        add_feature :countable, [true, false]
+        add_feature :countable, Feature::TRUE_FALSE
 
         def mass?
           self[:countable] == false

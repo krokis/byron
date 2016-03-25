@@ -14,8 +14,9 @@ class Byron
     class Noun < Word
 
       include Category::Noun
-      include Feature::Regularity
-      include Feature::Uniqueness
+
+      include Feature::Number
+      include Feature::Definiteness
 
       def definiteness
         if @head
@@ -27,37 +28,6 @@ class Byron
         else
           nil
         end
-      end
-
-      class << self
-
-        def get_singular_form
-          @lemma
-        end
-
-        def get_plural_form
-          "#{get_singular_form}s"
-        end
-
-        def get_form (features)
-          features.each do |name, value|
-            if name == :number
-              if value == :singular
-                return get_singular_form
-              elsif value == :plural
-                return get_plural_form
-              else
-                raise "Oope"
-              end
-            else
-              raise "Oops"
-            end
-          end
-        end
-
-        def get_forms
-        end
-
       end
 
     end

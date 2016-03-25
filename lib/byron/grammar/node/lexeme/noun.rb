@@ -2,6 +2,8 @@ require_relative '../lexeme'
 require_relative '../../category/noun'
 require_relative '../../feature/regularity'
 require_relative '../../feature/uniqueness'
+require_relative '../../feature/gender'
+require_relative '../../feature/countable'
 
 class Byron
   module Grammar
@@ -11,20 +13,26 @@ class Byron
     class NounLexeme < Lexeme
 
       include Category::Noun
+
       include Feature::Regularity
       include Feature::Uniqueness
+      include Feature::Gender
+      include Feature::Countable
 
-      def make_forms
-        @forms[{
-          number: :singular
-        }] = @lemma
-
-        @forms[{
-          number: :plural
-        }] = "#{@lemma}s"
+      def make_singular_form
+        @lemma
       end
 
-      def inflect (features)
+      def make_plural_form
+        "#{@lemma}s"
+      end
+
+      def make_form (features)
+        if features[:number] == :singular
+          make_singular_form
+        else
+          make_plural_form
+        end
       end
 
     end

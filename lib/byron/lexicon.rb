@@ -86,22 +86,22 @@ class Byron
             feats.each do |name, val|
 
               case name
-              when 'forms'
-                # Form hints
-                val.each do |frm, fts|
-                  fts = [fts] unless fts.kind_of? Array
-                  forms[fts] = frm
-                end
-              when 'lemma'
-                lemma = feats['lemma']
-              when 'features'
-                next
-              when String
-                name = name.to_sym
-                val = val.to_sym
-                features[name] = val
-              else
-                raise 'Ooops'
+                when 'forms'
+                  # Form hints
+                  val.each do |frm, fts|
+                    fts = [fts] unless fts.kind_of? Array
+                    forms[fts] = frm
+                  end
+                when 'lemma'
+                  lemma = feats['lemma']
+                when 'features'
+                  next
+                when String
+                  name = name.to_sym
+                  val = val.to_sym
+                  features[name] = val
+                else
+                  raise 'Ooops'
               end
 
             end

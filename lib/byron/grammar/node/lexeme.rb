@@ -10,29 +10,38 @@ class Byron
 
       attr_reader :lemma
 
-      ##
-      # Return a list of unique forms for this lexeme, as strings.
-      #
-      attr_reader :forms
-
       def initialize (features = {}, lemma = nil, forms = {})
         @lemma = lemma
         @forms = forms
-        make_forms
         super features
       end
 
-      ##
-      # Add missing forms to @forms
-      #
+      def make_form (features)
+        @lemma
+      end
+
+      def form (features)
+        @forms ||= {}
+        @forms[features] ||= make_form features
+      end
+
+      def add_form (form, features)
+        @forms ||= {}
+        @forms[features] ||= form
+      end
+
       def make_forms
+        raise 'not implemented'
       end
 
       def to_s
         @lemma
       end
 
-      protected :make_forms
+      protected     :make_form
+
+      alias_method  :inflect, :form
+      alias_method  :forms, :make_forms
 
     end
     #

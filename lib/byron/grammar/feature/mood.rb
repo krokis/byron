@@ -7,6 +7,8 @@ class Byron
       #
       module Mood
 
+        include Features
+
         add_feature :mood, [
           :indicative,
           :subjunctive,

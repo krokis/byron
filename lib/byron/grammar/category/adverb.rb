@@ -1,4 +1,3 @@
-
 class Byron
   module Grammar
     module Category

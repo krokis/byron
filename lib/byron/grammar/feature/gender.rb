@@ -11,7 +11,7 @@ class Byron
 
         include Features
 
-        add_feature :gender, [:male, :female]
+        add_feature :gender, [:male, :female, :neuter]
 
       end
       #

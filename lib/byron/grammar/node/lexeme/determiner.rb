@@ -1,5 +1,6 @@
 require_relative '../lexeme'
 require_relative '../../category/determiner'
+require_relative '../../feature/definiteness'
 
 class Byron
   module Grammar
@@ -10,9 +11,7 @@ class Byron
 
       include Category::Determiner
 
-      def make_forms
-        @forms[{}] = @lemma
-      end
+      include Feature::Definiteness
 
     end
     #

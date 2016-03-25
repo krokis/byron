@@ -8,15 +8,19 @@ class Byron
       #
       #
       module Modality
-        MODALITIES = [
-          'epistemic'
-          'deontic'
-          'dynamic'
-          'progressive'
-          'passive'
-          'perfect'
-          'emphasis'
+
+        include Features
+
+        add_feature :modality, [
+          :epistemic,
+          :deontic,
+          :dynamic,
+          :progressive,
+          :passive,
+          :perfect,
+          :emphasis
         ]
+
       end
       #
       ##
