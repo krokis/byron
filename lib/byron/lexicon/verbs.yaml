@@ -1,27 +1,30 @@
-- lemma: rock
-  features: regular intransitive
+- kind: verb
+  lemma: rock
+  features: regular intransitive # should be default
 
-- lemma: work
-  features: regular intransitive
+- kind: verb
+  lemma: work
+  features: regular intransitive # should be default
 
-- lemma: be
+- kind: verb
+  lemma: be
   features: irregular linking
   forms:
     be: infinitive
     being: gerund
     been: participle
-    am: first-person singular present indicative
-    is: third-person singular present indicative
+    am: first-person singular present
+    is: third-person singular present
     are:
-      - second-person singular present indicative
-      - first-person plural present indicative
-      - second-person plural present indicative
-      - third-person plural present indicative
+      - second-person singular present
+      - first-person plural present
+      - second-person plural present
+      - third-person plural present
     was:
-      - first-person singular past indicative
-      - third-person singular past indicative
+      - first-person singular past
+      - third-person singular past
     were:
-      - second-person singular past indicative
-      - first-person plural past indicative
-      - second-person plural pas indicativet indicative
-      - third-person plural past indicative
+      - second-person singular past
+      - first-person plural past
+      - second-person plural past
+      - third-person plural past
