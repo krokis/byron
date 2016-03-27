@@ -9,8 +9,6 @@ module Byron::Text
 
     HTML_TAG_NAME = 'ul'
 
-    attr_accessor :bullet
-
   end
   #
   ##

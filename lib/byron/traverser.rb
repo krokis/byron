@@ -18,7 +18,7 @@ class Byron
     #
     def prepare (document)
       @document = document
-      @node = document ? document.body : nil
+      @node = document.body
     end
 
     ##
@@ -61,7 +61,7 @@ class Byron
     # elements after `current` until current block is closed.
     #
     def end_of_block?
-      (end_of_text? || !@node || !@node.parent) || false
+      end_of_text? || !@node || !@node.parent
     end
 
     ##
@@ -96,7 +96,7 @@ class Byron
     end
 
     ##
-    #
+    # Skip 0 or more consecutive whitespace nodes.
     #
     def skip_whitespace
       while (get_node Text::Whitespace) do; end

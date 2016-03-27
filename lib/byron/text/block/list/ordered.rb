@@ -10,8 +10,6 @@ class Byron
 
       HTML_TAG_NAME = 'ol'
 
-      attr_accessor :bullet
-
     end
     #
     ##

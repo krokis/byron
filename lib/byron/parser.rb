@@ -55,7 +55,6 @@ class Byron
 
     ##
     #
-    #
     def delegates_for (kind)
       @delegates.each do |del|
         if del[0] <= kind
@@ -86,6 +85,9 @@ class Byron
         move_to old_node
 
         begin
+          # Hey, try `instance_eval`:
+          # instance_eval &parser do |node|
+          # http://ruby-doc.org/core-2.2.0/BasicObject.html#method-i-instance_eval
           parser.call do |node|
             yield node if block_given?
             new_node = @node
@@ -130,13 +132,13 @@ class Byron
       discourse
     end
 
-    protected :prepare,
-              :sort_delegates,
-              :delegates_for
+    protected     :prepare,
+                  :sort_delegates,
+                  :delegates_for
 
-    alias_method :parse_constituent, :parse_node
-    alias_method :parse_a, :parse_constituent
-    alias_method :parse_an, :parse_a
+    alias_method  :parse_constituent, :parse_node
+    alias_method  :parse_a, :parse_constituent
+    alias_method  :parse_an, :parse_a
 
   end
   #
