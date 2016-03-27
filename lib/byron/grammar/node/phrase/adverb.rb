@@ -8,7 +8,9 @@ class Byron
     #
     #
     class AdverbPhrase < Phrase
+
       include Category::Adverb
+
     end
     #
     ##

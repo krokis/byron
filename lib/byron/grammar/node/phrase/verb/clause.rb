@@ -11,13 +11,8 @@ class Byron
 
       include Binary
 
-      def children
-        [subject, predicate].compact
-      end
-
-      alias_method :subject, :argument # The head (another VerbPhrase)
-      alias_method :predicate, :head # The head (another VerbPhrase)
-      alias_method :predicate=, :head= # The head (another VerbPhrase)
+      alias_method :subject, :argument
+      alias_method :predicate, :head
 
     end
     #

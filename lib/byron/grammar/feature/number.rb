@@ -12,7 +12,10 @@ class Byron
 
         include Features
 
-        add_feature :number, [:singular, :plural]
+        add_feature :number, [
+          :singular,
+          :plural
+        ]
 
       end
       #

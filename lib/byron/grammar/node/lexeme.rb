@@ -5,7 +5,6 @@ class Byron
 
     ##
     #
-    #
     class Lexeme < Leaf
 
       attr_reader :lemma
@@ -13,6 +12,7 @@ class Byron
       def initialize (features = {}, lemma = nil, forms = {})
         @lemma = lemma
         @forms = forms
+
         super features
       end
 

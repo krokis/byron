@@ -1,10 +1,10 @@
-- lemma: 'rock'
+- lemma: rock
   features: regular intransitive
 
-- lemma: 'work'
+- lemma: work
   features: regular intransitive
 
-- lemma: 'be'
+- lemma: be
   features: irregular linking
   forms:
     be: infinitive

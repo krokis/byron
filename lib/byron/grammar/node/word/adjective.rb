@@ -7,9 +7,10 @@ class Byron
     ##
     #
     class Adjective < Word
-      include Category::Adjective
 
+      include Category::Adjective
       include Feature::Comparison
+
     end
     #
     ##

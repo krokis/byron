@@ -14,7 +14,7 @@ class Byron
         add_feature :countable, Feature::TRUE_FALSE
 
         def mass?
-          self[:countable] == false
+          self[:countable]
         end
 
       end

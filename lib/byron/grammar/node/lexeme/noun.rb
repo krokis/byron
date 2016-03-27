@@ -28,7 +28,7 @@ class Byron
       end
 
       def make_form (features)
-        if features[:number] == :singular
+        if singular?
           make_singular_form
         else
           make_plural_form

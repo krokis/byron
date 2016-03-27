@@ -18,32 +18,12 @@ class Byron
       include Feature::Definiteness
 
       def definiteness
-        if @head
-          if specifier?
-            :definite
-          elsif @head.class.include? Feature::Definiteness
-            @head.definiteness
-          # else??
-          end
+        if specifier?
+          :definite
+        elsif @head.class.include? Feature::Definiteness
+          @head.definiteness
+        # else what?
         end
-      end
-
-      ##
-      # Get head(est) noun word.
-      #
-      def noun
-        noun = self
-
-        while noun
-          return noun if noun.kind_of? Word
-
-          begin
-            noun = noun.head
-          rescue
-          end
-        end
-
-        nil
       end
 
       def number

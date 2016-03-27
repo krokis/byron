@@ -127,8 +127,6 @@ class Byron
             raise "Bad value for feature '#{name}': #{value}"
           end
 
-          @features[name] ||=
-
           @features[feature][1] = value
         end
 

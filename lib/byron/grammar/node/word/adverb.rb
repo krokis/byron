@@ -6,7 +6,9 @@ class Byron
     ##
     #
     class Adverb < Word
+
       include Category::Adverb
+
     end
     #
     ##

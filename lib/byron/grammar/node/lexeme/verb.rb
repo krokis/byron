@@ -38,26 +38,28 @@ class Byron
         end
       end
 
-      def make_past_form
-        make_participle_form
-      end
-
       def make_form (features)
         case features[:tense]
           when :present
             make_present_form features
-          when :past
-            make_past_form features
+          when :past, :participle
+            make_participle_form features
           when :infinitive
             @lemma
           when :gerund
             make_ing_form
-          when :participle
+          when
             make_participle_form
         end
       end
 
-      alias_method :conjugate, :inflect
+      protected     :make_s_form,
+                    :make_ing_form,
+                    :make_participle_form,
+                    :make_present_form,
+                    :make_past_form
+
+      alias_method  :conjugate, :inflect
 
     end
     #

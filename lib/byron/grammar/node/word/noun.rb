@@ -10,7 +10,6 @@ class Byron
 
     ##
     #
-    #
     class Noun < Word
 
       include Category::Noun

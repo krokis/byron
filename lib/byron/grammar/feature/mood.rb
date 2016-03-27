@@ -18,9 +18,11 @@ class Byron
         ]
 
         def realis?
+          self[:mood] == :indicative
         end
 
         def irrealis?
+          self[:mood] && self[:mood] != :indicative
         end
 
       end

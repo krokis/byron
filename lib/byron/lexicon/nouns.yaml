@@ -1,4 +1,2 @@
-- lemma: 'Byron'
-  features:
-    - proper
-    - neuter
+- lemma: Byron
+  features: proper neuter

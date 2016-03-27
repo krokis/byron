@@ -12,6 +12,7 @@ class Byron
     class NounCoordination < Coordination
 
       include Category::Noun
+
       include Feature::Number
 
     end

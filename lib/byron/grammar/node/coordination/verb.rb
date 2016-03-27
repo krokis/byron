@@ -12,6 +12,7 @@ class Byron
     class VerbCoordination < Coordination
 
       include Category::Verb
+
       include Feature::Tense
       include Feature::Person
 

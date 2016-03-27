@@ -6,9 +6,10 @@ class Byron
 
     ##
     #
-    #
     class Determiner < Word
+
       include Category::Determiner
+
     end
     #
     ##

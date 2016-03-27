@@ -22,25 +22,6 @@ class Byron
       include Feature::Tense
 
 
-      ##
-      # Get head verb word
-      #
-      def verb
-        verb = self
-
-        while verb
-
-          return verb if verb.kind_of? Word
-
-          begin
-            verb = verb.head
-          rescue
-          end
-        end
-
-        nil
-      end
-
       def number
         @head && @head.number
       end

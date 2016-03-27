@@ -6,8 +6,8 @@ class Byron
     ##
     #
     #
-    class Ellipsis < Punctuation
-      FORMS = [',']
+    class Semicolon < Punctuation
+      FORMS = ['…', '...']
     end
     #
     ##

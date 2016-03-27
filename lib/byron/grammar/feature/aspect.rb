@@ -1,8 +1,3 @@
-# http://en.wikipedia.org/wiki/Grammatical_aspect#English
-# https://github.com/rossmeissl/verbs#tenseaspect-quick-reference
-# http://en.wikipedia.org/wiki/Habitual_aspect
-# http://en.wikipedia.org/wiki/Prospective_aspect
-
 require_relative '../features'
 
 class Byron
@@ -11,6 +6,11 @@ class Byron
 
       ##
       # Aspect expresses how an action (verb) relates to the flow of time.
+      #
+      # http://en.wikipedia.org/wiki/Grammatical_aspect#English
+      # https://github.com/rossmeissl/verbs#tenseaspect-quick-reference
+      # http://en.wikipedia.org/wiki/Habitual_aspect
+      # http://en.wikipedia.org/wiki/Prospective_aspect
       #
       module Aspect
 

@@ -8,7 +8,9 @@ class Byron
     #
     #
     class DeterminerPhrase < Phrase
+
       include Category::Determiner
+
     end
     #
     ##

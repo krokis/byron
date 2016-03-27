@@ -10,7 +10,6 @@ class Byron
 
     ##
     #
-    #
     class Verb < Word
 
       include Category::Verb
